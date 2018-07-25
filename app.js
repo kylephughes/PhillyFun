@@ -10,7 +10,7 @@ var usersRouter = require('./routes/users');
 const bodyParser = require('body-parser');
 
 mongoose.connect("mongodb://localhost:27017/PhillyFun");
-//Get the default connection
+//Get the  default connection
 var db = mongoose.connection;
 
 //Bind connection to error event (to get notification of connection errors)
