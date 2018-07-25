@@ -1,0 +1,26 @@
+{
+  "name": "phillyblog",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "^4.16.3",
+    "http-errors": "~1.6.2",
+    "jade": "^1.11.0",
+    "mongoose": "^5.2.3",
+    "morgan": "~1.9.0",
+    "pug": "^2.0.3",
+    "pug-bootstrap": "0.0.15"
+  },
+  "main": "app.js",
+  "devDependencies": {
+    "nodemon": "^1.18.2"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

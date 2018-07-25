@@ -1,0 +1,27 @@
+html(ng-app="sampleApp")
+  head
+    meta(charset='utf8')
+    base(href='/')
+    title Angular Express Seed App
+    link(rel='stylesheet', href='libs/bootstrap/dist/css/bootstrap.min.css')
+  body
+    script(src='libs/angular/angular.js')
+    script(src='libs/angular-route/angular-route.min.js')
+    script(src='javascripts/app.js')
+    script(src='javascripts/appRoutes.js')
+    script(src='javascripts/controllers/NerdCtrl.js')
+    script(src='javascripts/services/NerdService.js')
+    script(src='javascripts/controllers/MainCtrl.js')
+    div.navbar.navbar-fixed-top
+      div.navbar-inner
+        div.container
+          a.brand(href="/nerds") Contacts
+
+    div.container
+      div.row
+        div.span12
+          div(ng-controller='MainCtrl')
+            ng-view
+
+      div.footer
+        p &copy; Company 
