@@ -3,28 +3,35 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 //JS bootstrap 4 functions
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HappyhourComponent } from './happyhour/happyhour.component';
 import { EventsComponent } from './events/events.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
+import { HappyHourCreateModalComponent } from './happyhour/happy-hour-create-modal/happy-hour-create-modal.component';
+//needed for modals in material?
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     HappyhourComponent,
-    EventsComponent
+    EventsComponent,
+    HappyHourCreateModalComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpModule,
-    //needed for js bootstrap to work
-    NgbModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule.forRoot()
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  //needed since it is inserted at runtime
+  entryComponents: [HappyHourCreateModalComponent]
 })
 export class AppModule { }

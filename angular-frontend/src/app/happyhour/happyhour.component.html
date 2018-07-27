@@ -1,3 +1,16 @@
-<p>
-  happyhour works!
-</p>
+<button class="btn btn-outline-primary" (click)="toggleFormModal(content)">New Happy Hour</button>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <button type="button" class="close" aria-label="Close" (click)="c('Close')"> 
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>hello</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="d('Saved')">Save</button>
+  </div>
+</ng-template>
