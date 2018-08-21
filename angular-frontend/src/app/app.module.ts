@@ -13,13 +13,17 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { HappyHourCreateModalComponent } from './happyhour/happy-hour-create-modal/happy-hour-create-modal.component';
 //needed for modals in material?
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MainNavComponent } from './main-nav/main-nav.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     HappyhourComponent,
     EventsComponent,
-    HappyHourCreateModalComponent
+    HappyHourCreateModalComponent,
+    MainNavComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +31,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     HttpModule,
     AppRoutingModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    LayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent],

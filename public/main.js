@@ -94,7 +94,7 @@ var AppRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n<nav style=\"background-color:red\" class=\"navbar navbar-expand-lg navbar-light bg-light\">\n  <a class=\"navbar-brand\" routerLink=\"\">Philly Fun</a>\n  <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" (click)=\"isCollapsed = !isCollapsed\" data-target=\"#navbarSupportedContent\" aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n    <span class=\"navbar-toggler-icon\"></span>\n  </button>\n\n  <div class=\"collapse navbar-collapse\"  [ngbCollapse]=\"isCollapsed\" id=\"navbarSupportedContent\">\n    <ul class=\"navbar-nav mr-auto\">\n      <li class=\"nav-item active\">\n        <a class=\"nav-link\" routerLink=\"/events\">Social Events</a>\n      </li>\n      <li class=\"nav-item\">\n        <a class=\"nav-link\" routerLink=\"/happyhour\">Happy Hours</a>\n      </li>\n      <!-- Using the ng bootstrap js functions without jquery \n      <li class=\"nav-item dropdown\">\n        <div ngbDropdown class=\"d-inline-block\">\n         <button class=\"btn btn-outline-primary\" id=\"dropdownBasic1\" ngbDropdownToggle>Toggle dropdown</button>\n         <div ngbDropdownMenu aria-labelledby=\"dropdownBasic1\">\n           <button class=\"dropdown-item\">Action - 1</button>\n           <button class=\"dropdown-item\">Another Action</button>\n           <button class=\"dropdown-item\">Something else is here</button>\n         </div>\n        </div>\n      </li>\n      -->\n       \n    </ul>\n    <form class=\"form-inline my-2 my-lg-0\">\n      <input class=\"form-control mr-sm-2\" type=\"search\" placeholder=\"Search\" aria-label=\"Search\">\n      <button class=\"btn btn-outline-success my-2 my-sm-0\" type=\"submit\">Search</button>\n    </form>\n  </div>\n</nav>\n\n<!-- Any routes that gets served get inserted into here -->\n<router-outlet></router-outlet>\n\n"
+module.exports = "<app-main-nav><router-outlet></router-outlet></app-main-nav>\n<!-- Any routes that gets served get inserted into here -->\n\n\n"
 
 /***/ }),
 
@@ -169,6 +169,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/index.js");
 /* harmony import */ var _happyhour_happy_hour_create_modal_happy_hour_create_modal_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./happyhour/happy-hour-create-modal/happy-hour-create-modal.component */ "./src/app/happyhour/happy-hour-create-modal/happy-hour-create-modal.component.ts");
 /* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
+/* harmony import */ var _main_nav_main_nav_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./main-nav/main-nav.component */ "./src/app/main-nav/main-nav.component.ts");
+/* harmony import */ var _angular_cdk_layout__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/cdk/layout */ "./node_modules/@angular/cdk/esm5/layout.es5.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -189,6 +192,9 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 //needed for modals in material?
 
+
+
+
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -199,7 +205,8 @@ var AppModule = /** @class */ (function () {
                 _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_6__["DashboardComponent"],
                 _happyhour_happyhour_component__WEBPACK_IMPORTED_MODULE_7__["HappyhourComponent"],
                 _events_events_component__WEBPACK_IMPORTED_MODULE_8__["EventsComponent"],
-                _happyhour_happy_hour_create_modal_happy_hour_create_modal_component__WEBPACK_IMPORTED_MODULE_10__["HappyHourCreateModalComponent"]
+                _happyhour_happy_hour_create_modal_happy_hour_create_modal_component__WEBPACK_IMPORTED_MODULE_10__["HappyHourCreateModalComponent"],
+                _main_nav_main_nav_component__WEBPACK_IMPORTED_MODULE_12__["MainNavComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
@@ -207,7 +214,13 @@ var AppModule = /** @class */ (function () {
                 _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
                 _angular_http__WEBPACK_IMPORTED_MODULE_3__["HttpModule"],
                 _app_routing_module__WEBPACK_IMPORTED_MODULE_5__["AppRoutingModule"],
-                _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_9__["NgbModule"].forRoot()
+                _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_9__["NgbModule"].forRoot(),
+                _angular_cdk_layout__WEBPACK_IMPORTED_MODULE_13__["LayoutModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_14__["MatToolbarModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_14__["MatButtonModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_14__["MatSidenavModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_14__["MatIconModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_14__["MatListModule"]
             ],
             providers: [],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"]],
@@ -496,6 +509,71 @@ var HappyhourComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [_ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_1__["NgbModal"]])
     ], HappyhourComponent);
     return HappyhourComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/main-nav/main-nav.component.css":
+/*!*************************************************!*\
+  !*** ./src/app/main-nav/main-nav.component.css ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".sidenav-container {\n  height: 100%;\n}\n\n.sidenav {\n  width: 200px;\n}\n\n.mat-toolbar.mat-primary {\n  position: -webkit-sticky;\n  position: sticky;\n  top: 0;\n}\n\n.hidden {\n\tdisplay:none;\n}\n\n.toolbar-flex-spacer {\n  \tflex: 1 1 auto;\n}\n\nmat-toolbar a {\n\tdisplay:inline-block;\n\tmargin:0 10px;\n\tcolor:white;\n\ttext-decoration:none;\n}"
+
+/***/ }),
+
+/***/ "./src/app/main-nav/main-nav.component.html":
+/*!**************************************************!*\
+  !*** ./src/app/main-nav/main-nav.component.html ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<mat-sidenav-container class=\"sidenav-container\">\n <mat-sidenav \n \t#drawer \n \tclass=\"sidenav\" \n \t[ngClass]=\"{hidden: !(isHandset | async)!.matches}\" \n \tfixedInViewport=\"false\" \n \t[attr.role]=\"isHandset ? 'dialog' : 'navigation'\"\n    [mode]=\"(isHandset | async)!.matches ? 'over' : 'side'\" \n    [opened]=\"!(isHandset | async)!.matches\">\n    \n    <mat-toolbar color=\"primary\">Menu</mat-toolbar> \n    <mat-nav-list>\n      <a mat-list-item routerLink=\"/events\">Events</a>\n      <a mat-list-item routerLink=\"/happyhour\">Happy Hour</a>\n    </mat-nav-list>\n  </mat-sidenav>\n  <mat-sidenav-content>\n    <mat-toolbar color=\"primary\">\n      <button\n        type=\"button\"\n        aria-label=\"Toggle sidenav\"\n        mat-icon-button\n        (click)=\"drawer.toggle()\"\n        *ngIf=\"(isHandset | async)!.matches\">\n        <mat-icon aria-label=\"Side nav toggle icon\">menu</mat-icon>\n      </button>\n      <span>Philly Fun</span>\n      <span class=\"toolbar-flex-spacer\"></span>\n      <span *ngIf=\"!(isHandset | async)!.matches\">\n      \t<a routerLink=\"/events\" mat-button> Events</a>\n      \t<a routerLink=\"/happyhour\" mat-button> Happy Hours</a>\n      </span>\n    </mat-toolbar>\n    <!-- Add Content Here -->\n    <ng-content></ng-content>\n  </mat-sidenav-content>\n</mat-sidenav-container>\n"
+
+/***/ }),
+
+/***/ "./src/app/main-nav/main-nav.component.ts":
+/*!************************************************!*\
+  !*** ./src/app/main-nav/main-nav.component.ts ***!
+  \************************************************/
+/*! exports provided: MainNavComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MainNavComponent", function() { return MainNavComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_cdk_layout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/cdk/layout */ "./node_modules/@angular/cdk/esm5/layout.es5.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var MainNavComponent = /** @class */ (function () {
+    function MainNavComponent(breakpointObserver) {
+        this.breakpointObserver = breakpointObserver;
+        this.isHandset = this.breakpointObserver.observe(_angular_cdk_layout__WEBPACK_IMPORTED_MODULE_1__["Breakpoints"].Handset);
+    }
+    MainNavComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-main-nav',
+            template: __webpack_require__(/*! ./main-nav.component.html */ "./src/app/main-nav/main-nav.component.html"),
+            styles: [__webpack_require__(/*! ./main-nav.component.css */ "./src/app/main-nav/main-nav.component.css")]
+        }),
+        __metadata("design:paramtypes", [_angular_cdk_layout__WEBPACK_IMPORTED_MODULE_1__["BreakpointObserver"]])
+    ], MainNavComponent);
+    return MainNavComponent;
 }());
 
 
