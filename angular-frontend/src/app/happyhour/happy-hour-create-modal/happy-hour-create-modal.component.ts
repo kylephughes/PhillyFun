@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {FormBuilder, Validators, FormGroup} from "@angular/forms";
-
+import { MatFormField,MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 @Component({
   selector: 'app-happy-hour-create-modal',
   templateUrl: './happy-hour-create-modal.component.html',
@@ -9,15 +9,17 @@ import {FormBuilder, Validators, FormGroup} from "@angular/forms";
 export class HappyHourCreateModalComponent implements OnInit {
 
  
-    //form: FormGroup;
-    description:string;
+    form: FormGroup;
 
-    constructor(){
+    constructor(private formBuilder:FormBuilder){
       
     }
 
     ngOnInit() {
-
+      this.form = this.formBuilder.group({
+        barName :'',
+        floatLabel:'auto'
+      })
     }
 
 

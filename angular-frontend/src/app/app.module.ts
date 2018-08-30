@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 //JS bootstrap 4 functions
 import { AppComponent } from './app.component';
@@ -15,7 +15,7 @@ import { HappyHourCreateModalComponent } from './happyhour/happy-hour-create-mod
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
+import {MatFormFieldModule, MatInputModule,MatDialogModule,MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
 @NgModule({
   declarations: [
@@ -30,6 +30,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     AppRoutingModule,
     NgbModule.forRoot(),
@@ -39,6 +40,9 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
     FlexLayoutModule
   ],
   providers: [],

@@ -1,2 +1,15 @@
-<h2>New Happy Hour</h2>
+ <h1 mat-dialog-title color="primary">Add Happy Hour</h1>
+ <form [formGroup]="form" (ngSubmit)="submit(form)">
+  <mat-dialog-content>
+    <mat-form-field [floatLabel]="form.value.floatLabel">
+        <!-- this acts as a placeholder and label -->
+    	<mat-label>Enter a Bar/Resturant</mat-label>
+      <input matInput formControlName="barName">
+    </mat-form-field>
+  </mat-dialog-content>
+  </form>
+  <mat-dialog-actions>
+    <button mat-button color="primary" type="submit">Add</button>
+    <button mat-button color="warn" type="button" mat-dialog-close>Cancel</button>
+  </mat-dialog-actions>
 
