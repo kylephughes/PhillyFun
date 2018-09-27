@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {FormBuilder, Validators, FormGroup} from "@angular/forms";
-import { MatFormField,MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatVerticalStepper, MatFormField, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 @Component({
   selector: 'app-happy-hour-create-modal',
   templateUrl: './happy-hour-create-modal.component.html',
@@ -8,7 +8,6 @@ import { MatFormField,MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 })
 export class HappyHourCreateModalComponent implements OnInit {
 
- 
     form: FormGroup;
 
     constructor(private formBuilder:FormBuilder){
@@ -17,11 +16,15 @@ export class HappyHourCreateModalComponent implements OnInit {
 
     ngOnInit() {
       this.form = this.formBuilder.group({
-        barName :'',
-        floatLabel:'auto'
-      })
+        barName : ['',Validators.required],
+        experience : ['',Validators.required],
+        floatLabel : 'auto'
+      });
     }
 
+    nextStep() {
+      alert("wef34");
+    }
 
     save() {
         //this.dialogRef.close("hllo");

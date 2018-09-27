@@ -1,15 +1,33 @@
  <h1 mat-dialog-title color="primary">Add Happy Hour</h1>
- <form [formGroup]="form" (ngSubmit)="submit(form)">
-  <mat-dialog-content>
-    <mat-form-field [floatLabel]="form.value.floatLabel">
-        <!-- this acts as a placeholder and label -->
-    	<mat-label>Enter a Bar/Resturant</mat-label>
-      <input matInput formControlName="barName">
-    </mat-form-field>
+ <mat-dialog-content flex fxflex="100">
+ 	<mat-vertical-stepper #stepper>
+  		<mat-step fxLayout="column" [stepControl]="firstFormGroup">
+  		    <ng-template matStepLabel>List some details!</ng-template>
+   			<form fxLayout="column" [formGroup]="form" (ngSubmit)="submit(form)">
+    			<mat-form-field [floatLabel]="form.value.floatLabel">
+        			<!-- this acts as a placeholder and label -->
+    				<mat-label>Enter a Bar/Resturant</mat-label>
+      				<input matInput formControlName="barName">
+    			</mat-form-field>
+    			<mat-form-field [floatLabel]="form.value.floatLabel">
+        			<!-- this acts as a placeholder and label -->
+    				<mat-label>Overall Experience!</mat-label>
+      				<textarea matInput formControlName="experience"></textarea>
+    			</mat-form-field>
+  
+  			</form>
+  			<div>
+        		<button mat-button matStepperNext>Next</button>
+       	    </div>
+  		</mat-step>
+ 		 <mat-step [stepControl]="secondFormGroup">
+ 		    <ng-template matStepLabel>Add some specials!</ng-template>
+    		<h1>hello</h1>
+  		 </mat-step>
+	</mat-vertical-stepper>
   </mat-dialog-content>
-  </form>
   <mat-dialog-actions>
-    <button mat-button color="primary" type="submit">Add</button>
+    <button mat-button color="primary" (click)="nextStep()" type="submit">Next</button>
     <button mat-button color="warn" type="button" mat-dialog-close>Cancel</button>
   </mat-dialog-actions>
 
