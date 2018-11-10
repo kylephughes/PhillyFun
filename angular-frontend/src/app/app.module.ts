@@ -17,6 +17,8 @@ import { MainNavComponent } from './main-nav/main-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import {MatStepperModule,MatFormFieldModule, MatInputModule,MatDialogModule,MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import { GooglePlaceModule } from "ngx-google-places-autocomplete";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +46,8 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     MatFormFieldModule,
     MatInputModule,
     MatStepperModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    GooglePlaceModule
   ],
   providers: [],
   bootstrap: [AppComponent],

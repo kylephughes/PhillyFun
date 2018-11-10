@@ -24,6 +24,7 @@ export class HappyhourComponent implements OnInit {
   }
   
   toggleFormDialog() {
+    //load in a new component in the dialog
      this.newHappyHourDialog = this.dialog.open(HappyHourCreateModalComponent, {
        hasBackdrop:false,
        closeOnNavigation:true,

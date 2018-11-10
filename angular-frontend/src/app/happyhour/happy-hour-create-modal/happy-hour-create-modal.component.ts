@@ -1,6 +1,9 @@
-import {Component, Inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, Inject, OnInit, ViewEncapsulation, ViewChild} from '@angular/core';
 import {FormBuilder, Validators, FormGroup} from "@angular/forms";
 import { MatVerticalStepper, MatFormField, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { GooglePlaceDirective } from 'ngx-google-places-autocomplete/ngx-google-places-autocomplete.directive';
+import {} from '@types/googlemaps';
+
 @Component({
   selector: 'app-happy-hour-create-modal',
   templateUrl: './happy-hour-create-modal.component.html',
@@ -9,7 +12,8 @@ import { MatVerticalStepper, MatFormField, MatDialogRef, MAT_DIALOG_DATA } from 
 export class HappyHourCreateModalComponent implements OnInit {
 
     form: FormGroup;
-
+    @ViewChild('places') places: GooglePlaceDirective;
+  
     constructor(private formBuilder:FormBuilder){
       
     }
@@ -22,6 +26,13 @@ export class HappyHourCreateModalComponent implements OnInit {
       });
     }
 
+    handleAddressChange(address) {
+        console.log(address.geometry.location.lng());
+        console.log(address.geometry.location.lat());
+        console.log(address.geometry.location.toJSON());
+        console.log(address);
+    }
+  
     nextStep() {
       alert("wef34");
     }
