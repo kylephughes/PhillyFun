@@ -15,7 +15,7 @@ import { HappyHourCreateModalComponent } from './happyhour/happy-hour-create-mod
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import {MatStepperModule,MatFormFieldModule, MatInputModule,MatDialogModule,MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
+import {MatCardModule,MatTabsModule,MatStepperModule,MatFormFieldModule, MatInputModule,MatDialogModule,MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 
@@ -46,6 +46,8 @@ import { GooglePlaceModule } from "ngx-google-places-autocomplete";
     MatFormFieldModule,
     MatInputModule,
     MatStepperModule,
+    MatTabsModule,
+    MatCardModule,
     FlexLayoutModule,
     GooglePlaceModule
   ],

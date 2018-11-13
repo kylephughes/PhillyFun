@@ -29,7 +29,7 @@ export class HappyhourComponent implements OnInit {
        hasBackdrop:false,
        closeOnNavigation:true,
        disableClose:false,
-       width:'600px'
+       width:'900px'
      });
 
      this.newHappyHourDialog.afterClosed().subscribe(result => {
