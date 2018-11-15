@@ -12,7 +12,7 @@ import {} from '@types/googlemaps';
 export class HappyHourCreateModalComponent implements OnInit {
 
     form: FormGroup;
-    selectedIndex: Number;
+    selectedIndex: any;
    //makes the places autocomplete work
     @ViewChild('places') places: GooglePlaceDirective;
   
@@ -25,10 +25,25 @@ export class HappyHourCreateModalComponent implements OnInit {
       //TODO need to figure out how i am going to store each day of the week
       this.form = this.formBuilder.group({
         barName : ['',Validators.required],
-        foodSpecials : this.formBuilder.array([
+        monSpecials : this.formBuilder.array([
                 this.createNewSpecial()
          ]),
-        drinkSpecials : this.formBuilder.array([
+        tueSpecials : this.formBuilder.array([
+                this.createNewSpecial()
+         ]),
+        wedSpecials : this.formBuilder.array([
+                this.createNewSpecial()
+         ]),
+        thrSpecials : this.formBuilder.array([
+                this.createNewSpecial()
+         ]),
+        friSpecials : this.formBuilder.array([
+                this.createNewSpecial()
+         ]),
+        satSpecials : this.formBuilder.array([
+                this.createNewSpecial()
+         ]),
+        sunSpecials : this.formBuilder.array([
                 this.createNewSpecial()
          ]),
         floatLabel : 'auto'
@@ -71,8 +86,8 @@ export class HappyHourCreateModalComponent implements OnInit {
   /**
    * @val will either be 1 or -1 if going back
    */
-  changeDailyTab(val :number) {
-    this.selectedIndex+=val;
+  changeDailyTab(val : Number) {
+    this.selectedIndex = this.selectedIndex + val;
   }
     nextStep() {
       alert("wef34");
