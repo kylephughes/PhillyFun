@@ -2,7 +2,8 @@ import {Component, Inject, OnInit, ViewEncapsulation, ViewChild} from '@angular/
 import {FormBuilder, Validators, FormGroup, FormArray} from "@angular/forms";
 import { MatCardModule,MatTabsModule, MatVerticalStepper, MatFormField, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { GooglePlaceDirective } from 'ngx-google-places-autocomplete/ngx-google-places-autocomplete.directive';
-import {} from '@types/googlemaps';
+//import {} from 'googlemaps';
+/// <reference types="@types/googlemaps" />
 import { DailySpecialsCardComponent } from '../daily-specials-card/daily-specials-card.component';
 
 @Component({
