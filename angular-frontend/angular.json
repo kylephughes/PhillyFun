@@ -9,11 +9,11 @@
       "projectType": "application",
       "prefix": "app",
       "schematics": {
-          "@schematics/angular:component": {
-            "styleext": "scss"
-          }
-        
-      },"architect": {
+        "@schematics/angular:component": {
+          "styleext": "scss"
+        }
+      },
+      "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
@@ -30,8 +30,8 @@
               "src/styles.scss"
             ],
             "scripts": [
-           "node_modules/jquery/dist/jquery.min.js",
-           "node_modules/bootstrap/dist/js/bootstrap.min.js"
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
             ]
           },
           "configurations": {
@@ -79,6 +79,9 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
+              {
+                "input": "node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
+              },
               "src/styles.scss"
             ],
             "scripts": [],

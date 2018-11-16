@@ -1,0 +1,44 @@
+<div [formGroup]="form">
+  <mat-card formArrayName="specials">
+    			 <!-- loop through mon specials -->
+        		 <div *ngFor="let unit of form.controls.specials.controls; let i=index">
+    			 <!-- group name in this case row index -->
+          		   <div [formGroupName]="i">
+            		  <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3%" fxLayoutAlign="left">              
+              			<!-- unit name input field -->
+              			 <mat-form-field  fxFlex="60%"> 
+                			<input matInput placeholder="Special" formControlName="itemName" required>  
+              			 </mat-form-field>
+              			 <!-- unit quantity input field -->
+              			 <mat-form-field  fxFlex="20%" fxFlex.xs="20"> 
+               				<input matInput placeholder="Price" type="number" formControlName="itemPrice" required>
+              			 </mat-form-field>
+             			  <!-- unit price input field -->
+             			  <mat-form-field  fxFlex="10%"  fxFlex.xs="grow"> 
+               				<input matInput placeholder="Quantity" type="number" formControlName="itemQty">
+              			   </mat-form-field>
+    				   </div>
+    			   </div>
+    			 </div>
+    			 <mat-card-actions>
+                  <div fxLayout="row" fxLayoutGap="5px" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutAlign.xs="start center">
+                    <span fxFlex="1 1 20%">
+                      <button   type="button" mat-raised-button (click)="addSpecial()">
+                         Add More
+                      </button>
+                    </span>
+                    <span fxFlex></span>
+                    <span fxLayoutGap="5px">
+                      <button  type="button" color="primary" mat-mini-fab (click)="changeDailyTab(-1)">
+                        <
+                      </button>
+                      <button  type="button" color="primary" mat-mini-fab (click)="changeDailyTab(1)">
+                        >
+                      </button>
+                    </span>
+                 </div>
+                </mat-card-actions>
+    		   </mat-card>
+</div>
+           
+        

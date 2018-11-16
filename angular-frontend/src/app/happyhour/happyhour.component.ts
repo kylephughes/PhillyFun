@@ -1,5 +1,7 @@
 import { HappyHourCreateModalComponent } from './happy-hour-create-modal/happy-hour-create-modal.component';
 import { Component, OnInit,ViewChild, ElementRef } from '@angular/core';
+import { MatDialogRef, MatDialog } from '@angular/material';
+import { Router } from '@angular/router';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-happyhour',
@@ -7,32 +9,31 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./happyhour.component.scss']
 })
 export class HappyhourComponent implements OnInit {
-  //don't display the modal yet
- // private hhModalForm = false;
-  //@ViewChild('hhModalView')
-  //private hhModalView: ElementRef;
-  closeResult: string;
-  constructor(private modalService: NgbModal) { }
+
+  //our variable of our module to handle the dialog itself
+  newHappyHourDialog: MatDialogRef<HappyHourCreateModalComponent>;
+ 
+  constructor(private dialog: MatDialog, router : Router) { 
+    //closes dialog when navigating away from this page
+   router.events.subscribe( () =>  {
+    dialog.closeAll();
+   });
+  }
 
   ngOnInit() {
   }
   
-  toggleFormModal(content) {
-      this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+  toggleFormDialog() {
+    //load in a new component in the dialog
+     this.newHappyHourDialog = this.dialog.open(HappyHourCreateModalComponent, {
+       hasBackdrop:false,
+       closeOnNavigation:true,
+       disableClose:false,
+       width:'900px'
+     });
+
+     this.newHappyHourDialog.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
     });
   }
-  
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return  `with: ${reason}`;
-    }
-  }
-
 }
