@@ -18,6 +18,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import {MatCardModule,MatTabsModule,MatStepperModule,MatFormFieldModule, MatInputModule,MatDialogModule,MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { GooglePlaceModule } from "ngx-google-places-autocomplete";
+import { DailySpecialsCardComponent } from './happyhour/daily-specials-card/daily-specials-card.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { GooglePlaceModule } from "ngx-google-places-autocomplete";
     HappyhourComponent,
     EventsComponent,
     HappyHourCreateModalComponent,
-    MainNavComponent
+    MainNavComponent,
+    DailySpecialsCardComponent
   ],
   imports: [
     BrowserModule,

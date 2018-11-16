@@ -15,11 +15,6 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
-     <div fxHide.gt-xs>
-       <button mat-icon-button (click)="sidenav.toggle()">
-        <mat-icon>menu</mat-icon>
-      </button>
-    </div>
      <div>
        <a routerLink="/">
           Philly Fun Blog
@@ -29,6 +24,11 @@
       	<a mat-button routerLink="/events" mat-button> Events</a>
       	<a routerLink="/happyhour" mat-button> Happy Hours</a>
      </div>
+      <div fxFlex fxLayout fxLayoutAlign="end" fxHide.gt-xs>
+       <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
     </mat-toolbar>
       <router-outlet></router-outlet>
   </mat-sidenav-content>

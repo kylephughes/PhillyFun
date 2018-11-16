@@ -1,343 +1,55 @@
- <h1 mat-dialog-title color="primary">Add Happy Hour</h1>
- <mat-dialog-content flex fxflex="100%">
-   <form fxLayout="column" [formGroup]="form" (ngSubmit)="submit(form)">
- 	<mat-vertical-stepper fxFlex="100%" #stepper>
-  		<mat-step fxLayout="row" fxFlex="80%" [stepControl]="firstFormGroup">
+<h2 mat-dialog-title color="primary">Add Happy Hour</h2>
+ <mat-dialog-content>
+   <form [formGroup]="form" (ngSubmit)="submit(form)">
+ 	<mat-vertical-stepper #stepper>
+  		<mat-step [stepControl]="firstFormGroup">
   		    <ng-template matStepLabel>List some details!</ng-template>
-   			
-    			<mat-form-field [floatLabel]="form.value.floatLabel">
+                <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutGap="3%" fxLayoutAlign="left">
+            
+    		      <mat-form-field fxFlex="1 1 50%" [floatLabel]="form.value.floatLabel">
         			<!-- this acts as a placeholder and label -->
-    				<mat-label>Enter a Bar/Resturant</mat-label>
-      				<input ngx-google-places-autocomplete #places="ngx-places" (onAddressChange)="handleAddressChange($event)" matInput formControlName="barName">
-    			</mat-form-field>
-  			<div>
-        		<button mat-button color="primary" matStepperNext>Next</button>
-       	    </div>
+    		        <mat-label>Enter a Bar/Resturant</mat-label>
+                    
+      			    <input ngx-google-places-autocomplete #places="ngx-places" (onAddressChange)="handleAddressChange($event)" matInput formControlName="barName">
+                  </mat-form-field>
+                  <div fxFlex></div>
+               
+                </div>
+              
   		</mat-step>
  		<mat-step [stepControl]="secondFormGroup">
  		   <ng-template matStepLabel>Upload some specials!</ng-template>
     	   <mat-tab-group (selectedIndexChange)="selectedIndexChange($event)" [selectedIndex]="selectedIndex">
-  			 <mat-tab>
-  			   <mat-card formArrayName="monSpecials">
-   				 <ng-template mat-tab-label>
-     					 MON 
-    			 </ng-template>
-    			 <!-- loop through mon specials -->
-        		 <div *ngFor="let unit of form.controls.monSpecials.controls; let i=index">
-    			 <!-- group name in this case row index -->
-          		   <div [formGroupName]="i">
-            		  <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3%" fxLayoutAlign="left">              
-              			<!-- unit name input field -->
-              			 <mat-form-field  fxFlex="60%"> 
-                			<input matInput placeholder="Special" formControlName="itemName" required>  
-              			 </mat-form-field>
-              			 <!-- unit quantity input field -->
-              			 <mat-form-field  fxFlex="10%" fxFlex.xs="20"> 
-               				<input matInput placeholder="Price" type="number" formControlName="itemPrice" required>
-              			 </mat-form-field>
-             			  <!-- unit price input field -->
-             			  <mat-form-field  fxFlex="20%"  fxFlex.xs="grow"> 
-               				<input matInput placeholder="Quantity" type="number" formControlName="itemQty">
-              			   </mat-form-field>
-    				   </div>
-    			   </div>
-    			 </div>
-    			 <mat-card-actions>
-                   <div fxLayout="row" fxLayoutAlign="left" fxLayout.xs="column">
-          			<button fxflex="20%"  type="button" mat-raised-button (click)="addSpecial('monSpecials')">
-            			<mat-icon>add box</mat-icon>
-            				  More Specials
-          			</button>
-                    <!-- Push to the right -->
-                    <div fxFlex></div>
-          			 <button  fxFlex="20%" type="button" mat-raised-button (click)="changeDailyTab(1)">
-            			<mat-icon>arrow_forward</mat-icon>
-            				  Next Day
-          			 </button>
-                  </div>
-        		 </mat-card-actions>
-    		   </mat-card>
+  			 <mat-tab label="Mon">
+  			   <daily-specials-card [specialsDay]="monSpecials" (formReady)="addFormControl('monSpecials',$event)" (changeTab)="changeDailyTab($event)"></daily-specials-card>
   			 </mat-tab>
-  			 <mat-tab formArrayName="tueSpecials">
-    			<mat-card>
-   				 	<ng-template mat-tab-label>
-     					 TUE 
-    				</ng-template>
-    			 <div *ngFor="let unit of form.controls.tueSpecials.controls; let i=index">
-    				<!-- group name in this case row index -->
-          			<div [formGroupName]="i">
-           				<div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%" fxLayoutAlign="left">       
-             				<!-- unit name input field -->
-            				<mat-form-field  fxFlex="60%"> 
-                			   <input matInput placeholder="Special" formControlName="itemName" required>  
-              			    </mat-form-field>
-              				<!-- unit quantity input field -->
-              				<mat-form-field  fxFlex="10%" fxFlex.xs="20"> 
-               				   <input matInput placeholder="Price" type="number" formControlName="itemPrice" required>
-              				</mat-form-field>
-             				<!-- unit price input field -->
-             				<mat-form-field  fxFlex="20%"  fxFlex.xs="grow"> 
-               				   <input matInput placeholder="Quantity" type="number" formControlName="itemQty">
-              				</mat-form-field>
-    					 </div>
-    				</div>
-    			 </div>
-    			 <mat-card-actions>
-                  <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutAlign.xs="start stretch">
-              
-                   <button fxFlex="1 1 20%" type="button" mat-raised-button (click)="addSpecial('tueSpecials')">
-            				  Add More
-          			</button>
-                    <div fxFlex></div>
-          			<button  fxFlex="1 1 20%"  type="button" mat-raised-button (click)="changeDailyTab(-1)">
-            				  Previous Day
-          			</button>
-                    
-                    <button fxFlex="1 1 20%" type="button" mat-raised-button (click)="changeDailyTab(1)">
-                        Next Day
-                    </button>
-                   
-                   </div>
-        		 </mat-card-actions>
-    		   </mat-card>
-  			  </mat-tab>
-  			  <mat-tab>
-                 <mat-card formArrayName="wedSpecials">
-    			   <ng-template mat-tab-label>
-     					 WED
-    			   </ng-template>
-    			   <div *ngFor="let unit of form.controls.wedSpecials.controls; let i=index">
-    				<!-- group name in this case row index -->
-          			 <div [formGroupName]="i">
-                       <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%" fxLayoutAlign="left">
-              			 <!-- unit name input field -->
-              			 <mat-form-field  fxFlex="60%"> 
-                		    <input matInput placeholder="Special" formControlName="itemName" required>       
-              		     </mat-form-field>
-              		      <!-- unit quantity input field -->
-              			 <mat-form-field  fxFlex="10%" fxFlex.xs="20"> 
-               				<input matInput placeholder="Price" type="number" formControlName="itemPrice" required>
-              			 </mat-form-field>
-             			  <!-- unit price input field -->
-             			 <mat-form-field  fxFlex="20%"  fxFlex.xs="grow"> 
-               				<input matInput placeholder="Quantity" type="number" formControlName="itemQty">
-              			 </mat-form-field>
-    				   </div>
-    				  </div>
-    		        </div>
-    			   <mat-card-actions>
-    			     <div fxLayout="row" fxLayout.xs="column">
-          			   <button type="button" mat-raised-button (click)="addSpecial('wedSpecials')">
-            			<mat-icon>add box</mat-icon>
-            				  More Specials
-          			   </button>
-          			   <button type="button" mat-raised-button (click)="changeDailyTab(-1)">
-            			<mat-icon>arrow_backward</mat-icon>
-            				  Previous Day
-          			   </button>
-                       <button type="button" mat-raised-button (click)="changeDailyTab(1)">
-                          <mat-icon>arrow_forward</mat-icon>
-                              Next Day
-                       </button>     
-          		     </div>
-        		    </mat-card-actions>
-                  </mat-card>
-  				</mat-tab>
-  				<mat-tab>
-                  <mat-card formArrayName="thrSpecials">
-    				<ng-template mat-tab-label>
-     					 THR
-    				</ng-template>
-    				 <div *ngFor="let unit of form.controls.thrSpecials.controls; let i=index">
-    					<!-- group name in this case row index -->
-          				<div [formGroupName]="i">
-            				<div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%" fxLayoutAlign="left">
-              
-              					<!-- unit name input field -->
-              				  <mat-form-field  fxFlex="60%"> 
-                				<input matInput placeholder="Special" formControlName="itemName" required>  
-                				<!-- input field error 
-                				<mat-error *ngIf="unit.controls.unitName.invalid">
-                    				Unit name is required.        
-                				</mat-error>      
-                				-->      
-              			      </mat-form-field>
-    
-              					<!-- unit quantity input field -->
-              				<mat-form-field  fxFlex="10%" fxFlex.xs="20"> 
-               					 <input matInput placeholder="Price" type="number" formControlName="itemPrice" required>
-              				</mat-form-field>
-
-             				 <!-- unit price input field -->
-             				<mat-form-field  fxFlex="20%"  fxFlex.xs="grow"> 
-               					 <input matInput placeholder="Quantity" type="number" formControlName="itemQty">
-              				</mat-form-field>
-    					</div>
-    				</div>
-    		       </div>
-    			   <mat-card-actions>
-    			     <div fxLayout="row" fxLayout.xs="column">
-          			 <button type="button" mat-raised-button (click)="addSpecial('thrSpecials')">
-            			<mat-icon>add box</mat-icon>
-            				  More Specials
-          			   </button>
-          			   <button type="button" mat-raised-button (click)="changeDailyTab(-1)">
-            			<mat-icon>arrow_backward</mat-icon>
-            				  Previous Day
-          			  </button>
-                      <button type="button" mat-raised-button (click)="changeDailyTab(1)">
-                        <mat-icon>arrow_forward</mat-icon>
-                           Next Day
-                      </button>
-          		      </div>
-        		    </mat-card-actions>
-                 </mat-card>
-  				</mat-tab>
-  				  <mat-tab>
-                    <mat-card formArrayName="friSpecials">
-    				<ng-template mat-tab-label>
-     					 FRI
-    				</ng-template>
-    					<div *ngFor="let unit of form.controls.friSpecials.controls; let i=index">
-    					<!-- group name in this case row index -->
-          				<div [formGroupName]="i">
-            				<div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%" fxLayoutAlign="left">
-              
-              					<!-- unit name input field -->
-              				  <mat-form-field  fxFlex="60%"> 
-                				<input matInput placeholder="Special" formControlName="itemName" required>  
-                				<!-- input field error 
-                				<mat-error *ngIf="unit.controls.unitName.invalid">
-                    				Unit name is required.        
-                				</mat-error>      
-                				-->      
-              			      </mat-form-field>
-    
-              					<!-- unit quantity input field -->
-              				<mat-form-field  fxFlex="10%" fxFlex.xs="20"> 
-               					 <input matInput placeholder="Price" type="number" formControlName="itemPrice" required>
-              				</mat-form-field>
-
-             				 <!-- unit price input field -->
-             				<mat-form-field  fxFlex="20%"  fxFlex.xs="grow"> 
-               					 <input matInput placeholder="Quantity" type="number" formControlName="itemQty">
-              				</mat-form-field>
-    					</div>
-    				</div>
-    		       </div>
-    			 <mat-card-actions>
-    			   <div fxLayout="row" fxLayout.xs="column">
-          			 <button type="button" mat-raised-button (click)="addSpecial('friSpecials')">
-            			<mat-icon>add box</mat-icon>
-            				  More Specials
-          			 </button>
-          			 <button type="button" mat-raised-button (click)="changeDailyTab(-1)">
-            			<mat-icon>arrow_backward</mat-icon>
-            				  Previous Day
-          				</button>
-                     <button type="button" mat-raised-button (click)="changeDailyTab(1)">
-                          <mat-icon>arrow_forward</mat-icon>
-                               Next Day
-                     </button>
-          		   	</div>
-        		  </mat-card-actions>
-                  </mat-card>
-  				</mat-tab>
-  				<mat-tab>
-                  <mat-card formArrayName="satSpecials">
-    				<ng-template mat-tab-label>
-     					 SAT
-    				</ng-template>
-    				<div *ngFor="let unit of form.controls.satSpecials.controls; let i=index">
-    					<!-- group name in this case row index -->
-          				<div [formGroupName]="i">
-            				<div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%" fxLayoutAlign="left">
-              
-              					<!-- unit name input field -->
-              				  <mat-form-field  fxFlex="60%"> 
-                				<input matInput placeholder="Special" formControlName="itemName" required>       
-              			      </mat-form-field>
-    
-              					<!-- unit quantity input field -->
-              				<mat-form-field  fxFlex="10%" fxFlex.xs="20"> 
-               					 <input matInput placeholder="Price" type="number" formControlName="itemPrice" required>
-              				</mat-form-field>
-
-             				 <!-- unit price input field -->
-             				<mat-form-field  fxFlex="20%"  fxFlex.xs="grow"> 
-               					 <input matInput placeholder="Quantity" type="number" formControlName="itemQty">
-              				</mat-form-field>
-    					</div>
-    				</div>
-    		       </div>
-    			 <mat-card-actions>
-    			   <div fxLayout="row" fxLayout.xs="column">
-          			 <button type="button" mat-raised-button (click)="addSpecial('satSpecials')">
-            			<mat-icon>add box</mat-icon>
-            				  More Specials
-          			  </button>
-          			  <button type="button" mat-raised-button (click)="changeDailyTab(-1)">
-            			<mat-icon>arrow_backward</mat-icon>
-            				  Previous Day
-          			 </button>
-                     <button type="button" mat-raised-button (click)="changeDailyTab(1)">
-                      <mat-icon>arrow_forward</mat-icon>
-                        Next Day
-                      </button>
-          		   	</div>
-        		  </mat-card-actions>
-                 </mat-card>
-  				</mat-tab>
-  				<mat-tab>
-                  <mat-card formArrayName="sunSpecials">
-    				<ng-template mat-tab-label>
-     					 SUN
-    				</ng-template>
-    					<div *ngFor="let unit of form.controls.wedSpecials.controls; let i=index">
-    					<!-- group name in this case row index -->
-          				<div [formGroupName]="i">
-            				<div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%" fxLayoutAlign="left">
-              
-              					<!-- unit name input field -->
-              				  <mat-form-field  fxFlex="60%"> 
-                				<input matInput placeholder="Special" formControlName="itemName" required>    
-              			      </mat-form-field>
-    
-              					<!-- unit quantity input field -->
-              				<mat-form-field  fxFlex="10%" fxFlex.xs="20"> 
-               					 <input matInput placeholder="Price" type="number" formControlName="itemPrice" required>
-              				</mat-form-field>
-
-             				 <!-- unit price input field -->
-             				<mat-form-field  fxFlex="20%"  fxFlex.xs="grow"> 
-               					 <input matInput placeholder="Quantity" type="number" formControlName="itemQty">
-              				</mat-form-field>
-    					</div>
-    				</div>
-    		       </div>
-    			 <mat-card-actions>
-    			     <div fxLayout="row" fxLayout.xs="column">
-          			   <button type="button" mat-raised-button (click)="addSpecial('sunSpecials')">
-            			<mat-icon>add box</mat-icon>
-            				  More Specials
-          			   </button>
-          			   <button type="button" mat-raised-button (click)="changeDailyTab(-1)">
-            			 <mat-icon>arrow_backward</mat-icon>
-            				  Previous Day
-          			    </button>
-          		   	  </div>
-        		</mat-card-actions>
-                 </mat-card>
-  			</mat-tab>
-
-			</mat-tab-group>
-  		 </mat-step>
-  		 
+  			 <mat-tab label="Tue">
+    			 <daily-specials-card [specialsDay]="tueSpecials" (formReady)="addFormControl('tueSpecials',$event)" (changeTab)="changeDailyTab($event)"></daily-specials-card>
+  			 </mat-tab>
+  			 <mat-tab label="Wed">
+                <daily-specials-card [specialsDay]="wedSpecials" (formReady)="addFormControl('wedSpecials',$event)" (changeTab)="changeDailyTab($event)"></daily-specials-card>
+  		     </mat-tab>
+  		     <mat-tab label="Thur">
+                <daily-specials-card [specialsDay]="thrSpecials" (formReady)="addFormControl('thrSpecials',$event)" (changeTab)="changeDailyTab($event)"></daily-specials-card>
+  			 </mat-tab>
+  			 <mat-tab label="Fri">
+                <daily-specials-card [specialsDay]="friSpecials" (formReady)="addFormControl('friSpecials',$event)" (changeTab)="changeDailyTab($event)"></daily-specials-card>
+  			 </mat-tab>
+  			 <mat-tab label="Sat">
+                <daily-specials-card [specialsDay]="satSpecials" (formReady)="addFormControl('satSpecials',$event)" (changeTab)="changeDailyTab($event)"></daily-specials-card>
+  			 </mat-tab>
+  			 <mat-tab label="Sun">
+                <daily-specials-card [specialsDay]="sunSpecials" (formReady)="addFormControl('sunSpecials',$event)" (changeTab)="changeDailyTab($event)"></daily-specials-card>
+  			 </mat-tab>
+		   </mat-tab-group>
+  		 </mat-step>		 
 	</mat-vertical-stepper>
    </form>
   </mat-dialog-content>
   <mat-dialog-actions>
+   <div fxFlex fxLayout="row" fxLayoutAlign="end" fxLayoutAlign.xs="start">
     <button mat-raised-button color="primary" (click)="nextStep()" type="submit">Submit</button>
     <button mat-raised-button color="warn" type="button" mat-dialog-close>Cancel</button>
+   </div>
   </mat-dialog-actions>
 
