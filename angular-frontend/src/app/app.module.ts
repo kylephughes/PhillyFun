@@ -18,6 +18,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import {MatCardModule,MatTabsModule,MatStepperModule,MatFormFieldModule, MatInputModule,MatDialogModule,MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { GooglePlaceModule } from "ngx-google-places-autocomplete";
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { DailySpecialsCardComponent } from './happyhour/daily-specials-card/daily-specials-card.component';
 
 @NgModule({
@@ -51,7 +52,8 @@ import { DailySpecialsCardComponent } from './happyhour/daily-specials-card/dail
     MatTabsModule,
     MatCardModule,
     FlexLayoutModule,
-    GooglePlaceModule
+    GooglePlaceModule,
+    NgxMaterialTimepickerModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent],
