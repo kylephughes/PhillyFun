@@ -1,4 +1,15 @@
 <div [formGroup]="form">
+  <div fxLayout="row" fxLayoutGap="5%" fxLayoutAlign="left center">
+    <mat-form-field fxFlex="20%" fxFlex.xs="40%">
+      <mat-label>Start</mat-label>
+      <input matInput  (click)="openStartPicker()" formControlName="startTime" type="time"
+      value="" />
+    </mat-form-field>
+    <mat-form-field fxFlex="20%" fxFlex.xs="40%">
+      <mat-label>End</mat-label>
+      <input (click)="openEndPicker()" matInput formControlName="endTime" type="time" value="" />
+    </mat-form-field>
+  </div>
   <mat-card formArrayName="specials">
     <!-- loop through mon specials -->
     <div *ngFor="let unit of form.controls.specials.controls; let i=index">

@@ -1,5 +1,6 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { AmazingTimePickerService } from 'amazing-time-picker';
 
 
 @Component({
@@ -17,9 +18,12 @@ export class DailySpecialsCardComponent implements OnInit {
   @Input('specialsDay')
   private specialsDay: any;
   private form: FormGroup;
-  constructor(private fb: FormBuilder) {
-    //each day has its own specials
+
+  constructor(private fb: FormBuilder, private atp: AmazingTimePickerService) {
+    //each day has its own specials and times
     this.form = this.fb.group({
+      startTime: this.fb.control(''),
+      endTime: this.fb.control(''),
       dayOfWeek: [this.specialsDay],
       specials: this.fb.array([
         this.createNewSpecial()
@@ -31,6 +35,26 @@ export class DailySpecialsCardComponent implements OnInit {
     this.formReady.emit(this.form);
   }
 
+  /**
+    Need to insert at runtime to set the themes
+  */
+  openStartPicker() {
+    let timePicker = this.atp.open({
+      theme: 'material-blue'
+    });
+    timePicker.afterClose().subscribe(time => {
+      //from the angular form docs
+      this.form.get('startTime').setValue(time);
+    });
+  }
+  openEndPicker() {
+    let timePicker = this.atp.open({
+      theme: 'material-blue'
+    });
+    timePicker.afterClose().subscribe(time => {
+      this.form.get('endTime').setValue(time);
+    });
+  }
   /**
  * Create new item for food or drink
  */
