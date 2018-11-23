@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { Component, OnInit, SimpleChanges, OnChanges, EventEmitter, Output, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { AmazingTimePickerService } from 'amazing-time-picker';
 
@@ -8,7 +8,7 @@ import { AmazingTimePickerService } from 'amazing-time-picker';
   templateUrl: './daily-specials-card.component.html',
   styleUrls: ['./daily-specials-card.component.scss']
 })
-export class DailySpecialsCardComponent implements OnInit {
+export class DailySpecialsCardComponent implements OnInit, OnChanges {
   //send the data to to the parent via this event
   @Output()
   private formReady: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
@@ -17,13 +17,19 @@ export class DailySpecialsCardComponent implements OnInit {
   //accept a variable when called
   @Input('specialsDay')
   private specialsDay: any;
+  //accept a variable when called
+  @Input('startTime')
+  private lastStartTime: any;
+  //accept a variable when called
+  @Input('endTime')
+  private lastEndTime: any;
   private form: FormGroup;
 
   constructor(private fb: FormBuilder, private atp: AmazingTimePickerService) {
     //each day has its own specials and times
     this.form = this.fb.group({
-      startTime: this.fb.control(''),
-      endTime: this.fb.control(''),
+      startTime: [this.lastStartTime, ''],
+      endTime: [this.lastEndTime, ''],
       dayOfWeek: [this.specialsDay],
       specials: this.fb.array([
         this.createNewSpecial()
@@ -33,6 +39,22 @@ export class DailySpecialsCardComponent implements OnInit {
 
   ngOnInit() {
     this.formReady.emit(this.form);
+  }
+
+  /**
+  * Invoked when the data (@Inputs) that is binded to this component by the
+  * parent changes - defaults the start times for all days based on what is
+  * entered for the first day
+  */
+  ngOnChanges(changes: SimpleChanges) {
+    let st: any = this.form.get('startTime').value;
+    let et: any = this.form.get('endTime').value;
+    if (st == null) {
+      this.form.get('startTime').setValue(this.lastStartTime);
+    }
+    if (et == null) {
+      this.form.get('endTime').setValue(this.lastEndTime);
+    }
   }
 
   /**
@@ -84,7 +106,10 @@ export class DailySpecialsCardComponent implements OnInit {
    * @val will either be 1 or -1 if going back
   */
   private changeDailyTab(val: any) {
-    this.changeTab.emit(val);
+    let st: any = this.form.get('startTime').value;
+    let et: any = this.form.get('endTime').value;
+    //pass the data as an object since emit only takes 1 param
+    this.changeTab.emit({ val, st, et });
   }
 
 }

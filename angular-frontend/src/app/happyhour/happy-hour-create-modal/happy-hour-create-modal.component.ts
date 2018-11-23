@@ -16,6 +16,9 @@ export class HappyHourCreateModalComponent implements OnInit {
 
   form: FormGroup;
   selectedIndex: any;
+  //save the previous times from previous tab
+  lastStartTime: any;
+  lastEndTime: any;
   //makes the places autocomplete work
   @ViewChild('places') places: GooglePlaceDirective;
 
@@ -52,12 +55,17 @@ export class HappyHourCreateModalComponent implements OnInit {
     this.selectedIndex = val;
   }
   /**
-   * Called as event from the child
-   * @val will either be 1 or -1 if going back
+   * Called as event from the child, pass previous tabs
+   * values to next tab to prefill start and end times
+   * @val an object with 3 values
    */
-  changeDailyTab(val: Number) {
-    this.selectedIndex = this.selectedIndex + val;
+  changeDailyTab(val: any) {
+    this.lastStartTime = val.st;
+    this.lastEndTime = val.et;
+    this.selectedIndex = this.selectedIndex + val.val;
   }
+
+
 
   nextStep() {
     console.log(this.form.value)
