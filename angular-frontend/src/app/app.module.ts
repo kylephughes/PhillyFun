@@ -6,30 +6,23 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { HappyhourComponent } from './happyhour/happyhour.component';
+//import { HappyhourComponent } from './happyhour/happyhour.component';
 import { EventsComponent } from './events/events.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
-import { HappyHourCreateModalComponent } from './happyhour/happy-hour-create-modal/happy-hour-create-modal.component';
 //needed for modals in material?
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import {MatCardModule,MatTabsModule,MatStepperModule,MatFormFieldModule, MatInputModule,MatDialogModule,MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
-import { GooglePlaceModule } from "ngx-google-places-autocomplete";
-import {AmazingTimePickerModule} from 'amazing-time-picker';
-import { DailySpecialsCardComponent } from './happyhour/daily-specials-card/daily-specials-card.component';
-
+import { AngularMaterialModule } from './angular-material/angular-material.module'
+//import {HappyHourModule} from './happyhour/happyhour.module'
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    HappyhourComponent,
     EventsComponent,
-    HappyHourCreateModalComponent,
     MainNavComponent,
-    DailySpecialsCardComponent
   ],
   imports: [
     BrowserModule,
@@ -40,25 +33,11 @@ import { DailySpecialsCardComponent } from './happyhour/daily-specials-card/dail
     AppRoutingModule,
     NgbModule.forRoot(),
     LayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatStepperModule,
-    MatTabsModule,
-    MatCardModule,
     FlexLayoutModule,
-    GooglePlaceModule,
-    AmazingTimePickerModule
-  //  NgxMaterialTimepickerModule.forRoot()
+    AngularMaterialModule,
+    //HappyHourModule
   ],
   providers: [],
   bootstrap: [AppComponent],
-  //needed since it is inserted at runtime
-  entryComponents: [HappyHourCreateModalComponent]
 })
 export class AppModule { }
