@@ -4,7 +4,7 @@ import * as bodyParser from "body-parser";
 import * as cookieParser from "cookie-parser";
 import * as path from "path";
 import * as httperrors from "http-errors";
-import {routes} from "./routes/index";
+import {mainRoutes} from "./src/routes/index";
 import * as mongoose from "mongoose";
 
 class App {
@@ -26,17 +26,6 @@ class App {
         this.app.use(bodyParser.urlencoded({ extended: false }));
         // serving static files
         this.app.use(express.static('public'));
-      //  this.app.use("/api", this.routePrv.router);
-
-        //var angular = express.Router();
-        //sends all requires to angular so it can handle the routing
-        //angular.get('*',function(req,res,next) {
-        //  res.sendFile(path.join(__dirname + '/public/index.html'));
-        //});
-        //this.app.use('*',angular);
-      // catch 404 and forward to error handler
-
-
     }
 
     private routes(): void {
@@ -47,7 +36,7 @@ class App {
         });
         this.app.use(cookieParser());
           console.log("about to the router");
-        this.app.use('/api', routes);
+        this.app.use('/api', mainRoutes);
         console.log("set the router");
         this.app.use(function(req, res, next) {
           next(httperrors(404));

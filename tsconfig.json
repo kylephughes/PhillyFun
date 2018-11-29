@@ -17,7 +17,7 @@
       "dom"
     ]
   },
-  "include": ["server.ts","app.ts","./lib/**/*"],
+  "include": ["server.ts","app.ts","./src/**/*"],
   "exclude" :[
     "angular-frontend"
   ]

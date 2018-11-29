@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "tsc ./server.ts",
+    "build": "tsc",
     "dev": "ts-node ./server.ts",
-    "start": "nodemon ./output/server.js",
+    "start": "node ./output/server.js",
     "prod": "npm run build && npm start"
   },
   "dependencies": {
@@ -23,6 +23,7 @@
     "morgan": "^1.9.1",
     "pug": "^2.0.3",
     "pug-bootstrap": "0.0.15",
+    "ts-node": "^7.0.1",
     "typescript": "^3.1.6"
   },
   "main": "./dist/lib/app.js",
