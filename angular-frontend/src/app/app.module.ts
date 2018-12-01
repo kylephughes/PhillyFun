@@ -16,7 +16,7 @@ import { MainNavComponent } from './main-nav/main-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { AngularMaterialModule } from './angular-material/angular-material.module'
-//import {HappyHourModule} from './happyhour/happyhour.module'
+import {HttpClientModule} from '@angular/common/http'
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,6 +30,7 @@ import { AngularMaterialModule } from './angular-material/angular-material.modul
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
+    HttpClientModule,
     AppRoutingModule,
     NgbModule.forRoot(),
     LayoutModule,

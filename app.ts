@@ -29,15 +29,13 @@ class App {
     }
 
     private routes(): void {
-        let router = express.Router();
+        //let router = express.Router();
 
-        router.get('/tt', (req: express.Request, res: express.Response) => {
-          res.send("efreferf34f34f");
-        });
+      //  router.get('/tt', (req: express.Request, res: express.Response) => {
+      //    res.send("efreferf34f34f");
+      //  });
         this.app.use(cookieParser());
-          console.log("about to the router");
         this.app.use('/api', mainRoutes);
-        console.log("set the router");
         this.app.use(function(req, res, next) {
           next(httperrors(404));
         });

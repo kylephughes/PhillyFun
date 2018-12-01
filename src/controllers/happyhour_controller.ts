@@ -10,7 +10,7 @@ class HappyHourController{
 
 //this works when running tsc && node server.js but not with ts-node
  public addNewHappyHour (req: express.Request, res: express.Response) {
-        res.send("new happy hour tonight!!!!");
+        res.send({ hello: 'new happy hours !25' });
     }
 }
 export const hhController = new HappyHourController();

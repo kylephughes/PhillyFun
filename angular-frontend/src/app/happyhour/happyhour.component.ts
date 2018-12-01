@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import {HappyhourService} from './happyhour.service'
 @Component({
   selector: 'app-happyhour',
   templateUrl: './happyhour.component.html',
@@ -12,8 +13,8 @@ export class HappyhourComponent implements OnInit {
 
   //our variable of our module to handle the dialog itself
   newHappyHourDialog: MatDialogRef<HappyHourCreateModalComponent>;
-
-  constructor(private dialog: MatDialog, router: Router) {
+  apiResponse : any;
+  constructor(private dialog: MatDialog, router: Router,private happyhourServ : HappyhourService) {
     //closes dialog when navigating away from this page
     router.events.subscribe(() => {
       dialog.closeAll();
@@ -21,6 +22,15 @@ export class HappyhourComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.happyhourServ.getTestApi()
+      .subscribe(
+        apiResponse => {
+          this.apiResponse = apiResponse;
+          console.log('from the component ' + this.apiResponse);
+        }
+      );
+
   }
 
   toggleFormDialog() {

@@ -4,6 +4,7 @@ import { HappyHourCreateModalComponent } from './happy-hour-create-modal/happy-h
 import { HappyhourComponent } from './happyhour.component';
 import { DailySpecialsCardComponent } from './daily-specials-card/daily-specials-card.component';
 import { HappyHourRoutingModule} from './happyhour-routing.module'
+import { HappyhourService } from './happyhour.service';
 import { AngularMaterialModule } from '../angular-material/angular-material.module'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GooglePlaceModule } from "ngx-google-places-autocomplete";
@@ -25,6 +26,9 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     GooglePlaceModule,
     AmazingTimePickerModule,
     FlexLayoutModule
+  ],
+  providers : [
+    HappyhourService
   ],
   exports: [
   ],
