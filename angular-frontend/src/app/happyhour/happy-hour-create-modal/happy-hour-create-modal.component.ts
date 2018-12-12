@@ -1,11 +1,12 @@
 import { Component, Inject, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
-import { FormBuilder, Validators, FormGroup, FormArray } from "@angular/forms";
+import { FormBuilder, Validators, FormGroup, FormArray, FormControl } from "@angular/forms";
 import { MatCardModule, MatTabsModule, MatVerticalStepper, MatFormField, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { GooglePlaceDirective } from 'ngx-google-places-autocomplete/ngx-google-places-autocomplete.directive';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 //import {} from 'googlemaps';
 /// <reference types="@types/googlemaps" />
 import { DailySpecialsCardComponent } from '../daily-specials-card/daily-specials-card.component';
+import { HappyhourService } from '../happyhour.service';
 
 @Component({
   selector: 'app-happy-hour-create-modal',
@@ -22,23 +23,33 @@ export class HappyHourCreateModalComponent implements OnInit {
   //makes the places autocomplete work
   @ViewChild('places') places: GooglePlaceDirective;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private happyhourServ: HappyhourService) {
 
   }
 
   ngOnInit() {
     this.selectedIndex = 0;
+    //googlePlace is bound to the input, but the rest are filled out based on
+    //the google api data
     this.form = this.formBuilder.group({
-      barName: ['', Validators.required],
-      floatLabel: 'auto'
+      googlePlace: ['', Validators.required],
+      name: [''],
+      latitude: [''],
+      longitude: [''],
+      formattedAddress: ['']
     });
   }
 
+
+  /**
+    Dynamically add onto the form when google place changes
+    @address json from the google places
+  */
   handleAddressChange(address) {
-    console.log(address.geometry.location.lng());
-    console.log(address.geometry.location.lat());
-    console.log(address.geometry.location.toJSON());
-    console.log(address);
+    (<FormControl>this.form.controls['name']).setValue(address.name);
+    (<FormControl>this.form.controls['latitude']).setValue(address.geometry.location.lat());
+    (<FormControl>this.form.controls['longitude']).setValue(address.geometry.location.lng());
+    (<FormControl>this.form.controls['formattedAddress']).setValue(address.formatted_address);
   }
   /**
    * This will catch an event from the daily-special-card (child) and add onto the
@@ -49,7 +60,7 @@ export class HappyHourCreateModalComponent implements OnInit {
   }
 
   /**
-   * Support changing of the tabs by clicking the next button
+   * Support changing of the tabs by clicking the > button
    */
   selectedIndexChange(val: number) {
     this.selectedIndex = val;
@@ -66,9 +77,20 @@ export class HappyHourCreateModalComponent implements OnInit {
   }
 
 
+  /**
+    Before submitting the form, add in the lat and longiture from the google places
+  */
+  submit() {
+    console.log(this.form.value);
 
-  nextStep() {
-    console.log(this.form.value)
+    this.happyhourServ.postNewHappyHour(this.form.value)
+      .subscribe(
+        apiResponse => {
+          //  this.apiResponse = apiResponse;
+          console.log('submitted form heres the response? ' + apiResponse);
+        }
+      );
+
 
   }
 

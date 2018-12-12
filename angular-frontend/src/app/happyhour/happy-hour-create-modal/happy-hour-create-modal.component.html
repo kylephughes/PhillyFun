@@ -6,11 +6,11 @@
         <ng-template matStepLabel>List some details!</ng-template>
         <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutGap="3%" fxLayoutAlign="left">
 
-          <mat-form-field fxFlex="1 1 50%" [floatLabel]="form.value.floatLabel">
+          <mat-form-field fxFlex="1 1 50%" [floatLabel]="auto">
             <!-- this acts as a placeholder and label -->
             <mat-label>Enter a Bar/Resturant</mat-label>
 
-            <input ngx-google-places-autocomplete #places="ngx-places" (onAddressChange)="handleAddressChange($event)" matInput formControlName="barName">
+            <input ngx-google-places-autocomplete #places="ngx-places" (onAddressChange)="handleAddressChange($event)" matInput formControlName="googlePlace">
           </mat-form-field>
           <div fxFlex></div>
 
@@ -48,7 +48,7 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   <div fxFlex fxLayout="row" fxLayoutAlign="end" fxLayoutAlign.xs="start">
-    <button mat-raised-button color="primary" (click)="nextStep()" type="submit">Submit</button>
+    <button mat-raised-button color="primary" (click)="submit()" type="submit">Submit</button>
     <button mat-raised-button color="warn" type="button" mat-dialog-close>Cancel</button>
   </div>
 </mat-dialog-actions>

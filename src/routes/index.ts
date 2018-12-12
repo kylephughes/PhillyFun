@@ -11,10 +11,11 @@ class MainRoutes {
   }
   private config() {
     console.log("inside the index.tx");
-    //this way does not work with ts-node but it does with
+    //this way works with ts-node now
     //tsc to compile and then runing node server.js
     //this.routes.get('/hh', hhController.addNewHappyHour);
-    this.routes.get('/hh', hhController.addNewHappyHour);
+    this.routes.get('/happyhour', hhController.addNewHappyHour);
+    this.routes.post('/happyhour', hhController.postNewHappyHour);
   }
 }
 export const mainRoutes = new MainRoutes().routes;
