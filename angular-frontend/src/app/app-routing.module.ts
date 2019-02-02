@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { HappyhourComponent } from './happyhour/happyhour.component';
+//import { HappyhourComponent } from './happyhour/happyhour.component';
 import { EventsComponent } from './events/events.component';
  // This is my case
 const routes: Routes = [
@@ -17,7 +17,7 @@ const routes: Routes = [
     },
     {
         path: 'happyhour',
-        component: HappyhourComponent
+        loadChildren: './happyhour/happyhour.module#HappyHourModule'
     },
     {
         path: 'events',

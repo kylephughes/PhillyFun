@@ -1,55 +1,54 @@
 <h2 mat-dialog-title color="primary">Add Happy Hour</h2>
- <mat-dialog-content>
-   <form [formGroup]="form" (ngSubmit)="submit(form)">
- 	<mat-vertical-stepper #stepper>
-  		<mat-step [stepControl]="firstFormGroup">
-  		    <ng-template matStepLabel>List some details!</ng-template>
-                <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutGap="3%" fxLayoutAlign="left">
-            
-    		      <mat-form-field fxFlex="1 1 50%" [floatLabel]="form.value.floatLabel">
-        			<!-- this acts as a placeholder and label -->
-    		        <mat-label>Enter a Bar/Resturant</mat-label>
-                    
-      			    <input ngx-google-places-autocomplete #places="ngx-places" (onAddressChange)="handleAddressChange($event)" matInput formControlName="barName">
-                  </mat-form-field>
-                  <div fxFlex></div>
-               
-                </div>
-              
-  		</mat-step>
- 		<mat-step [stepControl]="secondFormGroup">
- 		   <ng-template matStepLabel>Upload some specials!</ng-template>
-    	   <mat-tab-group (selectedIndexChange)="selectedIndexChange($event)" [selectedIndex]="selectedIndex">
-  			 <mat-tab label="Mon">
-  			   <daily-specials-card [specialsDay]="monSpecials" (formReady)="addFormControl('monSpecials',$event)" (changeTab)="changeDailyTab($event)"></daily-specials-card>
-  			 </mat-tab>
-  			 <mat-tab label="Tue">
-    			 <daily-specials-card [specialsDay]="tueSpecials" (formReady)="addFormControl('tueSpecials',$event)" (changeTab)="changeDailyTab($event)"></daily-specials-card>
-  			 </mat-tab>
-  			 <mat-tab label="Wed">
-                <daily-specials-card [specialsDay]="wedSpecials" (formReady)="addFormControl('wedSpecials',$event)" (changeTab)="changeDailyTab($event)"></daily-specials-card>
-  		     </mat-tab>
-  		     <mat-tab label="Thur">
-                <daily-specials-card [specialsDay]="thrSpecials" (formReady)="addFormControl('thrSpecials',$event)" (changeTab)="changeDailyTab($event)"></daily-specials-card>
-  			 </mat-tab>
-  			 <mat-tab label="Fri">
-                <daily-specials-card [specialsDay]="friSpecials" (formReady)="addFormControl('friSpecials',$event)" (changeTab)="changeDailyTab($event)"></daily-specials-card>
-  			 </mat-tab>
-  			 <mat-tab label="Sat">
-                <daily-specials-card [specialsDay]="satSpecials" (formReady)="addFormControl('satSpecials',$event)" (changeTab)="changeDailyTab($event)"></daily-specials-card>
-  			 </mat-tab>
-  			 <mat-tab label="Sun">
-                <daily-specials-card [specialsDay]="sunSpecials" (formReady)="addFormControl('sunSpecials',$event)" (changeTab)="changeDailyTab($event)"></daily-specials-card>
-  			 </mat-tab>
-		   </mat-tab-group>
-  		 </mat-step>		 
-	</mat-vertical-stepper>
-   </form>
-  </mat-dialog-content>
-  <mat-dialog-actions>
-   <div fxFlex fxLayout="row" fxLayoutAlign="end" fxLayoutAlign.xs="start">
-    <button mat-raised-button color="primary" (click)="nextStep()" type="submit">Submit</button>
-    <button mat-raised-button color="warn" type="button" mat-dialog-close>Cancel</button>
-   </div>
-  </mat-dialog-actions>
+<mat-dialog-content>
+  <form [formGroup]="form" (ngSubmit)="submit(form)">
+    <mat-vertical-stepper #stepper>
+      <mat-step [stepControl]="firstFormGroup">
+        <ng-template matStepLabel>List some details!</ng-template>
+        <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutGap="3%" fxLayoutAlign="left">
 
+          <mat-form-field fxFlex="1 1 50%" [floatLabel]="auto">
+            <!-- this acts as a placeholder and label -->
+            <mat-label>Enter a Bar/Resturant</mat-label>
+
+            <input ngx-google-places-autocomplete #places="ngx-places" (onAddressChange)="handleAddressChange($event)" matInput formControlName="googlePlace">
+          </mat-form-field>
+          <div fxFlex></div>
+
+        </div>
+
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup">
+        <ng-template matStepLabel>Upload some specials!</ng-template>
+        <mat-tab-group (selectedIndexChange)="selectedIndexChange($event)" [selectedIndex]="selectedIndex">
+          <mat-tab label="Mon">
+            <daily-specials-card [startTime]="lastStartTime" [endTime]="lastEndTime" [specialsDay]="monSpecials" (formReady)="addFormControl('monSpecials',$event)" (changeTab)="changeDailyTab($event)"></daily-specials-card>
+          </mat-tab>
+          <mat-tab label="Tue">
+            <daily-specials-card [startTime]="lastStartTime" [endTime]="lastEndTime" [specialsDay]="tueSpecials" (formReady)="addFormControl('tueSpecials',$event)" (changeTab)="changeDailyTab($event)"></daily-specials-card>
+          </mat-tab>
+          <mat-tab label="Wed">
+            <daily-specials-card [startTime]="lastStartTime" [endTime]="lastEndTime" [specialsDay]="wedSpecials" (formReady)="addFormControl('wedSpecials',$event)" (changeTab)="changeDailyTab($event)"></daily-specials-card>
+          </mat-tab>
+          <mat-tab label="Thur">
+            <daily-specials-card [startTime]="lastStartTime" [endTime]="lastEndTime" [specialsDay]="thrSpecials" (formReady)="addFormControl('thrSpecials',$event)" (changeTab)="changeDailyTab($event)"></daily-specials-card>
+          </mat-tab>
+          <mat-tab label="Fri">
+            <daily-specials-card [startTime]="lastStartTime" [endTime]="lastEndTime" [specialsDay]="friSpecials" (formReady)="addFormControl('friSpecials',$event)" (changeTab)="changeDailyTab($event)"></daily-specials-card>
+          </mat-tab>
+          <mat-tab label="Sat">
+            <daily-specials-card [startTime]="lastStartTime" [endTime]="lastEndTime" [specialsDay]="satSpecials" (formReady)="addFormControl('satSpecials',$event)" (changeTab)="changeDailyTab($event)"></daily-specials-card>
+          </mat-tab>
+          <mat-tab label="Sun">
+            <daily-specials-card [startTime]="lastStartTime" [endTime]="lastEndTime" [specialsDay]="sunSpecials" (formReady)="addFormControl('sunSpecials',$event)" (changeTab)="changeDailyTab($event)"></daily-specials-card>
+          </mat-tab>
+        </mat-tab-group>
+      </mat-step>
+    </mat-vertical-stepper>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <div fxFlex fxLayout="row" fxLayoutAlign="end" fxLayoutAlign.xs="start">
+    <button mat-raised-button color="primary" (click)="submit()" type="submit">Submit</button>
+    <button mat-raised-button color="warn" type="button" mat-dialog-close>Cancel</button>
+  </div>
+</mat-dialog-actions>

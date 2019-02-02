@@ -1,8 +1,9 @@
 import { HappyHourCreateModalComponent } from './happy-hour-create-modal/happy-hour-create-modal.component';
-import { Component, OnInit,ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import {HappyhourService} from './happyhour.service'
 @Component({
   selector: 'app-happyhour',
   templateUrl: './happyhour.component.html',
@@ -12,27 +13,36 @@ export class HappyhourComponent implements OnInit {
 
   //our variable of our module to handle the dialog itself
   newHappyHourDialog: MatDialogRef<HappyHourCreateModalComponent>;
- 
-  constructor(private dialog: MatDialog, router : Router) { 
+  apiResponse : any;
+  constructor(private dialog: MatDialog, router: Router,private happyhourServ : HappyhourService) {
     //closes dialog when navigating away from this page
-   router.events.subscribe( () =>  {
-    dialog.closeAll();
-   });
+    router.events.subscribe(() => {
+      dialog.closeAll();
+    });
   }
 
   ngOnInit() {
+
+    this.happyhourServ.getTestApi()
+      .subscribe(
+        apiResponse => {
+          this.apiResponse = apiResponse;
+          console.log('from the component ' + this.apiResponse);
+        }
+      );
+
   }
-  
+
   toggleFormDialog() {
     //load in a new component in the dialog
-     this.newHappyHourDialog = this.dialog.open(HappyHourCreateModalComponent, {
-       hasBackdrop:false,
-       closeOnNavigation:true,
-       disableClose:false,
-       width:'900px'
-     });
+    this.newHappyHourDialog = this.dialog.open(HappyHourCreateModalComponent, {
+      hasBackdrop: false,
+      closeOnNavigation: true,
+      disableClose: false,
+      width: '900px'
+    });
 
-     this.newHappyHourDialog.afterClosed().subscribe(result => {
+    this.newHappyHourDialog.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
   }

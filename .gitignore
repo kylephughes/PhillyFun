@@ -1,3 +1,5 @@
 node_modules/
-public/index.html
+public/**
+dist/**
+output/**
 angular-frontend/src/index.html

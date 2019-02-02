@@ -1,44 +1,52 @@
 <div [formGroup]="form">
+  <div fxLayout="row" fxLayoutGap="5%" fxLayoutAlign="center center">
+    <mat-form-field fxFlex="20%" fxFlex.xs="40%">
+      <input matInput (click)="openStartPicker()" formControlName="startTime" type="time" value="" />
+      <mat-hint align="start">Start</mat-hint>
+    </mat-form-field>
+    <mat-form-field fxFlex="20%" fxFlex.xs="40%">
+      <input (click)="openEndPicker()" matInput formControlName="endTime" type="time" value="" />
+      <mat-hint align="start">End</mat-hint>
+    </mat-form-field>
+  </div>
   <mat-card formArrayName="specials">
-    			 <!-- loop through mon specials -->
-        		 <div *ngFor="let unit of form.controls.specials.controls; let i=index">
-    			 <!-- group name in this case row index -->
-          		   <div [formGroupName]="i">
-            		  <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3%" fxLayoutAlign="left">              
-              			<!-- unit name input field -->
-              			 <mat-form-field  fxFlex="60%"> 
-                			<input matInput placeholder="Special" formControlName="itemName" required>  
-              			 </mat-form-field>
-              			 <!-- unit quantity input field -->
-              			 <mat-form-field  fxFlex="20%" fxFlex.xs="20"> 
-               				<input matInput placeholder="Price" type="number" formControlName="itemPrice" required>
-              			 </mat-form-field>
-             			  <!-- unit price input field -->
-             			  <mat-form-field  fxFlex="10%"  fxFlex.xs="grow"> 
-               				<input matInput placeholder="Quantity" type="number" formControlName="itemQty">
-              			   </mat-form-field>
-    				   </div>
-    			   </div>
-    			 </div>
-    			 <mat-card-actions>
-                  <div fxLayout="row" fxLayoutGap="5px" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutAlign.xs="start center">
-                    <span fxFlex="1 1 20%">
-                      <button   type="button" mat-raised-button (click)="addSpecial()">
-                         Add More
-                      </button>
-                    </span>
-                    <span fxFlex></span>
-                    <span fxLayoutGap="5px">
-                      <button  type="button" color="primary" mat-mini-fab (click)="changeDailyTab(-1)">
-                        <
-                      </button>
-                      <button  type="button" color="primary" mat-mini-fab (click)="changeDailyTab(1)">
-                        >
-                      </button>
-                    </span>
-                 </div>
-                </mat-card-actions>
-    		   </mat-card>
+    <!-- loop through mon specials -->
+    <div *ngFor="let unit of form.controls.specials.controls; let i=index">
+      <!-- group name in this case row index -->
+      <div [formGroupName]="i">
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3%" fxLayoutAlign="left center">
+          <!-- unit name input field -->
+          <mat-form-field fxFlex="80%">
+            <input matInput placeholder="Special" formControlName="itemName" required>
+          </mat-form-field>
+          <button color="warn" fxflex="10%" *ngIf="form.controls.specials.length > 1" (click)="deleteSpecial(i)" mat-mini-fab>
+            <mat-icon>remove</mat-icon>
+          </button>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="3%" fxLayoutAlign="left center">
+          <mat-divider></mat-divider>
+        </div>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <mat-card-actions>
+      <div fxLayout="row" fxLayoutGap="5px" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutAlign.xs="start center">
+        <span fxFlex="1 1 20%">
+          <button type="button" mat-raised-button (click)="addSpecial()">
+            <mat-icon>add</mat-icon>
+            Add More
+          </button>
+        </span>
+        <span fxFlex></span>
+        <span fxLayoutGap="5px">
+          <button type="button" color="primary" mat-mini-fab (click)="changeDailyTab(-1)">
+            <mat-icon>chevron_left</mat-icon>
+          </button>
+          <button type="button" color="primary" mat-mini-fab (click)="changeDailyTab(1)">
+            <mat-icon>chevron_right</mat-icon>
+          </button>
+        </span>
+      </div>
+    </mat-card-actions>
+  </mat-card>
 </div>
-           
-        
