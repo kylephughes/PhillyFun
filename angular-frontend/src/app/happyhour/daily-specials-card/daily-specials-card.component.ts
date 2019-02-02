@@ -82,9 +82,7 @@ export class DailySpecialsCardComponent implements OnInit, OnChanges {
  */
   private createNewSpecial() {
     return this.fb.group({
-      itemName: ['', Validators.required],
-      itemPrice: [1, [Validators.required]],
-      itemQty: [''],
+      itemName: ['', Validators.required]
     });
   }
   /**

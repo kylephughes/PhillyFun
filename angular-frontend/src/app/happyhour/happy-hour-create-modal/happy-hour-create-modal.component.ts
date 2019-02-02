@@ -22,8 +22,10 @@ export class HappyHourCreateModalComponent implements OnInit {
   lastEndTime: any;
   //makes the places autocomplete work
   @ViewChild('places') places: GooglePlaceDirective;
-
-  constructor(private formBuilder: FormBuilder, private happyhourServ: HappyhourService) {
+  //dialogRef is a reference to te dialog controller this component
+  constructor(private dialogRef: MatDialogRef<HappyHourCreateModalComponent>,
+    private formBuilder: FormBuilder,
+    private happyhourServ: HappyhourService) {
 
   }
 
@@ -78,7 +80,7 @@ export class HappyHourCreateModalComponent implements OnInit {
 
 
   /**
-    Before submitting the form, add in the lat and longiture from the google places
+    Send request to nodejs, close the modal if success
   */
   submit() {
     console.log(this.form.value);
@@ -87,18 +89,9 @@ export class HappyHourCreateModalComponent implements OnInit {
       .subscribe(
         apiResponse => {
           //  this.apiResponse = apiResponse;
+          this.dialogRef.close();
           console.log('submitted form heres the response? ' + apiResponse);
         }
       );
-
-
-  }
-
-  save() {
-    //this.dialogRef.close("hllo");
-  }
-
-  close() {
-    //this.dialogRef.close();
   }
 }

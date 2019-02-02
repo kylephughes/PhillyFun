@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "tsc",
-    "dev": "ts-node ./server.ts",
+    "dev": "ts-node-dev --respawn --transpileOnly ./server.ts",
     "start": "node ./output/server.js",
     "prod": "npm run build && npm start"
   },
@@ -28,7 +28,8 @@
   },
   "main": "./dist/lib/app.js",
   "devDependencies": {
-    "nodemon": "^1.18.7"
+    "nodemon": "^1.18.7",
+    "ts-node-dev": "^1.0.0-pre.32"
   },
   "author": "",
   "license": "ISC",
