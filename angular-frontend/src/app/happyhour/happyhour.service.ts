@@ -15,10 +15,12 @@ export class HappyhourService {
 
   constructor(private http: HttpClient) { }
 
-  getTestApi(): Observable<any> {
-    return this.http.get(APIURL + 'happyhour').map(response => {
-      console.log("got to t he iapi" + JSON.stringify(response));
-      return response;
+  //made async work (it needs to have an observable and it has to be an iterable like an array)
+  getHappyHours(): Observable<any[]> {
+    return this.http.get(APIURL + 'happyhour').map(response => { 
+      let resp : any = response;
+      console.log(resp);
+      return resp.data;
     });
 
   }

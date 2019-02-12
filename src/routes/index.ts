@@ -14,7 +14,7 @@ class MainRoutes {
     //this way works with ts-node now
     //tsc to compile and then runing node server.js
     //this.routes.get('/hh', hhController.addNewHappyHour);
-    this.routes.get('/happyhour', hhController.addNewHappyHour);
+    this.routes.get('/happyhour', hhController.getHappyHours);
     this.routes.post('/happyhour', hhController.postNewHappyHour);
   }
 }

@@ -19,7 +19,7 @@ export class HappyHourCreateModalComponent implements OnInit {
   selectedIndex: any;
   //save the previous times from previous tab
   lastStartTime: any;
-  lastEndTime: any;
+  lastEndTime: any; 
   //makes the places autocomplete work
   @ViewChild('places') places: GooglePlaceDirective;
   //dialogRef is a reference to te dialog controller this component
