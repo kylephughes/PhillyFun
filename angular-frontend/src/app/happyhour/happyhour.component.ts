@@ -23,7 +23,7 @@ export class HappyhourComponent implements OnInit {
   }
 
   ngOnInit() {
-    //for some reason the piep (async isnt) working. Differ not foundfor this object??
+    //service returns the observable for the async pipe
     this.happyHours =  this.happyhourServ.getHappyHours();
   
   }

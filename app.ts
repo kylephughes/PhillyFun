@@ -36,6 +36,10 @@ class App {
       //  });
         this.app.use(cookieParser());
         this.app.use('/api', mainRoutes);
+        //let angular handle the routes
+        this.app.get('*', (req: express.Request, res: express.Response) => { 
+          res.sendFile(path.resolve('public/index.html')); 
+        });
         this.app.use(function(req, res, next) {
           next(httperrors(404));
         });
