@@ -22,7 +22,9 @@ class HappyHourController {
   public getHappyHours(req: express.Request, res: express.Response) {
       hhModel.find({}, (err,happyhours) => {
             if(err) {
-              res.send(err)
+              response.status=500;
+              response.message=err;
+              res.send(response)
             }
             response.data = happyhours;
             res.json(response);

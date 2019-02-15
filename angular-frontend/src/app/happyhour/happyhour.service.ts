@@ -27,7 +27,6 @@ export class HappyhourService {
 
   postNewHappyHour(data): Observable<any> {
     return this.http.post(APIURL + 'happyhour', data).map(response => {
-      console.log("got to t he iapi" + JSON.stringify(response));
       return response;
     });
 

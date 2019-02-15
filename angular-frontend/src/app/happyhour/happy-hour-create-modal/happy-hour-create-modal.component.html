@@ -1,5 +1,8 @@
 <h2 mat-dialog-title color="primary">Add Happy Hour</h2>
 <mat-dialog-content>
+    <mat-progress-bar *ngIf="dataSent"
+      [mode]="intermediate">
+    </mat-progress-bar>
   <form [formGroup]="form" (ngSubmit)="submit(form)">
     <mat-vertical-stepper #stepper>
       <mat-step [stepControl]="firstFormGroup">

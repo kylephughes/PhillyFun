@@ -1,6 +1,6 @@
 import { HappyHourCreateModalComponent } from './happy-hour-create-modal/happy-hour-create-modal.component';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { MatDialogRef, MatDialog } from '@angular/material';
+import { MatSnackBar,MatDialogRef, MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, of } from 'rxjs';
@@ -23,9 +23,13 @@ export class HappyhourComponent implements OnInit {
   }
 
   ngOnInit() {
-    //service returns the observable for the async pipe
-    this.happyHours =  this.happyhourServ.getHappyHours();
+      this.refreshComponent();
   
+  }
+
+  refreshComponent() {
+      //service returns the observable for the async pipe
+      this.happyHours =  this.happyhourServ.getHappyHours();
   }
 
   toggleFormDialog() {
@@ -39,6 +43,7 @@ export class HappyhourComponent implements OnInit {
 
     this.newHappyHourDialog.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      this.refreshComponent();
     });
   }
 }
