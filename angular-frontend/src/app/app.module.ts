@@ -16,7 +16,10 @@ import { MainNavComponent } from './main-nav/main-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { AngularMaterialModule } from './angular-material/angular-material.module'
-import {HttpClientModule} from '@angular/common/http'
+import {HttpClientModule,HTTP_INTERCEPTORS} from '@angular/common/http'
+
+//import {HttpRequestInterceptor} from '../interceptor/HttpRequestInterceptor';
+//import {ErrorHandler} from '../interceptor/ErrorHandler';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,10 +38,10 @@ import {HttpClientModule} from '@angular/common/http'
     NgbModule.forRoot(),
     LayoutModule,
     FlexLayoutModule,
-    AngularMaterialModule,
-    //HappyHourModule
+    AngularMaterialModule
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

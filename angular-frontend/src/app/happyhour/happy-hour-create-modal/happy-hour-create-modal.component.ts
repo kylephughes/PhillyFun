@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, FormArray, FormControl } from "@angular/forms";
-import { MatCardModule, MatTabsModule, MatVerticalStepper, MatFormField, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatProgressBarModule, MatCardModule,
+     MatTabsModule, MatVerticalStepper, MatFormField, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { GooglePlaceDirective } from 'ngx-google-places-autocomplete/ngx-google-places-autocomplete.directive';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
@@ -20,13 +22,19 @@ export class HappyHourCreateModalComponent implements OnInit {
   selectedIndex: any;
   //save the previous times from previous tab
   lastStartTime: any;
-  lastEndTime: any;
+  lastEndTime: any; 
+  //controls the progress bar
+  dataSent : boolean = false;
+
   //makes the places autocomplete work
   @ViewChild('places') places: GooglePlaceDirective;
   //dialogRef is a reference to te dialog controller this component
   constructor(private dialogRef: MatDialogRef<HappyHourCreateModalComponent>,
     private formBuilder: FormBuilder,
-    private happyhourServ: HappyhourService) {
+    private happyhourServ: HappyhourService,
+    private snackbar : MatSnackBar
+    
+    ) {
 
   }
 
@@ -85,13 +93,15 @@ export class HappyHourCreateModalComponent implements OnInit {
   */
   submit() {
     console.log(this.form.value);
-
+    this.dataSent = true;
     this.happyhourServ.postNewHappyHour(this.form.value)
       .subscribe(
         apiResponse => {
           //  this.apiResponse = apiResponse;
+          this.dataSent = false;
           this.dialogRef.close();
-          console.log('submitted form heres the response? ' + apiResponse);
+          //modify the config more 
+          this.snackbar.open("Happy Hour has been created!",'Close',{duration:2000,verticalPosition:'top'});
         }
       );
   }

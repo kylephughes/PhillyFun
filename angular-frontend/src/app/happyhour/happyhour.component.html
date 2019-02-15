@@ -1,4 +1,32 @@
 <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px">
-<span fxFlex></span>
-<button mat-raised-button color="primary" (click)="toggleFormDialog()">New Happy Hour</button>
+    <span fxFlex></span>
+    <button mat-raised-button color="primary" (click)="toggleFormDialog()">New Happy Hour</button>
 </div>
+
+<div *ngIf="happyHours | async; else loading">
+    <div fxFlex fxLayout.xs="column" fxLayout="row" fxLayoutGap="5px">
+        <div *ngFor="let happyhour of happyHours | async">
+            <mat-card fxFlex class="example-card">
+                <mat-card-header>
+                    <div mat-card-avatar class="example-header-image"></div>
+                    <mat-card-title>{{happyhour.name}}</mat-card-title>
+                    <mat-card-subtitle>{{happyhour.formattedAddress}}</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <p>
+                        insert specials here
+                    </p>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-button>Edit</button>
+                    <button mat-button>Delete</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+</div>
+<ng-template #loading>
+    <mat-progress-bar
+        [mode]="intermediate">
+    </mat-progress-bar>
+</ng-template>

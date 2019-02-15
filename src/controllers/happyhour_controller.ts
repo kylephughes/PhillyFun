@@ -6,18 +6,31 @@ import { HappyHour } from '../models/happyhour';
 //const Contact = mongoose.model('Contact', ContactSchema);
 const hhModel = mongoose.model('HappyHour', HappyHour);
 
+  // Response handling
+  let response = {
+    status: 200,
+    data: [],
+    message: null
+  };
+
 class HappyHourController {
 
   constructor() {
 
   }
 
-  //this works when running tsc && node server.js but not with ts-node
-  public addNewHappyHour(req: express.Request, res: express.Response) {
-    res.send({ hello: 'new happy hours !2511' });
+  public getHappyHours(req: express.Request, res: express.Response) {
+      hhModel.find({}, (err,happyhours) => {
+            if(err) {
+              response.status=500;
+              response.message=err;
+              res.send(response)
+            }
+            response.data = happyhours;
+            res.json(response);
+      });
   }
 
-  //this works when running tsc && node server.js but not with ts-node
   public postNewHappyHour(req: express.Request, res: express.Response) {
     let hh = new hhModel({
       name: req.body.name,
