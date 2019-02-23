@@ -1,8 +1,7 @@
 <h2 mat-dialog-title color="primary">Add Happy Hour</h2>
 <mat-dialog-content>
-    <mat-progress-bar *ngIf="dataSent"
-      [mode]="intermediate">
-    </mat-progress-bar>
+  <mat-progress-bar *ngIf="dataSent" [mode]="intermediate">
+  </mat-progress-bar>
   <form [formGroup]="form" (ngSubmit)="submit(form)">
     <mat-vertical-stepper #stepper>
       <mat-step [stepControl]="firstFormGroup">
@@ -13,7 +12,8 @@
             <!-- this acts as a placeholder and label -->
             <mat-label>Enter a Bar/Resturant</mat-label>
 
-            <input ngx-google-places-autocomplete #places="ngx-places" (onAddressChange)="handleAddressChange($event)" matInput formControlName="googlePlace">
+            <input ngx-google-places-autocomplete #places="ngx-places" (onAddressChange)="handleAddressChange($event)"
+              matInput formControlName="googlePlace">
           </mat-form-field>
           <div fxFlex></div>
 
@@ -21,28 +21,43 @@
 
       </mat-step>
       <mat-step [stepControl]="secondFormGroup">
+        <!-- edit data is either default empty data or contains the hh we are editing-->
         <ng-template matStepLabel>Upload some specials!</ng-template>
         <mat-tab-group (selectedIndexChange)="selectedIndexChange($event)" [selectedIndex]="selectedIndex">
           <mat-tab label="Mon">
-            <daily-specials-card [startTime]="lastStartTime" [endTime]="lastEndTime" [specialsDay]="monSpecials" (formReady)="addFormControl('monSpecials',$event)" (changeTab)="changeDailyTab($event)"></daily-specials-card>
+            <daily-specials-card [editData]="this.editData" [startTime]="lastStartTime" [endTime]="lastEndTime"
+              [specialsDay]="monSpecials" (formReady)="addFormControl('monSpecials',$event)"
+              (changeTab)="changeDailyTab($event)"></daily-specials-card>
           </mat-tab>
           <mat-tab label="Tue">
-            <daily-specials-card [startTime]="lastStartTime" [endTime]="lastEndTime" [specialsDay]="tueSpecials" (formReady)="addFormControl('tueSpecials',$event)" (changeTab)="changeDailyTab($event)"></daily-specials-card>
+            <daily-specials-card [editData]="this.editData" [startTime]="lastStartTime" [endTime]="lastEndTime"
+              [specialsDay]="tueSpecials" (formReady)="addFormControl('tueSpecials',$event)"
+              (changeTab)="changeDailyTab($event)"></daily-specials-card>
           </mat-tab>
           <mat-tab label="Wed">
-            <daily-specials-card [startTime]="lastStartTime" [endTime]="lastEndTime" [specialsDay]="wedSpecials" (formReady)="addFormControl('wedSpecials',$event)" (changeTab)="changeDailyTab($event)"></daily-specials-card>
+            <daily-specials-card [editData]="this.editData" [startTime]="lastStartTime" [endTime]="lastEndTime"
+              [specialsDay]="wedSpecials" (formReady)="addFormControl('wedSpecials',$event)"
+              (changeTab)="changeDailyTab($event)"></daily-specials-card>
           </mat-tab>
           <mat-tab label="Thur">
-            <daily-specials-card [startTime]="lastStartTime" [endTime]="lastEndTime" [specialsDay]="thrSpecials" (formReady)="addFormControl('thrSpecials',$event)" (changeTab)="changeDailyTab($event)"></daily-specials-card>
+            <daily-specials-card [editData]="this.editData" [startTime]="lastStartTime" [endTime]="lastEndTime"
+              [specialsDay]="thrSpecials" (formReady)="addFormControl('thrSpecials',$event)"
+              (changeTab)="changeDailyTab($event)"></daily-specials-card>
           </mat-tab>
           <mat-tab label="Fri">
-            <daily-specials-card [startTime]="lastStartTime" [endTime]="lastEndTime" [specialsDay]="friSpecials" (formReady)="addFormControl('friSpecials',$event)" (changeTab)="changeDailyTab($event)"></daily-specials-card>
+            <daily-specials-card [editData]="this.editData" [startTime]="lastStartTime" [endTime]="lastEndTime"
+              [specialsDay]="friSpecials" (formReady)="addFormControl('friSpecials',$event)"
+              (changeTab)="changeDailyTab($event)"></daily-specials-card>
           </mat-tab>
           <mat-tab label="Sat">
-            <daily-specials-card [startTime]="lastStartTime" [endTime]="lastEndTime" [specialsDay]="satSpecials" (formReady)="addFormControl('satSpecials',$event)" (changeTab)="changeDailyTab($event)"></daily-specials-card>
+            <daily-specials-card [editData]="this.editData" [startTime]="lastStartTime" [endTime]="lastEndTime"
+              [specialsDay]="satSpecials" (formReady)="addFormControl('satSpecials',$event)"
+              (changeTab)="changeDailyTab($event)"></daily-specials-card>
           </mat-tab>
           <mat-tab label="Sun">
-            <daily-specials-card [startTime]="lastStartTime" [endTime]="lastEndTime" [specialsDay]="sunSpecials" (formReady)="addFormControl('sunSpecials',$event)" (changeTab)="changeDailyTab($event)"></daily-specials-card>
+            <daily-specials-card [editData]="this.editData" [startTime]="lastStartTime" [endTime]="lastEndTime"
+              [specialsDay]="sunSpecials" (formReady)="addFormControl('sunSpecials',$event)"
+              (changeTab)="changeDailyTab($event)"></daily-specials-card>
           </mat-tab>
         </mat-tab-group>
       </mat-step>

@@ -6,12 +6,12 @@ import { HappyHour } from '../models/happyhour';
 //const Contact = mongoose.model('Contact', ContactSchema);
 const hhModel = mongoose.model('HappyHour', HappyHour);
 
-  // Response handling
-  let response = {
-    status: 200,
-    data: [],
-    message: null
-  };
+// Response handling
+let response = {
+  status: 200,
+  data: {},
+  message: null
+};
 
 class HappyHourController {
 
@@ -19,16 +19,29 @@ class HappyHourController {
 
   }
 
+  public getHappyHour(req: express.Request, res: express.Response) {
+    hhModel.findById(req.params.happyhourId, (err, happyhour) => {
+      if (err) {
+        response.status=400;
+        res.send(err);
+      }
+      response.status=200;
+      response.data=happyhour;
+      res.json(response);
+    });
+  }
+
+
   public getHappyHours(req: express.Request, res: express.Response) {
-      hhModel.find({}, (err,happyhours) => {
-            if(err) {
-              response.status=500;
-              response.message=err;
-              res.send(response)
-            }
-            response.data = happyhours;
-            res.json(response);
-      });
+    hhModel.find({}, (err, happyhours) => {
+      if (err) {
+        response.status = 500;
+        response.message = err;
+        res.send(response)
+      }
+      response.data = happyhours;
+      res.json(response);
+    });
   }
 
   public postNewHappyHour(req: express.Request, res: express.Response) {
@@ -46,7 +59,7 @@ class HappyHourController {
       sunSpecials: req.body.sunSpecials
     }
     );
-    hh.save(function(err) {
+    hh.save(function (err) {
       if (err) {
         res.send({ error: 'Error saving happy hour $err' + err });
       }

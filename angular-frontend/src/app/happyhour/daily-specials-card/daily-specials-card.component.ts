@@ -1,6 +1,7 @@
 import { Component, OnInit, SimpleChanges, OnChanges, EventEmitter, Output, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { AmazingTimePickerService } from 'amazing-time-picker';
+import { HappyHourModel } from '../../models/HappyHourModel';
 
 
 @Component({
@@ -23,21 +24,44 @@ export class DailySpecialsCardComponent implements OnInit, OnChanges {
   //accept a variable when called
   @Input('endTime')
   private lastEndTime: any;
+
+  //handle form group differently if editing
+  @Input('editData')
+  private editData: HappyHourModel;
+
   private form: FormGroup;
 
   constructor(private fb: FormBuilder, private atp: AmazingTimePickerService) {
-    //each day has its own specials and times
-    this.form = this.fb.group({
-      startTime: [this.lastStartTime, ''],
-      endTime: [this.lastEndTime, ''],
-      dayOfWeek: [this.specialsDay],
-      specials: this.fb.array([
-        this.createNewSpecial()
-      ])
-    });
+
   }
 
   ngOnInit() {
+    //The @Input communication mechanism is processed as part of following 
+    //change detection phase so input bindings are not available in constructor.
+
+    //each day has its own specials and times
+    if (this.editData.name == '') {
+      this.form = this.fb.group({
+        startTime: [this.lastStartTime, ''],
+        endTime: [this.lastEndTime, ''],
+        dayOfWeek: [this.specialsDay],
+        specials: this.fb.array([
+          this.createNewSpecial()
+        ])
+      });
+    } else {
+      //TODO need specific log here to loop over specials array in editData
+      console.log("editing");
+      this.form = this.fb.group({
+        startTime: [this.lastStartTime, ''],
+        endTime: [this.lastEndTime, ''],
+        dayOfWeek: [this.specialsDay],
+        specials: this.fb.array([
+          this.createNewSpecial()
+        ])
+      });
+
+    }
     this.formReady.emit(this.form);
   }
 
@@ -47,6 +71,9 @@ export class DailySpecialsCardComponent implements OnInit, OnChanges {
   * entered for the first day
   */
   ngOnChanges(changes: SimpleChanges) {
+    console.log("ngonchanges");
+    //this code might need to change since the formcreation is moved to ngonint
+    /** 
     let st: any = this.form.get('startTime').value;
     let et: any = this.form.get('endTime').value;
     if (st == null) {
@@ -55,6 +82,7 @@ export class DailySpecialsCardComponent implements OnInit, OnChanges {
     if (et == null) {
       this.form.get('endTime').setValue(this.lastEndTime);
     }
+    */
   }
 
   /**

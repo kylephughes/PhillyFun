@@ -18,7 +18,7 @@
                     </p>
                 </mat-card-content>
                 <mat-card-actions>
-                    <button mat-button>Edit</button>
+                    <button mat-button (click)="editHappyHour(happyhour._id)">Edit</button>
                     <button mat-button>Delete</button>
                 </mat-card-actions>
             </mat-card>
@@ -26,7 +26,6 @@
     </div>
 </div>
 <ng-template #loading>
-    <mat-progress-bar
-        [mode]="intermediate">
+    <mat-progress-bar [mode]="intermediate">
     </mat-progress-bar>
 </ng-template>
