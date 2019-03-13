@@ -20,6 +20,9 @@ import { HappyHourModel } from 'src/app/models/HappyHourModel';
 })
 export class HappyHourCreateModalComponent implements OnInit {
 
+  //used to dynamically create  daily special card's
+  days : { label: string, day: string }[];
+
   form: FormGroup;
   selectedIndex: any;
   //save the previous times from previous tab
@@ -44,6 +47,14 @@ export class HappyHourCreateModalComponent implements OnInit {
 
   ngOnInit() {
     this.selectedIndex = 0;
+    this.days = [
+      {"label":"Mon","day":"monSpecials"},
+      {"label":"Tue","day":"tueSpecials"},
+      {"label":"Wed","day":"wedSpecials"},
+      {"label":"Thr","day":"thrSpecials"},
+      {"label":"Fri","day":"friSpecials"},
+      {"label":"Sat","day":"satSpecials"},
+      {"label":"Sun","day":"sunSpecials"}];
     //googlePlace is bound to the input, but the rest are filled out based on
     //the google api data
     this.form = this.formBuilder.group({
@@ -65,13 +76,6 @@ export class HappyHourCreateModalComponent implements OnInit {
     (<FormControl>this.form.controls['latitude']).setValue(address.geometry.location.lat());
     (<FormControl>this.form.controls['longitude']).setValue(address.geometry.location.lng());
     (<FormControl>this.form.controls['formattedAddress']).setValue(address.formatted_address);
-  }
-  /**
-   * This will catch an event from the daily-special-card (child) and add onto the
-   * main form
-  */
-  private addFormControl(name: string, formGroup: FormGroup): void {
-    this.form.addControl(name, formGroup);
   }
 
   /**

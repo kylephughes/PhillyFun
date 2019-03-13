@@ -28,8 +28,9 @@ export class HappyhourComponent implements OnInit {
 
   }
 
-  refreshComponent = () => {
+  refreshComponent () {
     //service returns the observable for the async pipe
+    //async pipe makes the http request return twice? weird occurrence
     this.happyHours = this.happyhourServ.getHappyHours();
   }
 
@@ -65,6 +66,7 @@ export class HappyhourComponent implements OnInit {
    * In new or edit mode, refresh the list
    */
   registerModalClose = () => {
+    alert("modal close");
     this.newHappyHourDialog.afterClosed().subscribe(result => {
       this.refreshComponent();
     });

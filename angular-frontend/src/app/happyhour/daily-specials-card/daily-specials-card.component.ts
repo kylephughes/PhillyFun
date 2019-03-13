@@ -12,8 +12,6 @@ import { HappyHourModel } from '../../models/HappyHourModel';
 export class DailySpecialsCardComponent implements OnInit, OnChanges {
   //send the data to to the parent via this event
   @Output()
-  private formReady: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
-  @Output()
   private changeTab: EventEmitter<any> = new EventEmitter<any>();
   //accept a variable when called
   @Input('specialsDay')
@@ -28,6 +26,10 @@ export class DailySpecialsCardComponent implements OnInit, OnChanges {
   //handle form group differently if editing
   @Input('editData')
   private editData: HappyHourModel;
+
+  //the form from the parent
+  @Input('mainForm')
+  private mainForm : FormGroup;
 
   private form: FormGroup;
 
@@ -62,7 +64,8 @@ export class DailySpecialsCardComponent implements OnInit, OnChanges {
       });
 
     }
-    this.formReady.emit(this.form);
+    //add this day onto the main form
+    this.mainForm.addControl(this.specialsDay, this.form);
   }
 
   /**

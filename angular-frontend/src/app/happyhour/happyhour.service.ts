@@ -18,8 +18,9 @@ export class HappyhourService {
   //made async work (it needs to have an observable and it has to be an iterable like an array)
   getHappyHours(): Observable<HappyHourModel[]> {
     return this.http.get(APIURL + 'happyhour').map(response => {
+      //some reason this loops over twice
       let resp: any = response || {};
-      console.log(resp);
+      console.log( resp.data);
       return resp.data;
     });
 
