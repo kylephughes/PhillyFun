@@ -1,7 +1,9 @@
-import { Component, Inject, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewEncapsulation, ViewChild, Optional } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, FormArray, FormControl } from "@angular/forms";
-import { MatProgressBarModule, MatCardModule,
-     MatTabsModule, MatVerticalStepper, MatFormField, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import {
+  MatProgressBarModule, MatCardModule,
+  MatTabsModule, MatVerticalStepper, MatFormField, MatDialogRef, MAT_DIALOG_DATA
+} from '@angular/material';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { GooglePlaceDirective } from 'ngx-google-places-autocomplete/ngx-google-places-autocomplete.directive';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
@@ -10,6 +12,7 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 /// <reference types="@types/googlemaps" />
 import { DailySpecialsCardComponent } from '../daily-specials-card/daily-specials-card.component';
 import { HappyhourService } from '../happyhour.service';
+import { HappyHourModel } from 'src/app/models/HappyHourModel';
 
 @Component({
   selector: 'app-happy-hour-create-modal',
@@ -18,36 +21,49 @@ import { HappyhourService } from '../happyhour.service';
 })
 export class HappyHourCreateModalComponent implements OnInit {
 
+  //used to dynamically create  daily special card's
+  days : { label: string, day: string }[];
+
   form: FormGroup;
   selectedIndex: any;
   //save the previous times from previous tab
   lastStartTime: any;
-  lastEndTime: any; 
+  lastEndTime: any;
   //controls the progress bar
-  dataSent : boolean = false;
+  dataSent: boolean = false;
 
   //makes the places autocomplete work
   @ViewChild('places') places: GooglePlaceDirective;
   //dialogRef is a reference to te dialog controller this component
-  constructor(private dialogRef: MatDialogRef<HappyHourCreateModalComponent>,
+  //editData defaulted or contains edit information
+  constructor(@Optional() @Inject(MAT_DIALOG_DATA) private editData: HappyHourModel,
+    @Optional() private dialogRef: MatDialogRef<HappyHourCreateModalComponent>,
     private formBuilder: FormBuilder,
     private happyhourServ: HappyhourService,
-    private snackbar : MatSnackBar
-    
-    ) {
+    private snackbar: MatSnackBar
+
+  ) {
 
   }
 
   ngOnInit() {
     this.selectedIndex = 0;
+    this.days = [
+      {"label":"Mon","day":"monSpecials"},
+      {"label":"Tue","day":"tueSpecials"},
+      {"label":"Wed","day":"wedSpecials"},
+      {"label":"Thr","day":"thrSpecials"},
+      {"label":"Fri","day":"friSpecials"},
+      {"label":"Sat","day":"satSpecials"},
+      {"label":"Sun","day":"sunSpecials"}];
     //googlePlace is bound to the input, but the rest are filled out based on
     //the google api data
     this.form = this.formBuilder.group({
-      googlePlace: ['', Validators.required],
-      name: [''],
-      latitude: [''],
-      longitude: [''],
-      formattedAddress: ['']
+      googlePlace: [this.editData.name, Validators.required],
+      name: [this.editData.name],
+      latitude: [this.editData.latitude],
+      longitude: [this.editData.longitude],
+      formattedAddress: [this.editData.formattedAddress]
     });
   }
 
@@ -61,13 +77,6 @@ export class HappyHourCreateModalComponent implements OnInit {
     (<FormControl>this.form.controls['latitude']).setValue(address.geometry.location.lat());
     (<FormControl>this.form.controls['longitude']).setValue(address.geometry.location.lng());
     (<FormControl>this.form.controls['formattedAddress']).setValue(address.formatted_address);
-  }
-  /**
-   * This will catch an event from the daily-special-card (child) and add onto the
-   * main form
-  */
-  private addFormControl(name: string, formGroup: FormGroup): void {
-    this.form.addControl(name, formGroup);
   }
 
   /**
@@ -101,7 +110,8 @@ export class HappyHourCreateModalComponent implements OnInit {
           this.dataSent = false;
           this.dialogRef.close();
           //modify the config more 
-          this.snackbar.open("Happy Hour has been created!",'Close',{duration:2000,verticalPosition:'top'});
+          this.snackbar.open("Happy Hour has been created!", 'Close',
+            { duration: 2000, verticalPosition: 'top' });
         }
       );
   }
