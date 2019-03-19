@@ -66,7 +66,6 @@ export class HappyhourComponent implements OnInit {
    * In new or edit mode, refresh the list
    */
   registerModalClose = () => {
-    alert("modal close");
     this.newHappyHourDialog.afterClosed().subscribe(result => {
       this.refreshComponent();
     });

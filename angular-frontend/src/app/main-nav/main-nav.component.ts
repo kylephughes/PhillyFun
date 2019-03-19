@@ -1,7 +1,7 @@
-import { Component, NgZone, OnInit, ViewChild} from '@angular/core';
+import { Component, NgZone, OnInit, ViewChild, AfterViewInit} from '@angular/core';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material';
-import { Router } from '@angular/router';
+import { Router, NavigationCancel, NavigationEnd, NavigationStart } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -10,16 +10,19 @@ import { map } from 'rxjs/operators';
   templateUrl: './main-nav.component.html',
   styleUrls: ['./main-nav.component.scss'] 
 })
-export class MainNavComponent implements OnInit{
+export class MainNavComponent implements OnInit,AfterViewInit {
   //isHandset: Observable<BreakpointState> = this.breakpointObserver.observe(Breakpoints.Handset);
     width;
     height;
     mode:string = 'side';
     open = 'true';
+
+    //since we lazy load child components, show a loading indicator while we click a link
+    loadingChild : boolean;
   @ViewChild(MatSidenav) sidenav: MatSidenav;
   constructor(public ngZone:NgZone,private _router:Router) {
   
-  
+      this.loadingChild = true;
       this.changeMode();
     //ngzone runs outside of angular
         window.onresize = (e) => {
@@ -36,6 +39,21 @@ export class MainNavComponent implements OnInit{
         this.sidenav.close();  
      });
    }
+
+   ngAfterViewInit() {
+    this._router.events
+        .subscribe((event) => {
+            if(event instanceof NavigationStart) {
+                this.loadingChild = true;
+            }
+            else if (
+                event instanceof NavigationEnd || 
+                event instanceof NavigationCancel
+                ) {
+                this.loadingChild = false;
+            }
+        });
+}
   
   
    /**

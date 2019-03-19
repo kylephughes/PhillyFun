@@ -1,12 +1,17 @@
-<div>
+<br/>
+<br/>
+<div fxLayout="row" fxLayoutAlign="center center">
     <button mat-raised-button color="primary" (click)="toggleFormDialog()">New Happy Hour</button>
 </div>
-
+<br/>
+<mat-divider></mat-divider>
+<mat-divider></mat-divider>
+<br/>
 <ng-container *ngIf="happyHours | async; else loading">
-    <div fxflex fxLayout.xs="column" fxLayout="row wrap" fxLayoutAlign.gt-xs="center start" fxLayoutAlign.xs="start" fxLayoutGap="2%">
-        <div fxFlex fxFlex.sm="33" fxFlex.xs="100" fxFlex.gt-sm="25" 
-                    *ngFor="let happyhour of happyHours | async">
-            <mat-card>
+    <div fxflex fxLayout.xs="column" fxLayout="row wrap" fxLayoutAlign.gt-xs="space-evenly start" 
+                                    fxLayoutAlign.xs="start" fxLayoutGap="2% grid">
+        <div [ngClass]="'hhCard'" fxFlex fxflex.xs="100" fxFlex.gt-xs="31" *ngFor="let happyhour of happyHours | async">
+            <mat-card fxFlex>
                 <mat-card-header>
                     <mat-card-title>{{happyhour.name}}</mat-card-title>
                     <mat-card-subtitle>{{happyhour.formattedAddress}}</mat-card-subtitle>
