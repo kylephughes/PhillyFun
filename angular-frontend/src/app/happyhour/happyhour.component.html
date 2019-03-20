@@ -1,32 +1,30 @@
-<br/>
-<br/>
+<br />
+<br />
 <div fxLayout="row" fxLayoutAlign="center center">
     <button mat-raised-button color="primary" (click)="toggleFormDialog()">New Happy Hour</button>
 </div>
-<br/>
+<br />
 <mat-divider></mat-divider>
 <mat-divider></mat-divider>
-<br/>
+<br />
 <ng-container *ngIf="happyHours | async; else loading">
-    <div fxflex fxLayout.xs="column" fxLayout="row wrap" fxLayoutAlign.gt-xs="space-evenly start" 
-                                    fxLayoutAlign.xs="start" fxLayoutGap="2% grid">
-        <div [ngClass]="'hhCard'" fxFlex fxflex.xs="100" fxFlex.gt-xs="31" *ngFor="let happyhour of happyHours | async">
-            <mat-card fxFlex>
-                <mat-card-header>
-                    <mat-card-title>{{happyhour.name}}</mat-card-title>
-                    <mat-card-subtitle>{{happyhour.formattedAddress}}</mat-card-subtitle>
-                </mat-card-header>
-                <mat-card-content>
-                    <p>
-                        insert specials here
-                    </p>
-                </mat-card-content>
-                <mat-card-actions>
-                    <button mat-button (click)="editHappyHour(happyhour._id)">Edit</button>
-                    <button mat-button>Delete</button>
-                </mat-card-actions>
-            </mat-card>
-        </div>
+    <div fxflex fxLayout.xs="column" fxLayout="row wrap" fxLayoutAlign="space-evenly stretch" fxLayoutGap="2%">
+        <mat-card [ngClass]="'hhCard'" fxLayout="column" fxflex.xs="97" fxFlex.sm="47" fxFlex.gt-sm="31"
+            *ngFor="let happyhour of happyHours | async">
+            <mat-card-header fxFlex>
+                <mat-card-title>{{happyhour.name}}</mat-card-title>
+                <mat-card-subtitle>{{happyhour.formattedAddress}}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content fxflex>
+                <p>
+                    insert specials heree
+                </p>
+            </mat-card-content>
+            <mat-card-actions fxFlexAlign="end" align="end">
+                <button mat-button (click)="editHappyHour(happyhour._id)">Edit</button>
+                <button mat-button>Delete</button>
+            </mat-card-actions>
+        </mat-card>
     </div>
 </ng-container>
 <ng-template #loading>
