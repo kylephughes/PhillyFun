@@ -2,9 +2,10 @@
 export class SpecialsModel {
     startTime: string = '';
     endTime: string = '';
-    specials: [];
+    specials: [{itemName: string}];
   }
 export class HappyHourModel {
+    _id : string ='';
     googlePlace: string ='';
     name: string = '';
     text: string = '';

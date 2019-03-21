@@ -9,6 +9,9 @@ import { HappyHourModel } from '../../models/HappyHourModel';
   templateUrl: './daily-specials-card.component.html',
   styleUrls: ['./daily-specials-card.component.scss']
 })
+/**
+ * Each day during the week is represented by its own component
+ */
 export class DailySpecialsCardComponent implements OnInit, OnChanges {
   //send the data to to the parent via this event
   @Output()
@@ -48,20 +51,19 @@ export class DailySpecialsCardComponent implements OnInit, OnChanges {
         endTime: [this.lastEndTime, ''],
         dayOfWeek: [this.specialsDay],
         specials: this.fb.array([
-          this.createNewSpecial()
+          this.createNewSpecial('')
         ])
       });
     } else {
       //TODO need specific log here to loop over specials array in editData
-      console.log("editing");
+      console.log("editing" + this.editData[this.specialsDay].endTime);
       this.form = this.fb.group({
-        startTime: [this.lastStartTime, ''],
-        endTime: [this.lastEndTime, ''],
+        startTime: [this.editData[this.specialsDay].startTime, ''],
+        endTime: [this.editData[this.specialsDay].endTime, ''],
         dayOfWeek: [this.specialsDay],
-        specials: this.fb.array([
-          this.createNewSpecial()
-        ])
+        specials: this.fb.array([])
       });
+      this.populateSpecials();
 
     }
     //add this day onto the main form
@@ -111,18 +113,18 @@ export class DailySpecialsCardComponent implements OnInit, OnChanges {
   /**
  * Create new item for food or drink
  */
-  private createNewSpecial() {
+  private createNewSpecial(item : string) {
     return this.fb.group({
-      itemName: ['', Validators.required]
+      itemName: [item, Validators.required]
     });
   }
   /**
  * Add new special into form as blank, called from the add more action
  *
  */
-  private addSpecial() {
+   addSpecial = (item : string) => {
     const control = <FormArray>this.form.controls['specials'];
-    control.push(this.createNewSpecial());
+    control.push(this.createNewSpecial(item));
   }
 
   private deleteSpecial(index) {
@@ -139,6 +141,16 @@ export class DailySpecialsCardComponent implements OnInit, OnChanges {
     let et: any = this.form.get('endTime').value;
     //pass the data as an object since emit only takes 1 param
     this.changeTab.emit({ val, st, et });
+  }
+
+  //Fill the specials array based on the day when editing
+  private populateSpecials = () => {
+     let editSpecialsArr : [] = this.editData[this.specialsDay].specials;
+     if(editSpecialsArr.length > 0) {
+       editSpecialsArr.forEach((special : any, index) => {
+          this.addSpecial(special.itemName);
+       });
+     }
   }
 
 }
