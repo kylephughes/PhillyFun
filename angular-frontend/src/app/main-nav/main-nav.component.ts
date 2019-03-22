@@ -40,6 +40,8 @@ export class MainNavComponent implements OnInit,AfterViewInit {
      });
    }
 
+   //look into doing this inside of ngzone, right now it shows up but it looks like the screen
+   //is frozen until the module loads
    ngAfterViewInit() {
     this._router.events
         .subscribe((event) => {

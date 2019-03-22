@@ -15,7 +15,10 @@ export class HappyhourComponent implements OnInit {
 
   //our variable of our module to handle the dialog itself
   newHappyHourDialog: MatDialogRef<HappyHourCreateModalComponent>;
+  //used for async pipe in html
   happyHours: Observable<HappyHourModel[]>;
+  //store them in a format this class can use 
+  happyHoursArr : HappyHourModel[];
   constructor(private dialog: MatDialog, router: Router, private happyhourServ: HappyhourService) {
     //closes dialog when navigating away from this page
     router.events.subscribe(() => {
@@ -32,34 +35,37 @@ export class HappyhourComponent implements OnInit {
     //service returns the observable for the async pipe
     //async pipe makes the http request return twice? weird occurrence
     this.happyHours = this.happyhourServ.getHappyHours();
+    //save the array to use when edit is clicked
+    this.happyHours.subscribe((dataArray : HappyHourModel[]) => { 
+      this.happyHoursArr = dataArray;
+    });
   }
 
   toggleFormDialog() {
     //The dialog uses this model to populate form fields in edit mode so default it for new
-    let editData: HappyHourModel = new HappyHourModel();
+    let defaultData: HappyHourModel = new HappyHourModel();
     this.newHappyHourDialog = this.dialog.open(HappyHourCreateModalComponent, {
       hasBackdrop: false,
       closeOnNavigation: true,
       disableClose: false,
       width: '900px',
-      data: editData
+      data: defaultData
     });
     this.registerModalClose();
   }
   editHappyHour(id: string) {
 
-    let happyHour = this.happyhourServ.getHappyHour(id);
-    happyHour.subscribe((editData: HappyHourModel[]) => {
-      //send edit data to the modal (eventually rename the component modal)
+    //already pulled all of the data so just filter on the id we want to edit
+      let happyHour : HappyHourModel = this.happyHoursArr.find((item) => item._id ===id);
       this.newHappyHourDialog = this.dialog.open(HappyHourCreateModalComponent, {
         hasBackdrop: false,
         closeOnNavigation: true,
         disableClose: false,
-        data: editData,
+        data: happyHour,
         width: '900px'
       });
-    });
-    this.registerModalClose();
+      this.registerModalClose();
+    
   }
 
   /**

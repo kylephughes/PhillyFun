@@ -108,10 +108,10 @@ export class HappyHourCreateModalComponent implements OnInit {
         apiResponse => {
           //  this.apiResponse = apiResponse;
           this.dataSent = false;
-          this.dialogRef.close();
           //modify the config more 
           this.snackbar.open("Happy Hour has been created!", 'Close',
             { duration: 2000, verticalPosition: 'top' });
+          this.dialogRef.close();
         }
       );
   }
