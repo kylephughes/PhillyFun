@@ -23,6 +23,9 @@ export class HappyHourCreateModalComponent implements OnInit {
 
   //used to dynamically create  daily special card's
   days : { label: string, day: string }[];
+  //edit or new title or button
+  title : string;
+  buttonName : string;
 
   form: FormGroup;
   selectedIndex: any;
@@ -42,9 +45,7 @@ export class HappyHourCreateModalComponent implements OnInit {
     private happyhourServ: HappyhourService,
     private snackbar: MatSnackBar
 
-  ) {
-
-  }
+  ) {}
 
   ngOnInit() {
     this.selectedIndex = 0;
@@ -58,6 +59,7 @@ export class HappyHourCreateModalComponent implements OnInit {
       {"label":"Sun","day":"sunSpecials"}];
     //googlePlace is bound to the input, but the rest are filled out based on
     //the google api data
+    this.setEditOrNew();
     this.form = this.formBuilder.group({
       googlePlace: [this.editData.name, Validators.required],
       name: [this.editData.name],
@@ -67,7 +69,9 @@ export class HappyHourCreateModalComponent implements OnInit {
     });
   }
 
-
+  setEditOrNew = () => {this.editData.name == '' ? 
+                        (this.title='Add Happy Hour',this.buttonName='Submit') :
+                        (this.title='Edit -- ' + this.editData.name,this.buttonName='Save')  };
   /**
     Dynamically add onto the form when google place changes
     @address json from the google places

@@ -1,4 +1,4 @@
-<h2 mat-dialog-title color="primary">Add Happy Hour</h2>
+<h2 mat-dialog-title color="primary">{{title}}</h2>
 <mat-dialog-content>
   <mat-progress-bar *ngIf="dataSent" [mode]="intermediate">
   </mat-progress-bar>
@@ -39,7 +39,7 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   <div fxFlex fxLayout="row" fxLayoutAlign="end" fxLayoutAlign.xs="start">
-    <button mat-raised-button color="primary" (click)="submit()" type="submit">Submit</button>
+    <button mat-raised-button color="primary" (click)="submit()" type="submit">{{buttonName}}</button>
     <button mat-raised-button color="warn" type="button" mat-dialog-close>Cancel</button>
   </div>
 </mat-dialog-actions>
