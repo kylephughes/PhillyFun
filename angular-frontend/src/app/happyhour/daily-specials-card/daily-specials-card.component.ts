@@ -55,14 +55,13 @@ export class DailySpecialsCardComponent implements OnInit, OnChanges {
         ])
       });
     } else {
-      //TODO need specific log here to loop over specials array in editData
-      console.log("editing" + this.editData[this.specialsDay].endTime);
       this.form = this.fb.group({
-        startTime: [this.editData[this.specialsDay].startTime, ''],
-        endTime: [this.editData[this.specialsDay].endTime, ''],
+        startTime: [this.editData[this.specialsDay].startTime],
+        endTime: [this.editData[this.specialsDay].endTime],
         dayOfWeek: [this.specialsDay],
         specials: this.fb.array([])
       });
+      this.form.get('endTime').setValue(this.editData[this.specialsDay].endTime);
       this.populateSpecials();
 
     }
@@ -77,21 +76,10 @@ export class DailySpecialsCardComponent implements OnInit, OnChanges {
   */
   ngOnChanges(changes: SimpleChanges) {
     console.log("ngonchanges");
-    //this code might need to change since the formcreation is moved to ngonint
-    /** 
-    let st: any = this.form.get('startTime').value;
-    let et: any = this.form.get('endTime').value;
-    if (st == null) {
-      this.form.get('startTime').setValue(this.lastStartTime);
-    }
-    if (et == null) {
-      this.form.get('endTime').setValue(this.lastEndTime);
-    }
-    */
   }
 
   /**
-    Need to insert at runtime to set the themes
+    Need to insert at runtime to set the themes 
   */
   openStartPicker() {
     let timePicker = this.atp.open({
@@ -107,6 +95,7 @@ export class DailySpecialsCardComponent implements OnInit, OnChanges {
       theme: 'material-blue'
     });
     timePicker.afterClose().subscribe(time => {
+      alert(time);
       this.form.get('endTime').setValue(time);
     });
   }
