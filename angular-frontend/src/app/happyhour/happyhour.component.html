@@ -8,7 +8,7 @@
 <mat-divider></mat-divider>
 <br />
 <ng-container *ngIf="happyHours | async; else loading">
-    <div fxflex fxLayout.xs="column" fxLayout="row wrap" fxLayoutAlign="space-evenly stretch" fxLayoutGap="2%">
+    <div fxflex fxLayout.xs="column" fxLayout="row wrap" fxLayoutAlign="start stretch" fxLayoutGap="2%">
         <mat-card [ngClass]="'hhCard'" fxLayout="column" fxflex.xs="97" fxFlex.sm="47" fxFlex.gt-sm="31"
             *ngFor="let happyhour of happyHours | async">
             <mat-card-header fxFlex>

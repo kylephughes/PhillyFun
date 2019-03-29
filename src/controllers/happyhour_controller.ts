@@ -67,5 +67,15 @@ class HappyHourController {
     })
     //res.send(req.body.tueSpecials);
   }
+
+  public updateHappyHour(req: express.Request, res: express.Response) {
+
+    //can only update the specials for now
+    hhModel.findById(req.params.id, (err, hh) => {
+      hh.set(req.body);
+      let result = hh.save();
+      res.json(result)
+    });
+  }
 }
 export const hhController = new HappyHourController();

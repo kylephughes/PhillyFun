@@ -17,6 +17,7 @@ class MainRoutes {
     this.routes.get('/happyhour/:happyhourId', hhController.getHappyHour);
     this.routes.get('/happyhour', hhController.getHappyHours);
     this.routes.post('/happyhour', hhController.postNewHappyHour);
+    this.routes.put('/happyhour/:id', hhController.updateHappyHour);
   }
 }
 export const mainRoutes = new MainRoutes().routes;

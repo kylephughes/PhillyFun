@@ -35,7 +35,8 @@ export class HappyhourComponent implements OnInit {
     //service returns the observable for the async pipe
     //async pipe makes the http request return twice? weird occurrence
     this.happyHours = this.happyhourServ.getHappyHours();
-    //save the array to use when edit is clicked
+    //save the array to use when edit is clicked, TODO this makes 2 calls to api :/ since
+    //we use async pipe - check article
     this.happyHours.subscribe((dataArray : HappyHourModel[]) => { 
       this.happyHoursArr = dataArray;
     });

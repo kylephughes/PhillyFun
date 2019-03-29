@@ -107,6 +107,7 @@ export class HappyHourCreateModalComponent implements OnInit {
   submit() {
     console.log(this.form.value);
     this.dataSent = true;
+    if(this.editData.name == '') {
     this.happyhourServ.postNewHappyHour(this.form.value)
       .subscribe(
         apiResponse => {
@@ -114,9 +115,22 @@ export class HappyHourCreateModalComponent implements OnInit {
           this.dataSent = false;
           //modify the config more 
           this.snackbar.open("Happy Hour has been created!", 'Close',
-            { duration: 2000, verticalPosition: 'top' });
+            { duration: 6000, verticalPosition: 'top' });
           this.dialogRef.close();
         }
       );
+    } else {
+      this.happyhourServ.updateHappyHour(this.editData._id,this.form.value)
+      .subscribe(
+        apiResponse => {
+          //  this.apiResponse = apiResponse;
+          this.dataSent = false;
+          //modify the config more 
+          this.snackbar.open(this.editData.name + " has been updated!", 'Close',
+            { duration: 6000, verticalPosition: 'top' });
+          this.dialogRef.close();
+        }
+      );
+    }
   }
 }

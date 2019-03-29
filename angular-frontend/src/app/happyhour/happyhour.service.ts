@@ -13,6 +13,13 @@ const APIURL = environment.apiUrl;
 })
 export class HappyhourService {
 
+  updateHappyHour(id: string, data: HappyHourModel): Observable<any> {
+    return this.http.put(APIURL + 'happyhour/'+id, data).map(response => {
+      console.log( response);
+      return response;
+    });
+  }
+
   constructor(private http: HttpClient) { }
 
   //made async work (it needs to have an observable and it has to be an iterable like an array)
