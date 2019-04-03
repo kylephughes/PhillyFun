@@ -1,0 +1,7 @@
+<h2 mat-dialog-title color="primary">Are you sure you want to delete - {{data.title}}?</h2>
+<mat-dialog-actions>
+  <div fxFlex fxLayout="row" fxLayoutAlign="end" fxLayoutAlign.xs="start">
+    <button mat-raised-button color="warn" type="button" [mat-dialog-close]="true">Yes</button>
+    <button mat-raised-button color="warn" type="button" [mat-dialog-close]="false">Cancel</button>
+  </div>
+</mat-dialog-actions>

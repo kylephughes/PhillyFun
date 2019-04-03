@@ -10,11 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 import {AmazingTimePickerModule} from 'amazing-time-picker';
 import {FlexLayoutModule} from '@angular/flex-layout';
-import {HTTP_INTERCEPTORS} from '@angular/common/http'
 
-
-import {HttpRequestInterceptor} from '../interceptor/HttpRequestInterceptor';
-import {ErrorHandler} from '../interceptor/ErrorHandler';
 //Things to look at : do i need to reimport everything int his module with lazy loading???
 
 @NgModule({
@@ -35,12 +31,6 @@ import {ErrorHandler} from '../interceptor/ErrorHandler';
   ],
   providers : [
     HappyhourService,
-    ErrorHandler,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: HttpRequestInterceptor,
-      multi: true,
-    }
   ],
   exports: [
   ],

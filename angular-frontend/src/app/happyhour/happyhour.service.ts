@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { map, catchError, tap } from 'rxjs/operators';
+import { HttpClient} from '@angular/common/http';
+import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 import { environment } from '../../environments/environment'
 import { HappyHourModel } from '../models/HappyHourModel';
@@ -48,5 +47,12 @@ export class HappyhourService {
       return response;
     });
 
+  }
+
+  deleteHappyHour(id : string) : Observable<any> {
+    console.log("DELETEING " + id);
+    return this.http.delete(APIURL + 'happyhour/' +id).map(response => {
+      return response;
+    })
   }
 }

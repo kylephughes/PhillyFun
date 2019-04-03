@@ -1,16 +1,13 @@
-import { Component, NgZone, OnInit, ViewChild, AfterViewInit} from '@angular/core';
-import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
+import { Component, NgZone, ViewChild} from '@angular/core';
 import { MatSidenav } from '@angular/material';
 import { Router, NavigationCancel, NavigationEnd, NavigationStart } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-main-nav',
   templateUrl: './main-nav.component.html',
   styleUrls: ['./main-nav.component.scss'] 
 })
-export class MainNavComponent implements OnInit,AfterViewInit {
+export class MainNavComponent {
   //isHandset: Observable<BreakpointState> = this.breakpointObserver.observe(Breakpoints.Handset);
     width;
     height;
@@ -22,7 +19,7 @@ export class MainNavComponent implements OnInit,AfterViewInit {
   @ViewChild(MatSidenav) sidenav: MatSidenav;
   constructor(public ngZone:NgZone,private _router:Router) {
   
-      this.loadingChild = true;
+      this.loadingChild = false;
       this.changeMode();
     //ngzone runs outside of angular
         window.onresize = (e) => {
@@ -30,23 +27,14 @@ export class MainNavComponent implements OnInit,AfterViewInit {
                 this.changeMode();
             });
         };
-  }
-  
-  
-    ngOnInit() {
-      //close the sidenav when navigating to a route
-      this._router.events.subscribe(() => {
-        this.sidenav.close();  
-     });
-   }
 
-   //look into doing this inside of ngzone, right now it shows up but it looks like the screen
-   //is frozen until the module loads
-   ngAfterViewInit() {
-    this._router.events
+        this._router.events
         .subscribe((event) => {
+            this.sidenav.close(); 
+            //loading added for lazy modules
             if(event instanceof NavigationStart) {
                 this.loadingChild = true;
+                
             }
             else if (
                 event instanceof NavigationEnd || 
@@ -55,8 +43,7 @@ export class MainNavComponent implements OnInit,AfterViewInit {
                 this.loadingChild = false;
             }
         });
-}
-  
+  }
   
    /**
    * probably don't need this anymore but it shows the sidenav or adds the backdrop

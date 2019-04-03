@@ -6,6 +6,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, of } from 'rxjs';
 import { HappyhourService } from './happyhour.service'
 import { HappyHourModel } from '../models/HappyHourModel';
+import {ConfirmDialogComponent} from '../shared/confirm-dialog/confirm-dialog.component';
 @Component({
   selector: 'app-happyhour',
   templateUrl: './happyhour.component.html',
@@ -19,7 +20,8 @@ export class HappyhourComponent implements OnInit {
   happyHours: Observable<HappyHourModel[]>;
   //store them in a format this class can use 
   happyHoursArr : HappyHourModel[];
-  constructor(private dialog: MatDialog, router: Router, private happyhourServ: HappyhourService) {
+  constructor( private snackbar: MatSnackBar,
+    private dialog: MatDialog, router: Router, private happyhourServ: HappyhourService) {
     //closes dialog when navigating away from this page
     router.events.subscribe(() => {
       dialog.closeAll();
@@ -66,6 +68,29 @@ export class HappyhourComponent implements OnInit {
         width: '900px'
       });
       this.registerModalClose();
+    
+  }
+
+  deleteHappyHour(name : string,id: string) {
+
+    //already pulled all of the data so just filter on the id we want to edit
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '300px',
+      data: {
+        title: name
+      }
+    });
+    dialogRef.afterClosed().subscribe(answer => {
+      console.log("the answer " + answer)
+       if(answer) {
+         this.happyhourServ.deleteHappyHour(id).subscribe(result=> {
+          this.snackbar.open(name + " has been deleted!", 'Close',
+          { duration: 6000, verticalPosition: 'top' });
+         });
+         this.refreshComponent();
+       }
+
+    });
     
   }
 
