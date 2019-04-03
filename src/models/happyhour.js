@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 // Events have the title, the bar/resturant name, lat and long for google map, the type of event
 //and a brief description of the event
 var hhSchema = new mongoose.Schema({
+ 
   name: String,
   latitude: Number,
   longitude: Number,

@@ -22,7 +22,7 @@
             </mat-card-content>
             <mat-card-actions fxFlexAlign="end" align="end">
                 <button mat-button (click)="editHappyHour(happyhour._id)">Edit</button>
-                <button mat-button>Delete</button>
+                <button mat-button (click)="deleteHappyHour(happyhour.name,happyhour._id)">Delete</button>
             </mat-card-actions>
         </mat-card>
     </div>

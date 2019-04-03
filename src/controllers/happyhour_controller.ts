@@ -77,5 +77,14 @@ class HappyHourController {
       res.json(result)
     });
   }
+
+  public deleteHappyHour(req: express.Request, res: express.Response) {
+
+    //can only update the specials for now
+    hhModel.findOneAndRemove({_id : req.params.id}, (err, hh) => {
+      console.log("reached the delete endpoint " + req.params.id)
+      res.json("Success");
+    });
+  }
 }
 export const hhController = new HappyHourController();
