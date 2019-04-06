@@ -18,6 +18,10 @@ import {HttpRequestInterceptor} from './interceptor/HttpRequestInterceptor';
 import {ErrorHandler} from './interceptor/ErrorHandler';
 import { ErrorDialogComponent } from './shared/error-dialog/error-dialog.component';
 import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
+
+import { SocialLoginModule,AuthServiceConfig,GoogleLoginProvider } from 'angularx-social-login';
+import { getAuthServiceConfigs } from './SocialLoginConfig';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,15 +42,20 @@ import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.c
     NgbModule.forRoot(),
     LayoutModule,
     FlexLayoutModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    SocialLoginModule
   ],
   providers: [
+    {
+      provide: AuthServiceConfig,
+      useFactory: getAuthServiceConfigs
+    },
     ErrorHandler,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpRequestInterceptor,
       multi: true,
-    }
+    },
   ],
   bootstrap: [AppComponent],
   entryComponents : [

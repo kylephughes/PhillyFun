@@ -6,7 +6,6 @@ import {
 } from '@angular/material';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { GooglePlaceDirective } from 'ngx-google-places-autocomplete/ngx-google-places-autocomplete.directive';
-import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 //import {} from 'googlemaps';
 /// <reference types="@types/googlemaps" />
