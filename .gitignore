@@ -3,3 +3,5 @@ public/**
 dist/**
 output/**
 angular-frontend/src/index.html
+angular-frontend/src/environments/**
+angular-frontend/src/environments/environment.ts

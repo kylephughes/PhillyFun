@@ -38,3 +38,6 @@ testem.log
 .DS_Store
 Thumbs.db
 node_modules/
+
+#api key stuff
+src/environments/environment.ts
