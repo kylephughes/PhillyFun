@@ -1,33 +1,34 @@
 <br />
 <br />
 <div fxLayout="row" fxLayoutAlign="center center">
+        {{today | date:'EEE'}}
     <button mat-raised-button color="primary" (click)="toggleFormDialog()">New Happy Hour</button>
 </div>
 <br />
 <mat-divider></mat-divider>
 <mat-divider></mat-divider>
 <br />
-<ng-container *ngIf="happyHours | async; else loading">
+<ng-container *ngIf="happyHours$ | async as happyHours">
     <div fxflex fxLayout.xs="column" fxLayout="row wrap" fxLayoutAlign="start stretch" fxLayoutGap="2%">
         <mat-card [ngClass]="'hhCard'" fxLayout="column" fxflex.xs="97" fxFlex.sm="47" fxFlex.gt-sm="31"
-            *ngFor="let happyhour of happyHours | async">
+            *ngFor="let happyhour of happyHours">
             <mat-card-header fxFlex>
                 <mat-card-title>{{happyhour.name}}</mat-card-title>
                 <mat-card-subtitle>{{happyhour.formattedAddress}}</mat-card-subtitle>
             </mat-card-header>
             <mat-card-content fxflex>
-                <p>
-                    insert specials heree
-                </p>
+                <div *ngFor="let special of happyhour.todaysSpecials.specials">
+                    {{special.itemName}}
+                </div>
             </mat-card-content>
             <mat-card-actions fxFlexAlign="end" align="end">
-                <button mat-button (click)="editHappyHour(happyhour._id)">Edit</button>
+                <button mat-button (click)="editHappyHour(happyhour)">Edit</button>
                 <button mat-button (click)="deleteHappyHour(happyhour.name,happyhour._id)">Delete</button>
             </mat-card-actions>
         </mat-card>
     </div>
 </ng-container>
 <ng-template #loading>
-    <mat-progress-bar [mode]="intermediate">
+    <mat-progress-bar [mode]="indeterminate">
     </mat-progress-bar>
 </ng-template>
