@@ -21,7 +21,6 @@ import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.c
 
 import { SocialLoginModule,AuthServiceConfig,GoogleLoginProvider } from 'angularx-social-login';
 import { getAuthServiceConfigs } from './SocialLoginConfig';
-
 @NgModule({
   declarations: [
     AppComponent,

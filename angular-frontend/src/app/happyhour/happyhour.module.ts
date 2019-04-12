@@ -10,7 +10,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 import {AmazingTimePickerModule} from 'amazing-time-picker';
 import {FlexLayoutModule} from '@angular/flex-layout';
-
+//google maps
+import { AgmCoreModule } from '@agm/core';
+import {environment} from '../../environments/environment';
 //Things to look at : do i need to reimport everything int his module with lazy loading???
 
 @NgModule({
@@ -27,7 +29,10 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     ReactiveFormsModule,
     GooglePlaceModule,
     AmazingTimePickerModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    AgmCoreModule.forRoot({
+      apiKey: environment.googleKey
+    })
   ],
   providers : [
     HappyhourService,

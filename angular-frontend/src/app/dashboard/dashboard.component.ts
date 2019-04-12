@@ -8,7 +8,6 @@ import {GoogleLoginProvider,SocialUser } from "angularx-social-login";
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-
   constructor(private authService: AuthService) { }
   user : SocialUser;
   ngOnInit() {

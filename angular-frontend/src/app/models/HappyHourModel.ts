@@ -19,4 +19,5 @@ export class HappyHourModel {
   friSpecials: SpecialsModel;
   satSpecials: SpecialsModel;
   sunSpecials: SpecialsModel;
+  todaysSpecials : SpecialsModel;
 }

@@ -7,27 +7,46 @@
 <mat-divider></mat-divider>
 <mat-divider></mat-divider>
 <br />
-<ng-container *ngIf="happyHours | async; else loading">
-    <div fxflex fxLayout.xs="column" fxLayout="row wrap" fxLayoutAlign="start stretch" fxLayoutGap="2%">
-        <mat-card [ngClass]="'hhCard'" fxLayout="column" fxflex.xs="97" fxFlex.sm="47" fxFlex.gt-sm="31"
-            *ngFor="let happyhour of happyHours | async">
-            <mat-card-header fxFlex>
-                <mat-card-title>{{happyhour.name}}</mat-card-title>
-                <mat-card-subtitle>{{happyhour.formattedAddress}}</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content fxflex>
-                <p>
-                    insert specials heree
-                </p>
-            </mat-card-content>
-            <mat-card-actions fxFlexAlign="end" align="end">
-                <button mat-button (click)="editHappyHour(happyhour._id)">Edit</button>
-                <button mat-button (click)="deleteHappyHour(happyhour.name,happyhour._id)">Delete</button>
-            </mat-card-actions>
-        </mat-card>
+<ng-container *ngIf="happyHours$ | async as happyHours">
+    <div fxLayout.gt-xs="row" fxLayout.xs="column">
+        <div fxFlexOrder.gt-sm="1" fxFlexOrder.xs="2" 
+                fxflex="40" fxFlex.xs="100" fxLayout.xs="column" fxLayout.gt-xs="row wrap" fxLayout.xs="column" 
+                fxLayoutAlign="start stretch" fxLayoutGap="2%">
+            <mat-card [ngClass]="'hhCard'" fxLayout="column" fxflex.xs="97" fxFlex.gt-lg="45" fxFlex.gt-xs="97"
+                *ngFor="let happyhour of happyHours">
+                <mat-card-header fxFlex>
+                    <mat-card-title>{{happyhour.name}}</mat-card-title>
+                    <mat-card-subtitle>{{happyhour.formattedAddress}}</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content fxflex>
+                    <mat-chip-list>
+                        <ng-container *ngFor="let special of happyhour.todaysSpecials.specials; let i= index">
+                            <mat-chip *ngIf="i < 4 && special.itemName !='' ">{{special.itemName}} </mat-chip>
+                        </ng-container>
+                    </mat-chip-list>
+                </mat-card-content>
+                <mat-card-actions fxFlexAlign="end" align="end">
+                    <button mat-button (click)="editHappyHour(happyhour)">Edit</button>
+                    <button mat-button (click)="deleteHappyHour(happyhour.name,happyhour._id)">Delete</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+        <div fxFlex="60" fxflex.xs="100" fxFlexOrder.gt-sm="2" fxFlexOrder.xs="1">
+            <agm-map [zoom]="15" [latitude]='latitude' [longitude]='longitude'>
+                    <agm-marker *ngFor="let happyhour of happyHours"
+                    [latitude]="happyhour.latitude"
+                    [longitude]="happyhour.longitude"
+                    [opacity]="1"
+                    [markerDraggable]="false"
+                    (markerClick)="selectMarker($event,happyhour.name)"
+                  >
+                  </agm-marker>
+            </agm-map>
+        </div>
+
     </div>
 </ng-container>
 <ng-template #loading>
-    <mat-progress-bar [mode]="intermediate">
+    <mat-progress-bar [mode]="indeterminate">
     </mat-progress-bar>
 </ng-template>
