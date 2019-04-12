@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {MatCardModule,MatTabsModule,MatStepperModule,MatFormFieldModule, MatInputModule,MatDialogModule,MatToolbarModule,
-   MatButtonModule, MatSidenavModule, MatIconModule, MatListModule,MatProgressBarModule, MatProgressSpinnerModule,MatSnackBarModule } from '@angular/material';
+   MatButtonModule, MatChipsModule,MatSidenavModule, MatIconModule, MatListModule,MatProgressBarModule, MatProgressSpinnerModule,MatSnackBarModule } from '@angular/material';
 
 //All material design components here to clean up app-module
 @NgModule({
@@ -21,6 +21,7 @@ import {MatCardModule,MatTabsModule,MatStepperModule,MatFormFieldModule, MatInpu
     MatCardModule,
     MatProgressBarModule,
     MatSnackBarModule,
+    MatChipsModule,
     MatProgressSpinnerModule
   ],
   exports: [
@@ -37,7 +38,8 @@ import {MatCardModule,MatTabsModule,MatStepperModule,MatFormFieldModule, MatInpu
     MatCardModule,
     MatProgressBarModule,
     MatSnackBarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatChipsModule
   ]
 })
 export class AngularMaterialModule { }

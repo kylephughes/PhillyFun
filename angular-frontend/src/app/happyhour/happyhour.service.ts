@@ -29,8 +29,11 @@ export class HappyhourService {
       //do some error checking here eventually
       let resp: any = response || {};
       let jsonArray : HappyHourModel[] = resp.data;
-      //use the js map to dynamically modify todaysSpecials for each happy hour
-      jsonArray.map((single : HappyHourModel) => {single.todaysSpecials = single[currentDay]});
+      //use the js map to dynamically modify todaysSpecials for each happy hour only show 4 on 
+      //the landing page
+      jsonArray.map((single : HappyHourModel) => {
+                single.todaysSpecials = single[currentDay]
+      });
       return jsonArray;
     }));
 

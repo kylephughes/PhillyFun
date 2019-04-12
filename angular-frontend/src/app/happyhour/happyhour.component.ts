@@ -13,6 +13,9 @@ import {ConfirmDialogComponent} from '../shared/confirm-dialog/confirm-dialog.co
   styleUrls: ['./happyhour.component.scss']
 })
 export class HappyhourComponent implements OnInit {
+  //keep  philly city hall for now
+  latitude = 39.9524;
+  longitude= -75.1636;
   today: number = Date.now();
   //our variable of our module to handle the dialog itself
   newHappyHourDialog: MatDialogRef<HappyHourCreateModalComponent>;
@@ -86,7 +89,10 @@ export class HappyhourComponent implements OnInit {
     });
     
   }
-
+  selectMarker(event,name: string) {
+    console.log(event);
+    alert("Selected " + name);
+  }
   /**
    * In new or edit mode, refresh the list
    */
