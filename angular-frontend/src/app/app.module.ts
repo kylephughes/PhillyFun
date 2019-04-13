@@ -21,6 +21,8 @@ import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.c
 
 import { SocialLoginModule,AuthServiceConfig,GoogleLoginProvider } from 'angularx-social-login';
 import { getAuthServiceConfigs } from './SocialLoginConfig';
+import {AuthService} from './core/auth.service';
+import { LoginComponent } from './login/login.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +30,8 @@ import { getAuthServiceConfigs } from './SocialLoginConfig';
     EventsComponent,
     MainNavComponent,
     ErrorDialogComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -55,11 +58,13 @@ import { getAuthServiceConfigs } from './SocialLoginConfig';
       useClass: HttpRequestInterceptor,
       multi: true,
     },
+    AuthService
   ],
   bootstrap: [AppComponent],
   entryComponents : [
     ErrorDialogComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    LoginComponent
   ]
 })
 export class AppModule { }

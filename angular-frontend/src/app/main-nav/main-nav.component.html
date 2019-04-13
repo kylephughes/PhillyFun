@@ -8,6 +8,10 @@
       <a mat-list-item routerLink="/happyhour">
         <span class="label">Happy Hour</span>
       </a>
+
+      <a mat-list-item (click)="logout()" *ngIf="loggedIn">
+        <span class="label">Logout</span>
+      </a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -17,9 +21,17 @@
           Philly Fun Blog
         </a>
       </div>
-      <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
+      <div fxFlex fxLayout fxHide.xs>
         <a mat-button routerLink="/events" mat-button> Events</a>
         <a routerLink="/happyhour" mat-button> Happy Hours</a>
+       
+        <div fxFlex fxLayoutAlign="flex-end" *ngIf="!loggedIn">
+          <a (click)="login()" mat-button> Login</a>
+        </div>
+        <div fxFlex fxLayoutAlign="flex-end" *ngIf="loggedIn">
+          <span *ngIf="user">[ {{user.name}} ]</span>
+          <a (click)="logout()" mat-button> Logout</a>
+        </div>
       </div>
       <div fxFlex fxLayout fxLayoutAlign="end" fxHide.gt-xs>
         <button mat-icon-button (click)="sidenav.toggle()">
