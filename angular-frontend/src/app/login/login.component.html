@@ -1,0 +1,18 @@
+<h2 mat-dialog-title color="primary">Login</h2>
+<mat-dialog-content>
+<div fxLayout="row" fxLayoutAlign="center center">
+   Login with a Google Account! 
+  <button mat-raised-button (click)="signInWithGoogle()">Login</button>
+</div>
+
+<div *ngIf="user" fxLayout="row" fxLayoutAlign="center center">
+  Welcome to the party : {{user.name}} -- {{user.email}}
+</div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <div fxFlex fxLayout="row" fxLayoutAlign="end" fxLayoutAlign.xs="start">
+    <button mat-raised-button color="primary" mat-dialog-close>Close</button>
+  </div>
+</mat-dialog-actions>
