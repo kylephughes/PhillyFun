@@ -16,11 +16,14 @@ export class LoginComponent implements OnInit {
   googleResponse : Subscription;
   
   ngOnInit() {
-    //if you don't logout, this will return something automatically. Must store it in localStorage
+    //this will return null if the user is logged out and push something when this component first loads
     this.googleResponse = this.authService.authState.subscribe((user) => {
-      console.log("Received something from google ");
       //send request to rest api
-      this.loginAuth.login(user);
+      if(user != null) {
+        this.loginAuth.login(user).subscribe(response => {
+          console.log("response from login" + response);
+        });
+      }
       this.user=user;
     });
   }

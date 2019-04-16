@@ -16,6 +16,7 @@ export class HappyhourComponent implements OnInit {
   //keep  philly city hall for now
   latitude = 39.9524;
   longitude= -75.1636;
+  showMap : boolean = false;
   today: number = Date.now();
   //our variable of our module to handle the dialog itself
   newHappyHourDialog: MatDialogRef<HappyHourCreateModalComponent>;
@@ -54,6 +55,10 @@ export class HappyhourComponent implements OnInit {
       data: defaultData
     });
     this.registerModalClose();
+  }
+
+  toggleMap(){
+    this.showMap = !this.showMap;
   }
   editHappyHour(obj : HappyHourModel) {
       this.newHappyHourDialog = this.dialog.open(HappyHourCreateModalComponent, {

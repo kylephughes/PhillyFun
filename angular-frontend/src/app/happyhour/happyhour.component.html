@@ -1,18 +1,26 @@
 <br />
 <br />
-<div fxLayout="row" fxLayoutAlign="center center">
+<div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="2%">
     <button mat-raised-button color="primary" (click)="toggleFormDialog()">New Happy Hour</button>
+    <button mat-raised-button color="primary" (click)="toggleMap()">Toggle Map</button>
 </div>
 <br />
 <mat-divider></mat-divider>
 <mat-divider></mat-divider>
 <br />
 <ng-container *ngIf="happyHours$ | async as happyHours">
-    <div fxLayout.gt-xs="row" fxLayout.xs="column">
-        <div fxFlexOrder.gt-sm="1" fxFlexOrder.xs="2" 
-                fxflex="40" fxFlex.xs="100" fxLayout.xs="column" fxLayout.gt-xs="row wrap" fxLayout.xs="column" 
-                fxLayoutAlign="start stretch" fxLayoutGap="2%">
-            <mat-card [ngClass]="'hhCard'" fxLayout="column" fxflex.xs="97" fxFlex.gt-lg="45" fxFlex.gt-xs="97"
+    <div fxLayout="column">
+        <div *ngIf="showMap" fxFlex="100">
+            <agm-map [zoom]="15" [gestureHandling]="'cooperative'"  [scrollwheel]="null" [latitude]='latitude' [longitude]='longitude'>
+                <agm-marker *ngFor="let happyhour of happyHours" [latitude]="happyhour.latitude"
+                    [longitude]="happyhour.longitude" [opacity]="1" [markerDraggable]="false"
+                    (markerClick)="selectMarker($event,happyhour.name)">
+                </agm-marker>
+            </agm-map>
+        </div>
+        <div fxFlex="100" fxLayout.gt-xs="row wrap" fxLayout.xs="column"
+                         fxLayoutAlign="start stretch" fxLayoutGap="2%">
+            <mat-card [ngClass]="'hhCard'" fxLayout="column" fxFlex.xs="97" fxFlex.sm="45" fxFlex.md="31" fxFlex.lg="25"
                 *ngFor="let happyhour of happyHours">
                 <mat-card-header fxFlex>
                     <mat-card-title>{{happyhour.name}}</mat-card-title>
@@ -30,18 +38,6 @@
                     <button mat-button (click)="deleteHappyHour(happyhour.name,happyhour._id)">Delete</button>
                 </mat-card-actions>
             </mat-card>
-        </div>
-        <div fxFlex="60" fxflex.xs="100" fxFlexOrder.gt-sm="2" fxFlexOrder.xs="1">
-            <agm-map [zoom]="15" [latitude]='latitude' [longitude]='longitude'>
-                    <agm-marker *ngFor="let happyhour of happyHours"
-                    [latitude]="happyhour.latitude"
-                    [longitude]="happyhour.longitude"
-                    [opacity]="1"
-                    [markerDraggable]="false"
-                    (markerClick)="selectMarker($event,happyhour.name)"
-                  >
-                  </agm-marker>
-            </agm-map>
         </div>
 
     </div>
