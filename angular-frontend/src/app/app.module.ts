@@ -22,7 +22,7 @@ import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.c
 import { SocialLoginModule,AuthServiceConfig,GoogleLoginProvider } from 'angularx-social-login';
 import { getAuthServiceConfigs } from './SocialLoginConfig';
 import {AuthService} from './core/auth.service';
-import { LoginComponent } from './login/login.component'
+import { LoginComponent } from './login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +31,7 @@ import { LoginComponent } from './login/login.component'
     MainNavComponent,
     ErrorDialogComponent,
     ConfirmDialogComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

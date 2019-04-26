@@ -89,14 +89,11 @@ export class HappyHourCreateModalComponent implements OnInit {
     this.selectedIndex = val;
   }
   /**
-   * Called as event from the child, pass previous tabs
-   * values to next tab to prefill start and end times
+   * Called as event from the child, custom tab arrow was clicked
    * @val an object with 3 values
    */
   changeDailyTab(val: any) {
-    this.lastStartTime = val.st;
-    this.lastEndTime = val.et;
-    this.selectedIndex = this.selectedIndex + val.val;
+    this.selectedIndex = this.selectedIndex + val;
   }
 
 
