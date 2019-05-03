@@ -1,0 +1,11 @@
+.hhCard {
+    /*the min-height here caused wrapping issues with card actions in small screens */
+    margin-bottom:5px;
+    border : solid 1px;
+    border-color:blue;
+}
+.cardContainer {
+    width:100%;
+    margin: 10px 10px 10px 10px;
+    position:relative;
+}

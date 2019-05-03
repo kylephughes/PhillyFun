@@ -29,7 +29,7 @@
           <a (click)="login()" mat-button> Login</a>
         </div>
         <div fxFlex fxLayoutAlign="flex-end" *ngIf="loggedIn">
-          <span *ngIf="user">[ {{user.name}} ]</span>
+          <div>[{{user.name}}]</div>
           <a (click)="logout()" mat-button> Logout</a>
         </div>
       </div>

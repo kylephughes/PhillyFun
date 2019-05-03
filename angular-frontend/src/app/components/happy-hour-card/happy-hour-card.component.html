@@ -1,0 +1,25 @@
+<div class="cardContainer" fxFlex="100" fxLayout.gt-xs="row wrap" 
+            fxLayout.xs="column" fxLayoutAlign="start stretch"
+  fxLayoutGap="2%">
+  <div fxFlex.xs="98" fxFlex.gt-xs="45" fxFlex.gt-sm="31" *ngFor="let happyhour of happyHours">
+  <mat-card [ngClass]="'hhCard'" fxLayout="column" 
+            fxFlex
+           >
+    <mat-card-header fxFlex>
+      <mat-card-title>{{happyhour.name}}</mat-card-title>
+      <mat-card-subtitle>{{happyhour.formattedAddress}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content fxflex>
+      <mat-chip-list>
+        <ng-container *ngFor="let special of happyhour.todaysSpecials.specials; let i= index">
+          <mat-chip *ngIf="i < 4 && special.itemName !='' ">{{special.itemName}} </mat-chip>
+        </ng-container>
+      </mat-chip-list>
+    </mat-card-content>
+    <mat-card-actions fxFlexAlign="end" align="end">
+      <button mat-button (click)="editHappyHour(happyhour)">Edit</button>
+      <button mat-button (click)="deleteHappyHour(happyhour.name,happyhour._id)">Delete</button>
+    </mat-card-actions>
+  </mat-card>
+  </div>
+</div>

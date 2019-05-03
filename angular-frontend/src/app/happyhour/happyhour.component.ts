@@ -60,40 +60,7 @@ export class HappyhourComponent implements OnInit {
   toggleMap(){
     this.showMap = !this.showMap;
   }
-  editHappyHour(obj : HappyHourModel) {
-      this.newHappyHourDialog = this.dialog.open(HappyHourCreateModalComponent, {
-        hasBackdrop: false,
-        closeOnNavigation: true,
-        disableClose: false,
-        data: obj,
-        width: '900px'
-      });
-      this.registerModalClose();
-    
-  }
-
-  deleteHappyHour(name : string,id: string) {
-
-    //already pulled all of the data so just filter on the id we want to edit
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      width: '300px',
-      data: {
-        title: name
-      }
-    });
-    dialogRef.afterClosed().subscribe(answer => {
-      console.log("the answer " + answer)
-       if(answer) {
-         this.happyhourServ.deleteHappyHour(id).subscribe(result=> {
-          this.snackbar.open(name + " has been deleted!", 'Close',
-          { duration: 6000, verticalPosition: 'top' });
-         });
-         this.refreshComponent();
-       }
-
-    });
-    
-  }
+  
   selectMarker(event,name: string) {
     console.log(event);
     alert("Selected " + name);

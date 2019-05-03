@@ -126,10 +126,7 @@ export class DailySpecialsCardComponent implements OnInit, OnChanges {
    * @val will either be 1 or -1 if going back
   */
   private changeDailyTab(val: any) {
-    let st: any = this.form.get('startTime').value;
-    let et: any = this.form.get('endTime').value;
-    //pass the data as an object since emit only takes 1 param
-    this.changeTab.emit({ val, st, et });
+    this.changeTab.emit(val);
   }
 
   //Fill the specials array based on the day when editing

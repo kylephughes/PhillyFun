@@ -54,10 +54,7 @@ export class MainNavComponent implements OnInit{
   ngOnInit() {
       //removes the need to call the service directly from the template which causes errors
       this.loggedIn = this.auth.loggedIn;
-      this.user = this.auth.getUser();
-      if(this.loggedIn){
-          this.user = this.auth.getUser();
-      }
+      this.user = JSON.parse(this.auth.getUser());
   }
   
    /**
