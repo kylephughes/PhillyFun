@@ -3,14 +3,13 @@ import * as express from "express";
 import * as bodyParser from "body-parser";
 import * as cookieParser from "cookie-parser";
 import * as path from "path";
-import * as httperrors from "http-errors";
+import databaseConfig from './config/config';
 import {mainRoutes} from "./src/routes/index";
 import * as mongoose from "mongoose";
 
 class App {
     public app: express.Application;
-    public mongoUrl: string = 'mongodb://localhost:27017/PhillyFun';
-
+   
     constructor() {
         this.app = express();
         this.config();
@@ -44,10 +43,12 @@ class App {
           res.status(404).send(err);
         });
   }
-
+    //Using mongodb atlas
     private mongoSetup(): void{
-        //mongoose.Promise = global.Promise;
-        mongoose.connect(this.mongoUrl);
+        //public mongoUrl: string = 'mongodb://localhost:27017/PhillyFun';
+        const userPass = `${databaseConfig.user}:${databaseConfig.password}`;
+        const mongoUrl =`mongodb+srv://${userPass}@happyhourcluster-obkbn.mongodb.net/test?retryWrites=true`;
+        mongoose.connect(mongoUrl);
     }
 
 }
