@@ -2,6 +2,7 @@ node_modules/
 public/**
 dist/**
 output/**
+config/**
 angular-frontend/src/index.html
 angular-frontend/src/environments/**
 angular-frontend/src/environments/environment.ts
