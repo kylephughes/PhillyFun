@@ -3,7 +3,6 @@ import * as express from 'express';
 import { User } from '../models/user';
 
 
-//const Contact = mongoose.model('Contact', ContactSchema);
 const userModel = mongoose.model('User', User);
 // Response handling
 let response = {
@@ -11,7 +10,7 @@ let response = {
     data: {},
     message: null
 };
-class HappyHourController {
+class UserController {
 
     constructor() {
 
@@ -22,7 +21,18 @@ class HappyHourController {
         try {
             let user = await userModel.findOne({ email: req.body.email });
             if(!user) {
-                console.log("didn't find a user! so create one");
+                const {body} = req;
+                console.log("didn't find a user, so creating one");
+                userModel.create({firstName:body.firstName,
+                    lastName:body.lastName,
+                    email:body.email,
+                    registerDate : new Date()},function (err) {
+                        if (err)  console.log(err);
+                        else {
+                            response.status = 200;
+                            response.message = "Added new user"
+                        }
+                    });
             } else {
                 console.log("found a user!!!!")
             }
@@ -34,4 +44,4 @@ class HappyHourController {
     }
 }
 
-export const userController = new HappyHourController();
+export const userController = new UserController();

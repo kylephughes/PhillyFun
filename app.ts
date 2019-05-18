@@ -4,7 +4,8 @@ import * as bodyParser from "body-parser";
 import * as cookieParser from "cookie-parser";
 import * as path from "path";
 import databaseConfig from './config/config';
-import {mainRoutes} from "./src/routes/index";
+import {hhRoutes} from "./src/routes/index";
+import {userRoutes} from "./src/routes/userRoutes";
 import * as mongoose from "mongoose";
 
 class App {
@@ -28,7 +29,8 @@ class App {
     private routes(): void {
 
         this.app.use(cookieParser());
-        this.app.use('/api', mainRoutes);
+        this.app.use('/api/happyhour/', hhRoutes);
+        this.app.use('/api/user/', userRoutes);
         //catch all other bad api routes
         this.app.use('/api/*',function(req, res, next) {
           next('The api route was not found');
