@@ -34,7 +34,9 @@ class UserController {
                         }
                     });
             } else {
-                console.log("found a user!!!!")
+                response.status = 200;
+                response.data = user;
+                response.message="Found a user";
             }
         } catch (err) {
             console.log("Error" +err)
