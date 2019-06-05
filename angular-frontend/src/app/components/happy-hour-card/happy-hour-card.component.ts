@@ -11,7 +11,7 @@ import { HappyhourService } from 'src/app/happyhour/happyhour.service';
   styleUrls: ['./happy-hour-card.component.scss']
 })
 export class HappyHourCardComponent implements OnInit {
-  @Input('happyHours') happyHours: HappyHourModel[];
+  @Input('happyHour') happyHour: HappyHourModel;
   @Output()
   refreshContent: EventEmitter<any> = new EventEmitter<any>();
 

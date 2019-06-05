@@ -1,12 +1,10 @@
 import { HappyHourCreateModalComponent } from './happy-hour-create-modal/happy-hour-create-modal.component';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { MatSnackBar, MatDialogRef, MatDialog } from '@angular/material';
+import { Component, OnInit } from '@angular/core';
+import { MatDialogRef, MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HappyhourService } from './happyhour.service'
 import { HappyHourModel } from '../models/HappyHourModel';
-import {ConfirmDialogComponent} from '../shared/confirm-dialog/confirm-dialog.component';
 @Component({
   selector: 'app-happyhour',
   templateUrl: './happyhour.component.html',
@@ -24,8 +22,8 @@ export class HappyhourComponent implements OnInit {
   happyHours$: Observable<HappyHourModel[]>;
   //store them in a format this class can use 
   happyHoursArr : HappyHourModel[];
-  constructor( private snackbar: MatSnackBar,
-    private dialog: MatDialog, router: Router, private happyhourServ: HappyhourService) {
+  constructor(private dialog: MatDialog, router: Router, 
+            private happyhourServ: HappyhourService) {
     //closes dialog when navigating away from this page
     router.events.subscribe(() => {
       dialog.closeAll();
