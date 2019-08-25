@@ -4,7 +4,6 @@ import { Router, NavigationCancel, NavigationEnd, NavigationStart } from '@angul
 import { AuthService } from '../core/auth.service';
 import { LoginComponent } from '../login/login.component';
 import { SocialUser } from 'angularx-social-login';
-
 @Component({
   selector: 'app-main-nav',
   templateUrl: './main-nav.component.html',
@@ -55,6 +54,8 @@ export class MainNavComponent implements OnInit{
       //removes the need to call the service directly from the template which causes errors
       this.loggedIn = this.auth.loggedIn;
       this.user = JSON.parse(this.auth.getUser());
+      //auth reads from localStorage
+      this.auth.login(this.user);
   }
   
    /**
@@ -77,7 +78,7 @@ export class MainNavComponent implements OnInit{
             hasBackdrop: false,
             closeOnNavigation: true,
             disableClose: false,
-            width: '900px'
+            width: '600px'
           });
           this.loginDialog.afterClosed().subscribe(result => {
                this.loggedIn = this.auth.loggedIn
@@ -92,6 +93,12 @@ export class MainNavComponent implements OnInit{
         this.auth.logout();
         this.loggedIn = false;
         this.user = null;
+        this._router.navigateByUrl('/');
+    }
+
+    viewProfile() {
+        //set up a profile page for the user
+        this._router.navigateByUrl('/')
     }
   
   }

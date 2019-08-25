@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { SocialUser } from 'angularx-social-login';
-import {AuthService as GoogleAuthService} from 'angularx-social-login'
+import {AuthService as GoogleAuthService,GoogleLoginProvider} from 'angularx-social-login'
 import { environment } from '../../environments/environment'
 
 
 const APIURL = environment.apiUrl;
 @Injectable()
 export class AuthService {
-  constructor(private http: HttpClient,private authService : GoogleAuthService) { }
+  constructor(private http: HttpClient,private authService : GoogleAuthService,
+    private googleProvider : GoogleAuthService) { }
 
   //use the google login credentials and just store in localStorage for now
   //eventually connect with the server for some jwt token
@@ -27,6 +27,9 @@ export class AuthService {
   }
 
   logout() {
+    //signout from provider to prevent caching your google credentials and allow you to login as a 
+    //different google user
+    this.googleProvider.signOut(true);
     this.authService.signOut();
     localStorage.removeItem('access_token');
     localStorage.removeItem('user');

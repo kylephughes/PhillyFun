@@ -11,7 +11,7 @@ import { HappyhourService } from 'src/app/happyhour/happyhour.service';
   styleUrls: ['./happy-hour-card.component.scss']
 })
 export class HappyHourCardComponent implements OnInit {
-  @Input('happyHours') happyHours: HappyHourModel[];
+  @Input('happyHour') happyHour: HappyHourModel;
   @Output()
   refreshContent: EventEmitter<any> = new EventEmitter<any>();
 
@@ -22,20 +22,20 @@ export class HappyHourCardComponent implements OnInit {
   ngOnInit() {
   }
 
-  editHappyHour(obj: HappyHourModel) {
+  editHappyHour() {
     this.editHappyHourDialog = this.dialog.open(HappyHourCreateModalComponent, {
       hasBackdrop: false,
       closeOnNavigation: true,
       disableClose: false,
-      data: obj,
+      data: this.happyHour,
       width: '900px'
     });
     this.registerModalClose();
 
   }
 
-  deleteHappyHour(name: string, id: string) {
-
+  deleteHappyHour() {
+    const {name, _id} = this.happyHour
     //already pulled all of the data so just filter on the id we want to edit
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '300px',
@@ -44,9 +44,8 @@ export class HappyHourCardComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(answer => {
-      console.log("the answer " + answer)
       if (answer) {
-        this.happyhourServ.deleteHappyHour(id).subscribe(result => {
+        this.happyhourServ.deleteHappyHour(_id).subscribe(result => {
           this.snackbar.open(name + " has been deleted!", 'Close',
             { duration: 6000, verticalPosition: 'top' });
         });

@@ -33,6 +33,12 @@ class HappyHourController {
 
 
   public getHappyHours(req: express.Request, res: express.Response) {
+    if(mongoose.connection.readyState == 0) {
+      throw new Error("Database connection seems to be down")
+    }
+    if(hhModel == null || mongoose.connection == null) {
+      console.log("null hhModel");
+    }
     hhModel.find({}, (err, happyhours) => {
       if (err) {
         response.status = 500;

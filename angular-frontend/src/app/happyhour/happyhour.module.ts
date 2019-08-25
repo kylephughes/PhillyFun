@@ -13,17 +13,16 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 //google maps
 import { AgmCoreModule } from '@agm/core';
 import {environment} from '../../environments/environment';
-
-//just a FYI, can't declare a component  in two modules, need to create a seperate 'module'
 import {HappyHourCardComponent} from '../components/happy-hour-card/happy-hour-card.component';
-//Things to look at : do i need to reimport everything int his module with lazy loading???
+import { SearchPipe} from '../shared/pipes/search.pipe';
 
 @NgModule({
   declarations: [
     HappyHourCreateModalComponent,
     HappyhourComponent,
     DailySpecialsCardComponent,
-    HappyHourCardComponent
+    HappyHourCardComponent,
+    SearchPipe
   ],
   imports: [
     CommonModule,

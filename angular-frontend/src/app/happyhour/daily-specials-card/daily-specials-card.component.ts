@@ -3,15 +3,13 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { AmazingTimePickerService } from 'amazing-time-picker';
 import { HappyHourModel } from '../../models/HappyHourModel';
 
-
 @Component({
   selector: 'daily-specials-card',
   templateUrl: './daily-specials-card.component.html',
   styleUrls: ['./daily-specials-card.component.scss']
 })
-/**
- * Each day during the week is represented by its own component
- */
+ 
+//Each day during the week is represented by its own component
 export class DailySpecialsCardComponent implements OnInit, OnChanges {
   //send the data to to the parent via this event
   @Output()
@@ -69,18 +67,13 @@ export class DailySpecialsCardComponent implements OnInit, OnChanges {
     this.mainForm.addControl(this.specialsDay, this.form);
   }
 
-  /**
-  * Invoked when the data (@Inputs) that is binded to this component by the
-  * parent changes - defaults the start times for all days based on what is
-  * entered for the first day
-  */
+  // Invoked when the data (@Inputs) that is binded to this component by the
+  // parent changes - defaults the start times for all days based on what is
+  // entered for the first day
   ngOnChanges(changes: SimpleChanges) {
-    console.log("ngonchanges");
   }
 
-  /**
-    Need to insert at runtime to set the themes 
-  */
+  //Need to insert at runtime to set the themes 
   openStartPicker() {
     let timePicker = this.atp.open({
       theme: 'material-blue'
@@ -99,18 +92,15 @@ export class DailySpecialsCardComponent implements OnInit, OnChanges {
       this.form.get('endTime').setValue(time);
     });
   }
-  /**
- * Create new item for food or drink
- */
+
+ // Create new item for food or drink
   private createNewSpecial(item : string) {
     return this.fb.group({
       itemName: [item, Validators.required]
     });
   }
-  /**
- * Add new special into form as blank, called from the add more action
- *
- */
+
+  // Add new special into form as blank, called from the add more action
    addSpecial = (item : string) => {
     const control = <FormArray>this.form.controls['specials'];
     control.push(this.createNewSpecial(item));
@@ -121,10 +111,8 @@ export class DailySpecialsCardComponent implements OnInit, OnChanges {
     control.removeAt(index);
   }
 
-  /**
-   * let the parent know we want to change tabs to next or prev day
-   * @val will either be 1 or -1 if going back
-  */
+  // let the parent know we want to change tabs to next or prev day
+  // @val will either be 1 or -1 if going back
   private changeDailyTab(val: any) {
     this.changeTab.emit(val);
   }

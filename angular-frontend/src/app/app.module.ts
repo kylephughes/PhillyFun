@@ -23,6 +23,8 @@ import { SocialLoginModule,AuthServiceConfig,GoogleLoginProvider } from 'angular
 import { getAuthServiceConfigs } from './SocialLoginConfig';
 import {AuthService} from './core/auth.service';
 import { LoginComponent } from './login/login.component';
+import {AngularFontAwesomeModule} from './angular-fontawesome/angular-fontawesome.module';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +47,9 @@ import { LoginComponent } from './login/login.component';
     LayoutModule,
     FlexLayoutModule,
     AngularMaterialModule,
-    SocialLoginModule
+    SocialLoginModule,
+    AngularFontAwesomeModule,
+    FontAwesomeModule
   ],
   providers: [
     {
