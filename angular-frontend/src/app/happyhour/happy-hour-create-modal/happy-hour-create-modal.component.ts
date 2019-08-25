@@ -21,10 +21,10 @@ import { HappyHourModel } from 'src/app/models/HappyHourModel';
 export class HappyHourCreateModalComponent implements OnInit {
 
   //used to dynamically create  daily special card's
-  days : { label: string, day: string }[];
+  days: { label: string, day: string }[];
   //edit or new title or button
-  title : string;
-  buttonName : string;
+  title: string;
+  buttonName: string;
 
   form: FormGroup;
   selectedIndex: any;
@@ -44,18 +44,18 @@ export class HappyHourCreateModalComponent implements OnInit {
     private happyhourServ: HappyhourService,
     private snackbar: MatSnackBar
 
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.selectedIndex = 0;
     this.days = [
-      {"label":"Mon","day":"monSpecials"},
-      {"label":"Tue","day":"tueSpecials"},
-      {"label":"Wed","day":"wedSpecials"},
-      {"label":"Thr","day":"thrSpecials"},
-      {"label":"Fri","day":"friSpecials"},
-      {"label":"Sat","day":"satSpecials"},
-      {"label":"Sun","day":"sunSpecials"}];
+      { "label": "Mon", "day": "monSpecials" },
+      { "label": "Tue", "day": "tueSpecials" },
+      { "label": "Wed", "day": "wedSpecials" },
+      { "label": "Thr", "day": "thrSpecials" },
+      { "label": "Fri", "day": "friSpecials" },
+      { "label": "Sat", "day": "satSpecials" },
+      { "label": "Sun", "day": "sunSpecials" }];
     //googlePlace is bound to the input, but the rest are filled out based on
     //the google api data
     this.setEditOrNew();
@@ -68,13 +68,14 @@ export class HappyHourCreateModalComponent implements OnInit {
     });
   }
 
-  setEditOrNew = () => {this.editData.name == '' ? 
-                        (this.title='Add Happy Hour',this.buttonName='Submit') :
-                        (this.title='Edit -- ' + this.editData.name,this.buttonName='Save')  };
-  /**
-    Dynamically add onto the form when google place changes
-    @address json from the google places
-  */
+  setEditOrNew = () => {
+    this.editData.name == '' ?
+    (this.title = 'Add Happy Hour', this.buttonName = 'Submit') :
+    (this.title = 'Edit -- ' + this.editData.name, this.buttonName = 'Save')
+  };
+
+  // Dynamically add onto the form when google place changes
+  // @address json from the google places
   handleAddressChange(address) {
     (<FormControl>this.form.controls['name']).setValue(address.name);
     (<FormControl>this.form.controls['latitude']).setValue(address.geometry.location.lat());
@@ -88,45 +89,42 @@ export class HappyHourCreateModalComponent implements OnInit {
   selectedIndexChange(val: number) {
     this.selectedIndex = val;
   }
-  /**
-   * Called as event from the child, custom tab arrow was clicked
-   * @val an object with 3 values
-   */
+
+  // Called as event from the child, custom tab arrow was clicked
+  // @val an object with 3 values
   changeDailyTab(val: any) {
     this.selectedIndex = this.selectedIndex + val;
   }
 
 
-  /**
-    Send request to nodejs, close the modal if success
-  */
+  // Send request to nodejs, close the modal if success
   submit() {
     console.log(this.form.value);
     this.dataSent = true;
-    if(this.editData.name == '') {
-    this.happyhourServ.postNewHappyHour(this.form.value)
-      .subscribe(
-        apiResponse => {
-          //  this.apiResponse = apiResponse;
-          this.dataSent = false;
-          //modify the config more 
-          this.snackbar.open("Happy Hour has been created!", 'Close',
-            { duration: 6000, verticalPosition: 'top' });
-          this.dialogRef.close();
-        }
-      );
+    if (this.editData.name == '') {
+      this.happyhourServ.postNewHappyHour(this.form.value)
+        .subscribe(
+          apiResponse => {
+            //  this.apiResponse = apiResponse;
+            this.dataSent = false;
+            //modify the config more 
+            this.snackbar.open("Happy Hour has been created!", 'Close',
+              { duration: 6000, verticalPosition: 'top' });
+            this.dialogRef.close();
+          }
+        );
     } else {
-      this.happyhourServ.updateHappyHour(this.editData._id,this.form.value)
-      .subscribe(
-        apiResponse => {
-          //  this.apiResponse = apiResponse;
-          this.dataSent = false;
-          //modify the config more 
-          this.snackbar.open(this.editData.name + " has been updated!", 'Close',
-            { duration: 6000, verticalPosition: 'top' });
-          this.dialogRef.close();
-        }
-      );
+      this.happyhourServ.updateHappyHour(this.editData._id, this.form.value)
+        .subscribe(
+          apiResponse => {
+            //  this.apiResponse = apiResponse;
+            this.dataSent = false;
+            //modify the config more 
+            this.snackbar.open(this.editData.name + " has been updated!", 'Close',
+              { duration: 6000, verticalPosition: 'top' });
+            this.dialogRef.close();
+          }
+        );
     }
   }
 }

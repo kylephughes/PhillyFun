@@ -2,16 +2,17 @@ import { HappyHourCreateModalComponent } from './happy-hour-create-modal/happy-h
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { HappyhourService } from './happyhour.service'
 import { HappyHourModel } from '../models/HappyHourModel';
+
 @Component({
   selector: 'app-happyhour',
   templateUrl: './happyhour.component.html',
   styleUrls: ['./happyhour.component.scss']
 })
 export class HappyhourComponent implements OnInit {
-  //keep  philly city hall for now
+  //keep  philly city hall for now TODO use location
   latitude = 39.9524;
   longitude= -75.1636;
   showMap : boolean = false;
@@ -32,14 +33,11 @@ export class HappyhourComponent implements OnInit {
 
   ngOnInit() {
     this.refreshComponent();
-
   }
 
   refreshComponent () {
     //service returns the observable for the async pipe
     this.happyHours$ = this.happyhourServ.getHappyHours();
-    //originall had another subscribe here to store the arr locally (caused another http request) 
-    //but now just pass the full object to the edit and delete
   }
 
   toggleFormDialog() {
@@ -59,13 +57,12 @@ export class HappyhourComponent implements OnInit {
     this.showMap = !this.showMap;
   }
   
+  //handle selecting a place on the map TODO
   selectMarker(event,name: string) {
-    console.log(event);
     alert("Selected " + name);
   }
-  /**
-   * In new or edit mode, refresh the list
-   */
+
+  //In new or edit mode, refresh the list
   registerModalClose = () => {
     this.newHappyHourDialog.afterClosed().subscribe(result => {
       this.refreshComponent();

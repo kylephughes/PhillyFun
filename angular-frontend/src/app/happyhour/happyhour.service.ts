@@ -14,7 +14,6 @@ export class HappyhourService {
 
   updateHappyHour(id: string, data: HappyHourModel): Observable<any> {
     return this.http.put(APIURL + 'happyhour/'+id, data).pipe(map(response => {
-      console.log( response);
       return response;
     }));
   }
@@ -24,7 +23,6 @@ export class HappyhourService {
   //made async work (it needs to have an observable and it has to be an iterable like an array)
   getHappyHours(): Observable<HappyHourModel[]> {
     return this.http.get(APIURL + 'happyhour').pipe(map(response => {
-      
       const currentDay = this.getTodaysSpecials();
       //do some error checking here eventually
       let resp: any = response || {};

@@ -4,7 +4,6 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
-  HttpResponse,
   HttpErrorResponse,
 } from '@angular/common/http';
 
@@ -21,13 +20,11 @@ export class HttpRequestInterceptor implements HttpInterceptor {
   ) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    console.log("request sent");
     //Catch any bad responses from the express server and set things up for handling JWT
     //takeUntil waits for something to be emitted and then will stop (meaning an error already occurred)
-    return next.handle(request).pipe(takeUntil(this.errorHandler.onCancelPendingRequests()),
+    return next.handle(request).pipe(
       map((event: HttpEvent<any>) => {
-        //if (event instanceof HttpResponse) {
-        // console.log('event--->>>', event);
-        //}
         return event;
       }),
       catchError((error: HttpErrorResponse) => {
@@ -36,6 +33,7 @@ export class HttpRequestInterceptor implements HttpInterceptor {
           reason: error && error.error ? error.error : '',
           status: error.status
         };
+        console.log("error occured");
         //TODO look into removing the material progress bar when there is an error!
         this.errorHandler.handleError(data);
         return throwError(error);
