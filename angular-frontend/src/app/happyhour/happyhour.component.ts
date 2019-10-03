@@ -13,8 +13,8 @@ import { HappyHourModel } from '../models/HappyHourModel';
 })
 export class HappyhourComponent implements OnInit {
   //keep  philly city hall for now TODO use location
-  latitude = 39.9524;
-  longitude= -75.1636;
+  latitude = 40.8259;
+  longitude= -74.2090;
   showMap : boolean = false;
   today: number = Date.now();
   //our variable of our module to handle the dialog itself

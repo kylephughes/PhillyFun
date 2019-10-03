@@ -33,14 +33,15 @@ class App {
     this.app.use('/api/user/', userRoutes);
     //catch all other bad api routes
     this.app.use('/api/*', function (req, res, next) {
+      console.log("api rute")
       next('The api route was not found');
     });
-    //let angular handle the routes
+    //let angular handle the routes 
     this.app.get('*', (req: express.Request, res: express.Response) => {
       res.sendFile(path.resolve('public/index.html'));
     });
 
-    // error handler, send back to client
+    // throw errors to invoked this error handler, send back to client
     this.app.use(function (err, req, res, next) {
       res.status(404).send(err);
     });
@@ -50,10 +51,12 @@ class App {
     //public mongoUrl: string = 'mongodb://localhost:27017/PhillyFun';
     const userPass = `${databaseConfig.user}:${databaseConfig.password}`;
     const mongoUrl = `mongodb+srv://${userPass}@happyhourcluster-obkbn.mongodb.net/test?retryWrites=true`;
+   console.log(mongoUrl + " mongodSteup");
     mongoose.connect(mongoUrl).then(() => {
       console.log("Connected to Database")
     }, err => {
       console.log("There was an error connecting to the mongo cluster", err);
+      mongoose.disconnect();
     }
     );
   }
