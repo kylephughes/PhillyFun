@@ -5,6 +5,7 @@
       <mat-card-subtitle>{{happyHour.formattedAddress}}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content fxflex>
+      <span>{{happyHour.todaysSpecials.startTime}} - {{happyHour.todaysSpecials.endTime}}</span>
       <mat-chip-list>
         <ng-container *ngFor="let special of happyHour.todaysSpecials.specials; let i= index">
           <mat-chip *ngIf="i < 4 && special.itemName !='' ">{{special.itemName}} </mat-chip>
@@ -12,6 +13,7 @@
       </mat-chip-list>
     </mat-card-content>
     <mat-card-actions fxFlexAlign="end" align="end">
+      <button mat-button (click)="viewHappyHour()">View Details</button>
       <button mat-button (click)="editHappyHour()">Edit</button>
       <button mat-button (click)="deleteHappyHour()">Delete</button>
     </mat-card-actions>

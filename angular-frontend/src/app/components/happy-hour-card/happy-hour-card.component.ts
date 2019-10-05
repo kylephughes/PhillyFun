@@ -4,6 +4,7 @@ import { HappyHourCreateModalComponent } from 'src/app/happyhour/happy-hour-crea
 import { MatDialogRef, MatDialog, MatSnackBar } from '@angular/material';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { HappyhourService } from 'src/app/happyhour/happyhour.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'happy-hour-card',
@@ -16,10 +17,14 @@ export class HappyHourCardComponent implements OnInit {
   refreshContent: EventEmitter<any> = new EventEmitter<any>();
 
   editHappyHourDialog: MatDialogRef<HappyHourCreateModalComponent>;
-  constructor(private snackbar: MatSnackBar,
+  constructor(private router : Router, private snackbar: MatSnackBar,
     private happyhourServ: HappyhourService, private dialog: MatDialog) { }
 
   ngOnInit() {
+  }
+
+  viewHappyHour() {
+    this.router.navigateByUrl('happyhour/'+this.happyHour._id, {state: {happyhour: this.happyHour}})
   }
 
   editHappyHour() {

@@ -14,6 +14,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import { AgmCoreModule } from '@agm/core';
 import {environment} from '../../environments/environment';
 import {HappyHourCardComponent} from '../components/happy-hour-card/happy-hour-card.component';
+import {HappyhourViewComponent} from '../components/happyhour-view/happyhour-view.component'
 import { SearchPipe} from '../shared/pipes/search.pipe';
 
 @NgModule({
@@ -22,6 +23,7 @@ import { SearchPipe} from '../shared/pipes/search.pipe';
     HappyhourComponent,
     DailySpecialsCardComponent,
     HappyHourCardComponent,
+    HappyhourViewComponent,
     SearchPipe
   ],
   imports: [

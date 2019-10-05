@@ -33,8 +33,8 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
     MainNavComponent,
     ErrorDialogComponent,
     ConfirmDialogComponent,
-    LoginComponent,
-  ],
+    LoginComponent
+    ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

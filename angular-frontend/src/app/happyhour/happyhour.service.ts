@@ -26,16 +26,14 @@ export class HappyhourService {
     return this.http.get(APIURL + "happyhour").pipe(
       
       map((response:any) => {
-        console.log("WFEF")
         const currentDay = getTodaysSpecials();
         //do some error checking here eventually
-        let resp: any = response || {};
         let jsonArray: HappyHourModel[] = response ? response.data : []
         //use the js map to dynamically modify todaysSpecials for each happy hour only show 4 on
         //the landing page
-        console.log(jsonArray)
         jsonArray.map((single: HappyHourModel) => {
           single.todaysSpecials = single[currentDay];
+          console.log(single.todaysSpecials)
         });
         return jsonArray;
       })
