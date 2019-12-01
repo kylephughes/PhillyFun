@@ -1,41 +1,49 @@
-import { HappyHourCreateModalComponent } from './happy-hour-create-modal/happy-hour-create-modal.component';
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef, MatDialog } from '@angular/material';
-import { Router } from '@angular/router';
-import { Observable, throwError } from 'rxjs';
-import { HappyhourService } from './happyhour.service'
-import { HappyHourModel } from '../models/HappyHourModel';
-
+import { HappyHourCreateModalComponent } from "./happy-hour-create-modal/happy-hour-create-modal.component";
+import { Component, OnInit } from "@angular/core";
+import { MatDialogRef, MatDialog } from "@angular/material";
+import { Router } from "@angular/router";
+import { Observable, throwError } from "rxjs";
+import { HappyhourService } from "./happyhour.service";
+import { HappyHourModel } from "../models/HappyHourModel";
+import { User } from "../models/User";
+import { AuthService as LoginAuth } from "../core/auth.service";
 @Component({
-  selector: 'app-happyhour',
-  templateUrl: './happyhour.component.html',
-  styleUrls: ['./happyhour.component.scss']
+  selector: "app-happyhour",
+  templateUrl: "./happyhour.component.html",
+  styleUrls: ["./happyhour.component.scss"]
 })
 export class HappyhourComponent implements OnInit {
   //keep  philly city hall for now TODO use location
   latitude = 40.8259;
-  longitude= -74.2090;
-  showMap : boolean = false;
+  longitude = -74.209;
+  showMap: boolean = false;
   today: number = Date.now();
   //our variable of our module to handle the dialog itself
   newHappyHourDialog: MatDialogRef<HappyHourCreateModalComponent>;
   //used for async pipe in html
   happyHours$: Observable<HappyHourModel[]>;
-  //store them in a format this class can use 
-  happyHoursArr : HappyHourModel[];
-  constructor(private dialog: MatDialog, router: Router, 
-            private happyhourServ: HappyhourService) {
+  //store them in a format this class can use
+  happyHoursArr: HappyHourModel[];
+  user: User;
+  constructor(
+    private dialog: MatDialog,
+    router: Router,
+    private happyhourServ: HappyhourService,
+    private authService: LoginAuth
+  ) {
     //closes dialog when navigating away from this page
     router.events.subscribe(() => {
       dialog.closeAll();
     });
+    this.user = authService.getUser();
+    console.log("got the user in componetn", this.user);
   }
 
   ngOnInit() {
     this.refreshComponent();
   }
 
-  refreshComponent () {
+  refreshComponent() {
     //service returns the observable for the async pipe
     this.happyHours$ = this.happyhourServ.getHappyHours();
   }
@@ -47,18 +55,18 @@ export class HappyhourComponent implements OnInit {
       hasBackdrop: false,
       closeOnNavigation: true,
       disableClose: false,
-      width: '900px',
+      width: "900px",
       data: defaultData
     });
     this.registerModalClose();
   }
 
-  toggleMap(){
+  toggleMap() {
     this.showMap = !this.showMap;
   }
-  
+
   //handle selecting a place on the map TODO
-  selectMarker(event,name: string) {
+  selectMarker(event, name: string) {
     alert("Selected " + name);
   }
 
@@ -67,6 +75,5 @@ export class HappyhourComponent implements OnInit {
     this.newHappyHourDialog.afterClosed().subscribe(result => {
       this.refreshComponent();
     });
-  }
-
+  };
 }

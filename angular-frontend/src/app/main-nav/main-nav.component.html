@@ -25,19 +25,19 @@
       <div fxFlex fxLayout fxHide.xs>
         <a mat-button routerLink="/events" mat-button> Events</a>
         <a routerLink="/happyhour" mat-button> Happy Hours</a>
-       
+
         <div fxFlex fxLayoutAlign="flex-end" *ngIf="!loggedIn">
-          <a (click)="login()" mat-button> 
+          <a (click)="login()" mat-button>
             <fa-icon [icon]="['fas', 'sign-in-alt']"></fa-icon>
             Login
           </a>
         </div>
         <div fxFlex fxLayoutAlign="flex-end" *ngIf="loggedIn">
           <a (click)="viewProfile()" mat-button>
-              <fa-icon [icon]="['fas', 'user']"></fa-icon>
-              {{user.name}}
+            <fa-icon [icon]="['fas', 'user']"></fa-icon>
+            {{user.firstName}} {{user.lastName}}
           </a>
-          <a (click)="logout()" mat-button> 
+          <a (click)="logout()" mat-button>
             Logout
             <fa-icon [icon]="['fas', 'sign-out-alt']"></fa-icon>
           </a>

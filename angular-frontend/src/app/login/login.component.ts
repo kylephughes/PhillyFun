@@ -1,29 +1,33 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import {GoogleLoginProvider,SocialUser, AuthService } from "angularx-social-login";
-import { Subject, Subscription } from 'rxjs';
-import {AuthService as LoginAuth} from '../core/auth.service';
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import {
+  GoogleLoginProvider,
+  SocialUser,
+  AuthService
+} from "angularx-social-login";
+import { Subject, Subscription } from "rxjs";
+import { AuthService as LoginAuth } from "../core/auth.service";
+import { User } from "../models/User";
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: "app-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.scss"]
 })
 export class LoginComponent implements OnInit {
-
-  constructor(private loginAuth : LoginAuth,private authService: AuthService) { }
-  user : SocialUser;
+  constructor(private loginAuth: LoginAuth, private authService: AuthService) {}
+  user: SocialUser;
   //need to remove subscription to prevent memory leaks
-  googleResponse : Subscription;
-  
+  googleResponse: Subscription;
+
   ngOnInit() {
     //this will return null if the  user is logged out and push something when this component first loads
-    this.googleResponse = this.authService.authState.subscribe((user) => {
+    this.googleResponse = this.authService.authState.subscribe(user => {
       //send request to rest api
-      if(user != null) {
-        this.loginAuth.login(user).subscribe(response => {
-          console.log(response);
+      if (user != null) {
+        this.loginAuth.login(user).subscribe((response: User) => {
+         localStorage.setItem('user', JSON.stringify(response));
         });
       }
-      this.user=user;
+      this.user = user;
     });
   }
 
@@ -34,5 +38,4 @@ export class LoginComponent implements OnInit {
   signInWithGoogle(): void {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
-
 }

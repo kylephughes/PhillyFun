@@ -24,16 +24,14 @@ export class HappyhourService {
   //made async work (it needs to have an observable and it has to be an iterable like an array)
   getHappyHours(): Observable<HappyHourModel[]> {
     return this.http.get(APIURL + "happyhour").pipe(
-      
-      map((response:any) => {
+      map((response: any) => {
         const currentDay = getTodaysSpecials();
         //do some error checking here eventually
-        let jsonArray: HappyHourModel[] = response ? response.data : []
+        let jsonArray: HappyHourModel[] = response ? response.data : [];
         //use the js map to dynamically modify todaysSpecials for each happy hour only show 4 on
         //the landing page
         jsonArray.map((single: HappyHourModel) => {
           single.todaysSpecials = single[currentDay];
-          console.log(single.todaysSpecials)
         });
         return jsonArray;
       })
@@ -43,7 +41,7 @@ export class HappyhourService {
   getHappyHour(id: string): Observable<HappyHourModel[]> {
     return this.http.get(APIURL + "happyhour/" + id).pipe(
       map(response => {
-        let resp: any = response;
+        const resp: any = response;
         //data should fit to the model
         return resp.data;
       })

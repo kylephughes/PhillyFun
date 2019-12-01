@@ -14,8 +14,8 @@
     </mat-card-content>
     <mat-card-actions fxFlexAlign="end" align="end">
       <button mat-button (click)="viewHappyHour()">View Details</button>
-      <button mat-button (click)="editHappyHour()">Edit</button>
-      <button mat-button (click)="deleteHappyHour()">Delete</button>
+      <button *ngIf="isAdmin()" mat-button (click)="editHappyHour()">Edit</button>
+      <button *ngIf="isAdmin()" mat-button (click)="deleteHappyHour()">Delete</button>
     </mat-card-actions>
   </mat-card>
 </div>
