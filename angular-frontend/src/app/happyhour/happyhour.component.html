@@ -8,7 +8,9 @@
 <mat-divider></mat-divider>
 <mat-divider></mat-divider>
 <div class="mt-2" fxLayout="row" fxLayoutAlign="center center">
-    <input matInput [(ngModel)]="searchText" placeholder="Search for a place">
+    <mat-form-field>
+        <input matInput [(ngModel)]="searchText" placeholder="Search for a place">
+    </mat-form-field>
 </div>
 <br />
 <ng-container *ngIf="happyHours$ | async as happyHours else loading">

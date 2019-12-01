@@ -33,7 +33,7 @@
           </a>
         </div>
         <div fxFlex fxLayoutAlign="flex-end" *ngIf="loggedIn">
-          <a (click)="viewProfile()" mat-button>
+          <a *ngIf="user" (click)="viewProfile()" mat-button>
             <fa-icon [icon]="['fas', 'user']"></fa-icon>
             {{user.firstName}} {{user.lastName}}
           </a>

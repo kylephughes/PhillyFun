@@ -76,6 +76,6 @@ export class HappyHourCardComponent implements OnInit {
   };
 
   isAdmin = () => {
-    return this.user.role === "ADMIN";
+    return this.user && this.user.role === "ADMIN";
   };
 }

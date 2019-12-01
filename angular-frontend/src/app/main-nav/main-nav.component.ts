@@ -57,8 +57,10 @@ export class MainNavComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loggedIn = this.auth.loggedIn;
-    this.user = JSON.parse(this.auth.getUser());
+    this.auth.user$.subscribe(user => {
+      this.loggedIn = true;
+      this.user = user;
+    });
   }
 
   /**
@@ -82,12 +84,6 @@ export class MainNavComponent implements OnInit {
       closeOnNavigation: true,
       disableClose: false,
       width: "600px"
-    });
-    this.loginDialog.afterClosed().subscribe(result => {
-      this.loggedIn = this.auth.loggedIn;
-      if (this.loggedIn) {
-        this.user = JSON.parse(this.auth.getUser());
-      }
     });
   }
 
