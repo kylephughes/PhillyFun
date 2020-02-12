@@ -1,30 +1,42 @@
-import { HappyHourCreateModalComponent } from './happy-hour-create-modal/happy-hour-create-modal.component';
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef, MatDialog } from '@angular/material';
-import { Router } from '@angular/router';
-import { Observable, throwError } from 'rxjs';
-import { HappyhourService } from './happyhour.service'
-import { HappyHourModel } from '../models/HappyHourModel';
-
+import { HappyHourCreateModalComponent } from "./happy-hour-create-modal/happy-hour-create-modal.component";
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+import { MatDialogRef, MatDialog } from "@angular/material";
+import { Router } from "@angular/router";
+import { Observable, throwError } from "rxjs";
+import { HappyhourService } from "./happyhour.service";
+import { HappyHourModel } from "../models/HappyHourModel";
+import { User } from "../models/User";
+import { AuthService as LoginAuth } from "../core/auth.service";
+import * as mapboxgl from "mapbox-gl";
+import { environment } from "../../environments/environment";
 @Component({
-  selector: 'app-happyhour',
-  templateUrl: './happyhour.component.html',
-  styleUrls: ['./happyhour.component.scss']
+  selector: "app-happyhour",
+  templateUrl: "./happyhour.component.html",
+  styleUrls: ["./happyhour.component.scss"]
 })
 export class HappyhourComponent implements OnInit {
-  //keep  philly city hall for now TODO use location
-  latitude = 39.9524;
-  longitude= -75.1636;
-  showMap : boolean = false;
+  latitude: number;
+  longitude: number;
+  showMap: boolean = false;
   today: number = Date.now();
   //our variable of our module to handle the dialog itself
   newHappyHourDialog: MatDialogRef<HappyHourCreateModalComponent>;
   //used for async pipe in html
   happyHours$: Observable<HappyHourModel[]>;
-  //store them in a format this class can use 
-  happyHoursArr : HappyHourModel[];
-  constructor(private dialog: MatDialog, router: Router, 
-            private happyhourServ: HappyhourService) {
+  //store them in a format this class can use
+  happyHoursArr: HappyHourModel[];
+  user: User;
+  map: mapboxgl.Map;
+  @ViewChild("mapBox") mapBox: ElementRef;
+  constructor(
+    private dialog: MatDialog,
+    router: Router,
+    private happyhourServ: HappyhourService,
+    private authService: LoginAuth
+  ) {
+    //keep  philly city hall for now TODO use location
+    this.latitude = 40.8259;
+    this.longitude = -74.209;
     //closes dialog when navigating away from this page
     router.events.subscribe(() => {
       dialog.closeAll();
@@ -33,9 +45,15 @@ export class HappyhourComponent implements OnInit {
 
   ngOnInit() {
     this.refreshComponent();
+
+    (mapboxgl as any).accessToken = environment.mapbox.accessToken;
+    this.happyHours$.subscribe(response => {
+      console.log("sub");
+      this.happyHoursArr = response;
+    });
   }
 
-  refreshComponent () {
+  refreshComponent() {
     //service returns the observable for the async pipe
     this.happyHours$ = this.happyhourServ.getHappyHours();
   }
@@ -47,18 +65,46 @@ export class HappyhourComponent implements OnInit {
       hasBackdrop: false,
       closeOnNavigation: true,
       disableClose: false,
-      width: '900px',
+      width: "900px",
       data: defaultData
     });
     this.registerModalClose();
   }
 
-  toggleMap(){
+  toggleMap() {
     this.showMap = !this.showMap;
+    if (this.showMap) {
+      // allows div element to render on screen
+      setTimeout(() => {
+        this.map = new mapboxgl.Map({
+          container: "mapBox",
+          style: "mapbox://styles/mapbox/streets-v11",
+          zoom: 12,
+          center: [this.longitude, this.latitude]
+        });
+
+        this.addMarkers(this.map);
+      }, 1);
+    }
   }
-  
+
+  // add the happy hours icons to the map
+  addMarkers = (map: mapboxgl.Map) => {
+    this.happyHoursArr.forEach(happyhour => {
+      const popup = new mapboxgl.Popup().setText(happyhour.name);
+
+      const marker = new mapboxgl.Marker()
+        .setLngLat([happyhour.longitude, happyhour.latitude])
+        .setPopup(popup)
+        .addTo(map);
+      marker.getElement().addEventListener("click", () => {
+        this.selectMarker(happyhour.name);
+      });
+    });
+  };
+
   //handle selecting a place on the map TODO
-  selectMarker(event,name: string) {
+  selectMarker(name: string) {
     alert("Selected " + name);
   }
 
@@ -67,6 +113,5 @@ export class HappyhourComponent implements OnInit {
     this.newHappyHourDialog.afterClosed().subscribe(result => {
       this.refreshComponent();
     });
-  }
-
+  };
 }

@@ -1,39 +1,48 @@
 <br />
 <br />
 <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="2%">
-    <button mat-raised-button color="primary" (click)="toggleFormDialog()">New Happy Hour</button>
-    <button mat-raised-button color="primary" (click)="toggleMap()">Toggle Map</button>
+  <button mat-raised-button color="primary" (click)="toggleFormDialog()">
+    New Happy Hour
+  </button>
+  <button mat-raised-button color="primary" (click)="toggleMap()">
+    Toggle Map
+  </button>
 </div>
 <br />
 <mat-divider></mat-divider>
 <mat-divider></mat-divider>
 <div class="mt-2" fxLayout="row" fxLayoutAlign="center center">
-    <input matInput [(ngModel)]="searchText" placeholder="Search for a place">
+  <mat-form-field>
+    <input matInput [(ngModel)]="searchText" placeholder="Search for a place" />
+  </mat-form-field>
 </div>
 <br />
-<ng-container *ngIf="happyHours$ | async as happyHours else loading">
-    <div fxLayout="column">
-        <div *ngIf="showMap" fxFlex="100">
-            <agm-map [zoom]="15" [gestureHandling]="'cooperative'" [scrollwheel]="null" [latitude]='latitude'
-                [longitude]='longitude'>
-                <agm-marker *ngFor="let happyhour of happyHours | filter : searchText" [latitude]="happyhour.latitude"
-                    [longitude]="happyhour.longitude" [opacity]="1" [markerDraggable]="false"
-                    (markerClick)="selectMarker($event,happyhour.name)">
-                </agm-marker>
-            </agm-map>
-        </div>
-        <div class="cardContainer" fxFlex="100" fxLayout.gt-xs="row wrap" fxLayout.xs="column"
-            fxLayoutAlign="start stretch" fxLayoutGap="2%">
-            <div fxFlex.xs="97" fxFlex.gt-xs="45" fxFlex.gt-sm="31"
-                *ngFor="let happyhour of happyHours | filter : searchText">
-                <happy-hour-card [happyHour]="happyhour" (refreshContent)="refreshComponent()">
-
-                </happy-hour-card>
-            </div>
-        </div>
+<div id="mapBox" class="mapBox" *ngIf="showMap"></div>
+<ng-container *ngIf="happyHours$ | async as happyHours; else loading">
+  <div fxLayout="column">
+    <div
+      class="cardContainer"
+      fxFlex="100"
+      fxLayout.gt-xs="row wrap"
+      fxLayout.xs="column"
+      fxLayoutAlign="start stretch"
+      fxLayoutGap="2%"
+    >
+      <div
+        fxFlex.xs="97"
+        fxFlex.gt-xs="45"
+        fxFlex.gt-sm="31"
+        *ngFor="let happyhour of happyHours | filter: searchText"
+      >
+        <happy-hour-card
+          [happyHour]="happyhour"
+          (refreshContent)="refreshComponent()"
+        >
+        </happy-hour-card>
+      </div>
     </div>
+  </div>
 </ng-container>
 <ng-template #loading>
-    <mat-progress-bar [mode]="indeterminate">
-    </mat-progress-bar>
+  <mat-progress-bar [mode]="indeterminate"> </mat-progress-bar>
 </ng-template>
