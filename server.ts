@@ -1,6 +1,6 @@
 import * as http from 'http';
 import app from "./app";
-const port = 8000;
+const port = process.env.PORT || 8000;
 //create a server and pass our Express app to it.
 const server = http.createServer(app);
 server.listen(port);

@@ -9,12 +9,14 @@ import { User } from "../models/User";
 import { AuthService as LoginAuth } from "../core/auth.service";
 import * as mapboxgl from "mapbox-gl";
 import { environment } from "../../environments/environment";
+import { share, map } from "rxjs/operators";
 @Component({
   selector: "app-happyhour",
   templateUrl: "./happyhour.component.html",
   styleUrls: ["./happyhour.component.scss"]
 })
 export class HappyhourComponent implements OnInit {
+  searchText:string;
   latitude: number;
   longitude: number;
   showMap: boolean = false;
@@ -47,15 +49,17 @@ export class HappyhourComponent implements OnInit {
     this.refreshComponent();
 
     (mapboxgl as any).accessToken = environment.mapbox.accessToken;
-    this.happyHours$.subscribe(response => {
-      console.log("sub");
-      this.happyHoursArr = response;
-    });
   }
 
   refreshComponent() {
-    //service returns the observable for the async pipe
-    this.happyHours$ = this.happyhourServ.getHappyHours();
+    // share this observable with async pipe
+    this.happyHours$ = this.happyhourServ.getHappyHours().pipe(
+      share(),
+      map(response => {
+        this.happyHoursArr = response;
+        return response;
+      })
+    );
   }
 
   toggleFormDialog() {

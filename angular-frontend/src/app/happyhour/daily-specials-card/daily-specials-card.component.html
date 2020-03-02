@@ -11,7 +11,7 @@
   </div>
   <mat-card formArrayName="specials">
     <!-- loop through mon specials -->
-    <div *ngFor="let unit of form.controls.specials.controls; let i=index">
+    <div *ngFor="let unit of formSpecials.controls; let i=index">
       <!-- group name in this case row index -->
       <div [formGroupName]="i">
         <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3%" fxLayoutAlign="left center">
@@ -19,7 +19,7 @@
           <mat-form-field fxFlex="80%">
             <input matInput placeholder="Special" formControlName="itemName" required>
           </mat-form-field>
-          <button color="warn" fxflex="10%" *ngIf="form.controls.specials.length > 1" (click)="deleteSpecial(i)" mat-mini-fab>
+          <button color="warn" fxflex="10%" *ngIf="formSpecials.length > 1" (click)="deleteSpecial(i)" mat-mini-fab>
             <mat-icon>remove</mat-icon>
           </button>
         </div>
@@ -32,7 +32,7 @@
     <mat-card-actions>
       <div fxLayout="row" fxLayoutGap="5px" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutAlign.xs="start center">
         <span fxFlex="1 1 20%">
-          <button type="button" mat-raised-button (click)="addSpecial()">
+          <button type="button" mat-raised-button (click)="addSpecial('')">
             <mat-icon>add</mat-icon>
             Add More
           </button>

@@ -1,10 +1,9 @@
 import * as mongoose from 'mongoose';
 import * as express from 'express';
-import { HappyHour } from '../models/happyhour';
+import { happyhourSchema } from '../models/happyhour';
 
 
-//const Contact = mongoose.model('Contact', ContactSchema);
-const hhModel = mongoose.model('HappyHour', HappyHour);
+const hhModel = mongoose.model<any>('HappyHour', happyhourSchema);
 
 // Response handling
 let response = {

@@ -1,8 +1,8 @@
 import * as mongoose from "mongoose";
 import * as express from "express";
-import { User } from "../models/user";
+import { userSchema } from "../models/user";
 
-const userModel = mongoose.model("User", User);
+const userModel = mongoose.model("User", userSchema);
 // Response handling
 let response = {
   status: 200,

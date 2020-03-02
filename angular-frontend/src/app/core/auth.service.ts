@@ -28,7 +28,6 @@ export class AuthService {
   login(user: any): Observable<any> {
     if (user != null) {
       localStorage.setItem("access_token", user.authToken);
-      console.log("calling api", user);
       return this.http.post(APIURL + "user/login", user).pipe(
         map((response: any) => {
           localStorage.setItem("user", JSON.stringify(response.data));

@@ -1,8 +1,8 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 // Events have the title, the bar/resturant name, lat and long for google map, the type of event
 //and a brief description of the event
-var hhSchema = new mongoose.Schema({
+export const happyhourSchema = new mongoose.Schema({
  
   name: String,
   latitude: Number,
@@ -106,5 +106,3 @@ var hhSchema = new mongoose.Schema({
 }, {
   collection: 'happyhour'
 });
-
-module.exports = mongoose.model('HappyHour', hhSchema);

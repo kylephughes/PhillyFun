@@ -32,7 +32,7 @@ export class DailySpecialsCardComponent implements OnInit, OnChanges {
   @Input('mainForm')
   private mainForm : FormGroup;
 
-  private form: FormGroup;
+  form: FormGroup;
 
   constructor(private fb: FormBuilder, private atp: AmazingTimePickerService) {
 
@@ -106,6 +106,10 @@ export class DailySpecialsCardComponent implements OnInit, OnChanges {
     control.push(this.createNewSpecial(item));
   }
 
+  get formSpecials() {
+    return <FormArray>this.form.get('specials')
+  }
+
   private deleteSpecial(index) {
     const control = <FormArray>this.form.controls['specials'];
     control.removeAt(index);
@@ -113,7 +117,7 @@ export class DailySpecialsCardComponent implements OnInit, OnChanges {
 
   // let the parent know we want to change tabs to next or prev day
   // @val will either be 1 or -1 if going back
-  private changeDailyTab(val: any) {
+  changeDailyTab(val: any) {
     this.changeTab.emit(val);
   }
 
